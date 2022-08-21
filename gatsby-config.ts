@@ -11,7 +11,21 @@ const config: GatsbyConfig = {
   plugins: [
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
-    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 480,
+            },
+          },
+          `gatsby-remark-autolink-headers`,
+          `gatsby-remark-prismjs`,
+        ],
+      },
+    },
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,

@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { graphql, PageProps } from 'gatsby';
-import Layout from '../components/layout';
-import Seo from '../components/seo';
+import { Link, graphql, PageProps } from 'gatsby';
+import Layout from '../../components/layout';
+import Seo from '../../components/seo';
+import styled from 'styled-components';
 
 interface DataProps {
   allMdx: {
@@ -17,12 +18,27 @@ interface DataProps {
   };
 }
 
+const PostLinkItem = styled(Link)`
+  color: black;
+  text-decoration: none;
+  &:visited {
+    color: black;
+  }
+  &:hover {
+    color: rebeccapurple;
+  }
+`;
+
 const BlogPage = ({ data }: PageProps<DataProps>) => {
   return (
     <Layout pageTitle="My Blog Posts">
       {data.allMdx.nodes.map((node) => (
         <article key={node.id}>
-          <h2>{node.frontmatter.title}</h2>
+          <h2>
+            <PostLinkItem to={`/blog/${node.frontmatter.slug}`}>
+              {node.frontmatter.title}
+            </PostLinkItem>
+          </h2>
           <p>Posted: {node.frontmatter.date}</p>
           <p>{node.excerpt}</p>
         </article>
@@ -40,9 +56,9 @@ export const pageQuery = graphql`
     allMdx(sort: { order: DESC, fields: frontmatter___date }) {
       nodes {
         frontmatter {
-          slug
           title
           date(formatString: "MMM D, YYY")
+          slug
         }
         id
         excerpt(pruneLength: 90)

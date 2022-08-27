@@ -2,6 +2,7 @@ import type { GatsbyConfig } from 'gatsby';
 
 const config: GatsbyConfig = {
   siteMetadata: {
+    siteUrl: `https://ywbird.github.io/gatsby-blog`,
     title: `My First Gatsby Site`,
     description: `Gatsby framework blog`,
     navigation: [
@@ -25,7 +26,12 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     `gatsby-plugin-styled-components`,
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap`,
+      },
+    },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -65,6 +71,13 @@ const config: GatsbyConfig = {
       options: {
         name: `posts`,
         path: `${__dirname}/src/blog/posts`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Noto Serif KR\:400,400i,700,700i`, `Source Code Pro`],
+        display: 'swap',
       },
     },
   ],

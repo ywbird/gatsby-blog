@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link, useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 import Header from './header';
+import light from '../themes/light';
+import Theme from './theme';
+import { useStaticQuery, graphql } from 'gatsby';
 
 interface DataProps {
   pageTitle: string;
@@ -9,18 +11,9 @@ interface DataProps {
   children: React.ReactNode;
 }
 
-interface IData {
-  site: {
-    siteMetadata: {
-      title: string;
-    };
-  };
-}
-
-const Container = styled.div<{ maxWidth?: number }>`
+const Container = styled.div`
   margin: auto;
-  max-width: 1400px;
-  font-family: sans-serif;
+  max-width: 700px;
 `;
 
 const Heading = styled.h1`
@@ -28,29 +21,21 @@ const Heading = styled.h1`
 `;
 
 const Main = styled.main<{ maxWidth?: number }>`
-  max-width: ${(props) => (props.maxWidth ? props.maxWidth : '700')}px;
+  max-width: ${(props) => props.maxWidth ?? '700'}px;
   margin: auto;
 `;
 
 const Layout = ({ pageTitle, maxWidth, children }: DataProps) => {
-  const data: IData = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   return (
-    <Container>
-      <Header />
-      <Main maxWidth={maxWidth}>
-        <Heading>{pageTitle}</Heading>
-        {children}
-      </Main>
-    </Container>
+    <Theme theme={light}>
+      <Container>
+        <Header />
+        <Main maxWidth={maxWidth}>
+          <Heading>{pageTitle}</Heading>
+          {children}
+        </Main>
+      </Container>
+    </Theme>
   );
 };
 

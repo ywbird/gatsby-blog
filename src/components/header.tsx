@@ -1,12 +1,12 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
+import { globalHistory } from '@reach/router';
 
 interface IData {
   site: {
     siteMetadata: {
       title: string;
-      description: string;
       navigation: {
         name: string;
         url: string;
@@ -22,11 +22,9 @@ const SiteTitle = styled.h1`
   margin: 3rem 0 1rem 0;
 `;
 
-const SiteDesc = styled.div`
-  font-size: 1.5em;
+const SiteTitleLink = styled(Link)`
+  text-decoration: none;
   color: gray;
-  font-weight: 400;
-  margin: 0.1em 0;
 `;
 
 const NavLinks = styled.ul`
@@ -35,12 +33,32 @@ const NavLinks = styled.ul`
   padding-left: 0;
 `;
 
-const NavLinkItem = styled.li`
-  padding-right: 2rem;
+const NavItem = styled.li`
+  padding: 0 1rem;
+  &:first-child {
+    padding-left: 0;
+  }
+  &::after {
+    content: ' |';
+    white-space: pre;
+    color: black;
+    pointer-events: none;
+  }
+  &:last-child::after {
+    content: '';
+  }
 `;
 
-const NavLinkText = styled.span`
+const NavLink = styled(Link)<{ to: string; path?: string }>`
+  color: ${(props) => (props.path === props.to ? 'black' : 'rebbecapurple')};
   padding-right: 2rem;
+  text-decoration: none;
+`;
+
+const HeaderTag = styled.header`
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 `;
 
 const Header = () => {
@@ -53,27 +71,27 @@ const Header = () => {
             name
             url
           }
-          description
         }
       }
     }
   `);
   return (
-    <header>
-      <SiteTitle>{data.site.siteMetadata.title}</SiteTitle>
-      <SiteDesc>{data.site.siteMetadata.description}</SiteDesc>
+    <HeaderTag>
+      <SiteTitle>
+        <SiteTitleLink to="/">{data.site.siteMetadata.title}</SiteTitleLink>
+      </SiteTitle>
       <nav>
         <NavLinks>
           {data.site.siteMetadata.navigation.map((item, i) => (
-            <NavLinkItem key={i}>
-              <Link to={item.url}>
-                <NavLinkText>{item.name}</NavLinkText>
-              </Link>
-            </NavLinkItem>
+            <NavItem key={i}>
+              <NavLink to={item.url} path={globalHistory.location.pathname}>
+                {item.name}
+              </NavLink>
+            </NavItem>
           ))}
         </NavLinks>
       </nav>
-    </header>
+    </HeaderTag>
   );
 };
 

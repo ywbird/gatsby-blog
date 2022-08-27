@@ -34,7 +34,7 @@ const PostList = styled.div`
 
 const BlogPage = ({ data }: PageProps<DataProps>) => {
   return (
-    <Layout maxWidth={1400} pageTitle="My Blog Posts">
+    <Layout pageTitle="">
       <PostList>
         {data.allMdx.nodes.map((node) => (
           <PostCard
@@ -66,7 +66,7 @@ export const pageQuery = graphql`
           description
           cover {
             childImageSharp {
-              gatsbyImageData(width: 300, height: 200)
+              gatsbyImageData(width: 700, height: 300)
             }
           }
         }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
+import Header from './header';
 
 interface DataProps {
   pageTitle: string;
+  maxWidth?: number;
   children: React.ReactNode;
 }
 
@@ -15,9 +17,9 @@ interface IData {
   };
 }
 
-const Container = styled.div`
+const Container = styled.div<{ maxWidth?: number }>`
   margin: auto;
-  max-width: 600px;
+  max-width: 1400px;
   font-family: sans-serif;
 `;
 
@@ -25,28 +27,12 @@ const Heading = styled.h1`
   color: rebeccapurple;
 `;
 
-const NavLinks = styled.ul`
-  display: flex;
-  list-style: none;
-  padding-left: 0;
+const Main = styled.main<{ maxWidth?: number }>`
+  max-width: ${(props) => (props.maxWidth ? props.maxWidth : '700')}px;
+  margin: auto;
 `;
 
-const NavLinkItem = styled.li`
-  padding-right: 2rem;
-`;
-
-const NavLinkText = styled.span`
-  padding-right: 2rem;
-`;
-
-const SiteTitle = styled.header`
-  font-size: 3rem;
-  color: gray;
-  font-weight: 700;
-  margin: 3rem 0;
-`;
-
-const Layout = ({ pageTitle, children }: DataProps) => {
+const Layout = ({ pageTitle, maxWidth, children }: DataProps) => {
   const data: IData = useStaticQuery(graphql`
     query {
       site {
@@ -59,30 +45,11 @@ const Layout = ({ pageTitle, children }: DataProps) => {
 
   return (
     <Container>
-      <SiteTitle>{data.site.siteMetadata.title}</SiteTitle>
-      <nav>
-        <NavLinks>
-          <NavLinkItem>
-            <Link to="/">
-              <NavLinkText>Home</NavLinkText>
-            </Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/about">
-              <NavLinkText>About</NavLinkText>
-            </Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/blog">
-              <NavLinkText>Blog</NavLinkText>
-            </Link>
-          </NavLinkItem>
-        </NavLinks>
-      </nav>
-      <main>
+      <Header />
+      <Main maxWidth={maxWidth}>
         <Heading>{pageTitle}</Heading>
         {children}
-      </main>
+      </Main>
     </Container>
   );
 };

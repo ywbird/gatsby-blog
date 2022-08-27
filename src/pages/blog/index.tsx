@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Link, graphql, PageProps } from 'gatsby';
 import Layout from '../../components/layout';
 import Seo from '../../components/seo';
+import PostCard from '../../components/postCard';
+import { IGatsbyImageData } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
 interface DataProps {
@@ -11,38 +13,40 @@ interface DataProps {
         title: string;
         slug: string;
         date: `${string} ${number}, ${number}`;
+        description: string;
+        cover: {
+          childImageSharp: {
+            gatsbyImageData: IGatsbyImageData;
+          };
+        };
       };
       id: string;
-      excerpt: string;
     }[];
   };
 }
 
-const PostLinkItem = styled(Link)`
-  color: black;
-  text-decoration: none;
-  &:visited {
-    color: black;
-  }
-  &:hover {
-    color: rebeccapurple;
-  }
+const PostList = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-self: center;
 `;
 
 const BlogPage = ({ data }: PageProps<DataProps>) => {
   return (
-    <Layout pageTitle="My Blog Posts">
-      {data.allMdx.nodes.map((node) => (
-        <article key={node.id}>
-          <h2>
-            <PostLinkItem to={`/blog/${node.frontmatter.slug}`}>
-              {node.frontmatter.title}
-            </PostLinkItem>
-          </h2>
-          <p>Posted: {node.frontmatter.date}</p>
-          <p>{node.excerpt}</p>
-        </article>
-      ))}
+    <Layout maxWidth={1400} pageTitle="My Blog Posts">
+      <PostList>
+        {data.allMdx.nodes.map((node) => (
+          <PostCard
+            key={node.id}
+            slug={node.frontmatter.slug}
+            title={node.frontmatter.title}
+            date={node.frontmatter.date}
+            excerpt={node.frontmatter.description}
+            cover={node.frontmatter.cover.childImageSharp.gatsbyImageData}
+          />
+        ))}
+      </PostList>
     </Layout>
   );
 };
@@ -59,9 +63,14 @@ export const pageQuery = graphql`
           title
           date(formatString: "MMM D, YYY")
           slug
+          description
+          cover {
+            childImageSharp {
+              gatsbyImageData(width: 300, height: 200)
+            }
+          }
         }
         id
-        excerpt(pruneLength: 90)
       }
     }
   }

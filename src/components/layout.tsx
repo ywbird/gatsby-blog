@@ -3,17 +3,19 @@ import styled from 'styled-components';
 import Header from './header';
 import light from '../themes/light';
 import Theme from './theme';
-import { useStaticQuery, graphql } from 'gatsby';
+import '../themes/prism-dark.css';
 
 interface DataProps {
   pageTitle: string;
   maxWidth?: number;
+  aside?: { node: React.FC<any>; props: Object };
   children: React.ReactNode;
 }
 
 const Container = styled.div`
   margin: auto;
-  max-width: 700px;
+  max-width: 1000px;
+  /* height: 3000vh; */
 `;
 
 const Heading = styled.h1`
@@ -21,11 +23,16 @@ const Heading = styled.h1`
 `;
 
 const Main = styled.main<{ maxWidth?: number }>`
-  max-width: ${(props) => props.maxWidth ?? '700'}px;
+  max-width: ${(props) => props.maxWidth ?? '1000'}px;
   margin: auto;
 `;
 
-const Layout = ({ pageTitle, maxWidth, children }: DataProps) => {
+const Layout: React.FC<DataProps> = ({
+  pageTitle,
+  maxWidth,
+  aside,
+  children,
+}) => {
   return (
     <Theme theme={light}>
       <Container>
@@ -34,6 +41,7 @@ const Layout = ({ pageTitle, maxWidth, children }: DataProps) => {
           <Heading>{pageTitle}</Heading>
           {children}
         </Main>
+        {aside && <aside.node {...aside.props} />}
       </Container>
     </Theme>
   );

@@ -3,6 +3,14 @@ import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React from 'react';
 import styled from 'styled-components';
 
+interface PostCardProps {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  cover: IGatsbyImageData;
+}
+
 const PostLinkItem = styled(Link)`
   color: black;
   text-decoration: none;
@@ -13,34 +21,52 @@ const PostLinkItem = styled(Link)`
 `;
 
 const Card = styled.article`
-  width: 700px;
-  height: 460px;
+  width: 450px;
+  height: 200px;
   margin: 1em;
   border: 1px solid black;
   transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  display: flex;
+  flex-direction: row;
   box-shadow: 7px 7px 0px 0px rgba(0, 0, 0, 1);
   &:hover {
     /* box-shadow: 15px 15px 0px 0px rgba(0, 0, 0, 1); */
-    transform: translate(0px, -10px);
+    transform: translate(0px, -5px);
   }
 `;
 
-const Frontmatter = styled.div`
+const Frontmatter = styled.div<{ image?: boolean }>`
   padding: 0 0.5em;
+  border-left: 1px solid black;
+  width: ${(props) => (props.image ? '230' : '450')}px;
+
+  h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+  }
 `;
 
-const PostCard = ({
+const Excerpt = styled.p`
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+  height: 130px;
+  margin: 0px 0 0 0;
+`;
+
+const Posted = styled.p`
+  margin: 8px 0;
+`;
+
+const PostCard: React.FC<PostCardProps> = ({
   slug,
   title,
   date,
   excerpt,
   cover,
-}: {
-  slug: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  cover: IGatsbyImageData;
 }) => {
   const image: IGatsbyImageData | undefined = getImage(cover);
   return (
@@ -48,11 +74,11 @@ const PostCard = ({
       <Link to={`/blog/${slug}`}>
         {image && <GatsbyImage image={image} alt="cover image" />}
       </Link>
-      <Frontmatter>
+      <Frontmatter image={!!image}>
         <PostLinkItem to={`/blog/${slug}`}>
           <h2>{title}</h2>
-          <p>Posted: {date}</p>
-          <p>{excerpt.length >= 90 ? excerpt.slice(0, 90) + '...' : excerpt}</p>
+          <Posted>Posted: {date}</Posted>
+          <Excerpt>{excerpt}</Excerpt>
         </PostLinkItem>
       </Frontmatter>
     </Card>

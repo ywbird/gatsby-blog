@@ -20,7 +20,7 @@ const config: GatsbyConfig = {
       },
     ],
   },
-  pathPrefix: '/gatsby-blog',
+  // pathPrefix: '/gatsby-blog',
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
@@ -44,7 +44,13 @@ const config: GatsbyConfig = {
             },
           },
           `gatsby-remark-autolink-headers`,
-          `gatsby-remark-prismjs`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              showLineNumbers: true,
+            },
+          },
         ],
       },
     },
@@ -77,7 +83,12 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Noto Serif KR\:400,400i,700,700i`, `Source Code Pro`],
+        fonts: [
+          `Noto Sans KR\:400,400i,700,700i`,
+          `Noto Sans CJK KR\:400,400i,700,700i`,
+          `Nanum Gothic\:400,400i,700,700i`,
+          `Source Code Pro`,
+        ],
         display: 'swap',
       },
     },

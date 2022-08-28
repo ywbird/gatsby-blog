@@ -17,18 +17,27 @@ const Style = styled.div<{
     background: ${(props) => props.colors.dark.background};
   }
 
-  & code {
+  code {
     font-family: ${(props) => props.fonts.code};
   }
+
+  .gatsby-highlight-code-line {
+    background-color: #feb;
+    display: block;
+    margin-right: -1em;
+    margin-left: -1em;
+    padding-right: 1em;
+    padding-left: 0.75em;
+    border-left: 0.25em solid #f99;
+  }
+
+  padding-left: calc(100vw - 100%);
 `;
 
-const Theme = ({
-  theme,
-  children,
-}: {
+const Theme: React.FC<{
   theme: any;
   children: React.ReactNode;
-}) => {
+}> = ({ theme, children }) => {
   return <Style {...theme}>{children}</Style>;
 };
 

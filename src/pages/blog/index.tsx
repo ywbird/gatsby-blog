@@ -29,7 +29,7 @@ const PostList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-self: center;
+  justify-content: center;
 `;
 
 const BlogPage = ({ data }: PageProps<DataProps>) => {
@@ -43,7 +43,10 @@ const BlogPage = ({ data }: PageProps<DataProps>) => {
             title={node.frontmatter.title}
             date={node.frontmatter.date}
             excerpt={node.frontmatter.description}
-            cover={node.frontmatter.cover.childImageSharp.gatsbyImageData}
+            cover={
+              node.frontmatter.cover?.childImageSharp.gatsbyImageData ??
+              undefined
+            }
           />
         ))}
       </PostList>
@@ -61,12 +64,12 @@ export const pageQuery = graphql`
       nodes {
         frontmatter {
           title
-          date(formatString: "MMM D, YYY")
+          date(formatString: "MMM D, YYYY")
           slug
           description
           cover {
             childImageSharp {
-              gatsbyImageData(width: 700, height: 300)
+              gatsbyImageData(width: 200, height: 200)
             }
           }
         }

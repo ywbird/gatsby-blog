@@ -52,7 +52,11 @@ const TOC = styled.aside`
     transform: translateX(450px);
   }
   border-left: 2px solid gray;
-  padding-left: 10px;
+  /* padding-left: 10px; */
+`;
+
+const Text = styled.a`
+  color: var(--font-color);
 `;
 
 const renderTableOfContentItems = (items: TOC[]) => {
@@ -61,7 +65,7 @@ const renderTableOfContentItems = (items: TOC[]) => {
       {items &&
         items.map(({ url, title, items }) => (
           <TocItemLi key={url}>
-            <a href={url}>{title}</a>
+            <Text href={url}>{title}</Text>
             {items && items.length && renderTableOfContentItems(items)}
           </TocItemLi>
         ))}

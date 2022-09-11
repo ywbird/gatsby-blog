@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from './header';
-import light from '../themes/light';
+import theme from '../themes/theme';
 import Theme from './theme';
-import '../themes/prism-dark.css';
 
 interface DataProps {
   pageTitle: string;
@@ -14,17 +13,20 @@ interface DataProps {
 
 const Container = styled.div`
   margin: auto;
-  max-width: 1000px;
+  /* max-width: 1000px; */
+  min-height: 100vh;
   /* height: 3000vh; */
 `;
 
 const Heading = styled.h1`
-  color: rebeccapurple;
+  color: var(--font-color);
+  font-family: var(--main-font);
 `;
 
 const Main = styled.main<{ maxWidth?: number }>`
   max-width: ${(props) => props.maxWidth ?? '1000'}px;
   margin: auto;
+  font-family: var(--main-font);
 `;
 
 const Layout: React.FC<DataProps> = ({
@@ -34,7 +36,7 @@ const Layout: React.FC<DataProps> = ({
   children,
 }) => {
   return (
-    <Theme theme={light}>
+    <Theme theme={theme}>
       <Container>
         <Header />
         <Main maxWidth={maxWidth}>

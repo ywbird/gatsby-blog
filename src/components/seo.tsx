@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, HeadFC } from 'gatsby';
 
 const Seo: React.FC<{ title: string }> = ({ title }) => {
   const data = useStaticQuery(graphql`
@@ -14,7 +14,7 @@ const Seo: React.FC<{ title: string }> = ({ title }) => {
 
   return (
     <title>
-      {title} | {data.site.siteMetadata.title}
+      {title} - {data.site.siteMetadata.title}
     </title>
   );
 };

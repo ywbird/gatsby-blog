@@ -1,7 +1,8 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { globalHistory } from '@reach/router';
+import { StaticImage } from 'gatsby-plugin-image';
 
 interface IData {
   site: {
@@ -16,15 +17,25 @@ interface IData {
 }
 
 const SiteTitle = styled.h1`
-  font-size: 3rem;
+  font-size: 2rem;
   color: gray;
   font-weight: 700;
-  margin: 3rem 0 1rem 0;
+  margin: 1rem auto 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const SiteTitleLink = styled(Link)`
   text-decoration: none;
   color: gray;
+  font-family: var(--main-font);
+`;
+
+const SiteLogo = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  padding-right: 7px;
 `;
 
 const NavLinks = styled.ul`
@@ -34,34 +45,78 @@ const NavLinks = styled.ul`
 `;
 
 const NavItem = styled.li`
-  padding: 0 1rem;
+  margin: 0 2rem 0 0;
   &:first-child {
     padding-left: 0;
   }
   &::after {
-    content: ' |';
+    content: '|';
+    margin: 0 0 0 2rem;
     white-space: pre;
-    color: black;
+    color: var(--font-color);
     pointer-events: none;
   }
-  &:last-child::after {
+  /* &:last-child::after {
     content: '';
-  }
+  } */
 `;
 
 const NavLink = styled(Link)<{ to: string; path?: string }>`
-  color: ${(props) => (props.path === props.to ? 'black' : 'rebbecapurple')};
-  padding-right: 2rem;
+  color: ${(props) =>
+    props.path === props.to ? 'var(--font-color)' : 'var(--primary-color)'};
+  font-family: var(--main-font);
+  /* padding-right: 2rem;
+  padding-left: 2rem; */
   text-decoration: none;
 `;
 
-const HeaderTag = styled.header`
+const HeaderElement = styled.div`
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+`;
+
+const HeaderLinks = styled.header`
+  margin: auto;
+  max-width: 1000px;
+  margin-top: 1rem;
   display: flex;
-  flex-direction: column;
+  align-content: center;
+  flex-direction: row;
+  background-color: var(--background-color);
+  z-index: 1;
+  /* justify-content: space-between; */
   align-items: baseline;
 `;
 
+const ToggleColorTheme = styled.div`
+  font-family: var(--main-font);
+  width: 2em;
+  cursor: pointer;
+`;
+
 const Header = () => {
+  const [colorTheme, setColorTheme] = useState<string>('dark');
+  useEffect(() => {
+    setColorTheme(localStorage.getItem('mode') || 'dark');
+    document.body.className =
+      (localStorage.getItem('mode') || 'light') + '-mode';
+  }, [colorTheme]);
+  const toggle = () => {
+    const mode = localStorage.getItem('mode') || 'light';
+    if (mode === 'light') {
+      localStorage.setItem('mode', 'dark');
+      setColorTheme('dark');
+      document.body.className = 'dark-mode';
+    } else if (mode === 'dark') {
+      localStorage.setItem('mode', 'light');
+      setColorTheme('light');
+      document.body.className = 'light-mode';
+    }
+  };
+
   const data: IData = useStaticQuery(graphql`
     query HeaderQuery {
       site {
@@ -76,22 +131,30 @@ const Header = () => {
     }
   `);
   return (
-    <HeaderTag>
-      <SiteTitle>
-        <SiteTitleLink to="/">{data.site.siteMetadata.title}</SiteTitleLink>
-      </SiteTitle>
-      <nav>
-        <NavLinks>
-          {data.site.siteMetadata.navigation.map((item, i) => (
-            <NavItem key={i}>
-              <NavLink to={item.url} path={globalHistory.location.pathname}>
-                {item.name}
-              </NavLink>
-            </NavItem>
-          ))}
-        </NavLinks>
-      </nav>
-    </HeaderTag>
+    <HeaderElement>
+      <HeaderLinks>
+        <SiteTitle>
+          <SiteLogo to="/">
+            <img src="/lotus.png" alt="icon" width={40} />
+          </SiteLogo>
+          <SiteTitleLink to="/">{data.site.siteMetadata.title}</SiteTitleLink>
+        </SiteTitle>
+        <nav>
+          <NavLinks>
+            {data.site.siteMetadata.navigation.map((item, i) => (
+              <NavItem key={i}>
+                <NavLink to={item.url} path={globalHistory.location.pathname}>
+                  {item.name}
+                </NavLink>
+              </NavItem>
+            ))}
+          </NavLinks>
+        </nav>
+        <ToggleColorTheme onClick={toggle}>
+          {colorTheme === 'dark' ? 'Dark' : 'Light'}
+        </ToggleColorTheme>
+      </HeaderLinks>
+    </HeaderElement>
   );
 };
 

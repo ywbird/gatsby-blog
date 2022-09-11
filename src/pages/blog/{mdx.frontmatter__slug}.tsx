@@ -3,9 +3,7 @@ import * as React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import Layout from '../../components/layout';
 import Seo from '../../components/seo';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
-import TableOfContent from '../../components/toc';
+import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
 interface IItem {
@@ -31,18 +29,88 @@ interface DataProps {
 }
 
 const Content = styled.div`
-  /* & pre {
-    background: gray;
+  font-size: 17px;
+  pre[class*='language-'] {
+    padding: 1em;
+    margin: 0em 0 0.5em 0;
+    /* overflow: ; */
+    overflow-wrap: break-word;
+    border-radius: 0.3em;
+    /* border-top-left-radius: 0; */
+  }
+
+  pre code {
+    font-family: var(--code-font) !important;
+    font-size: 0.9em !important;
+  }
+
+  .gatsby-highlight-code-line {
+    background-color: #535547;
+    display: block;
+    margin-right: calc(-1em - 2px);
+    margin-left: calc(-1em - 2px);
+    padding-right: 1em;
+    padding-left: calc(0.75em + 2px);
+    border-left: 0.3em solid #a6e22e;
+  }
+
+  .gatsby-remark-code-title {
+    display: inline-block;
+    margin-bottom: -0.6rem;
+    padding: 0.3em 1em;
+    font-family: var(--code-font);
+    font-size: 1em;
+
+    background-color: #282a36;
     color: white;
-    padding: 10px;
-    border-radius: 7px;
-    code {
-      overflow-x: auto;
-      display: flex;
-      word-wrap: break-word;
-      word-break: normal;
-    }
+    z-index: 0;
+
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+  }
+
+  /* :not(pre) > code.language-text {
+    background-color: gray;
   } */
+  div:not(pre) > code {
+    background-color: gray !important;
+    padding: 2px 5px;
+    border-radius: 4px;
+    /* color: var(--text-color); */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--heading-color);
+  }
+  color: var(--content-color);
+
+  a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: 0.08s cubic-bezier(0.9, 0.03, 0.31, 1.36);
+    &:visited {
+      color: var(--link-color);
+    }
+    &:hover {
+      /* animation: link-line 0.1s ease-in; */
+      border-bottom: 2px solid var(--link-color);
+    }
+
+    @keyframes link-line {
+    }
+    /* &:active {
+      color: var(--content-color);
+    } */
+  }
+`;
+
+const Posted = styled.p`
+  font-family: var(--main-font);
 `;
 
 const BlogPost: React.FC<{
@@ -53,19 +121,12 @@ const BlogPost: React.FC<{
     data.mdx.frontmatter.cover
   );
 
-  const props = {
-    aside: data.mdx.frontmatter.toc && {
-      node: TableOfContent,
-      props: { toc: data.mdx.tableOfContents },
-    },
-  };
-
   return (
-    <Layout {...props} maxWidth={750} pageTitle={data.mdx.frontmatter.title}>
-      <p>{data.mdx.frontmatter.date}</p>
+    <Layout maxWidth={750} pageTitle={data.mdx.frontmatter.title}>
+      <Posted>{data.mdx.frontmatter.date}</Posted>
       {image && <GatsbyImage image={image} alt="cover image" />}
       <hr />
-      <Content>
+      <Content draggable="false">
         <MDXProvider>{children}</MDXProvider>
       </Content>
     </Layout>
@@ -85,7 +146,6 @@ export const query = graphql`
         }
         toc
       }
-      tableOfContents
     }
   }
 `;

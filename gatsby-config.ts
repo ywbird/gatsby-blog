@@ -3,7 +3,7 @@ import type { GatsbyConfig } from 'gatsby';
 const config: GatsbyConfig = {
   siteMetadata: {
     siteUrl: `https://ywbird.github.io/gatsby-blog`,
-    title: `My First Gatsby Site`,
+    title: `Lotus`,
     description: `Gatsby framework blog`,
     navigation: [
       {
@@ -19,8 +19,9 @@ const config: GatsbyConfig = {
         name: `Blog`,
       },
     ],
+    logo: `/icon.png`,
   },
-  // pathPrefix: '/gatsby-blog',
+  pathPrefix: '/gatsby-blog',
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
@@ -38,6 +39,12 @@ const config: GatsbyConfig = {
       options: {
         gatsbyRemarkPlugins: [
           {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: 'gatsby-remark-code-title',
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 480,
@@ -48,7 +55,7 @@ const config: GatsbyConfig = {
             resolve: `gatsby-remark-prismjs`,
             options: {
               classPrefix: 'language-',
-              showLineNumbers: true,
+              showLineNumbers: false,
             },
           },
         ],

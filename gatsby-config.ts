@@ -21,7 +21,7 @@ const config: GatsbyConfig = {
     ],
     logo: `/icon.png`,
   },
-  pathPrefix: '/gatsby-blog',
+  // pathPrefix: '/gatsby-blog',
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
@@ -50,7 +50,12 @@ const config: GatsbyConfig = {
               maxWidth: 480,
             },
           },
-          `gatsby-remark-autolink-headers`,
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              // className: `header-link`,
+            },
+          },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -59,6 +64,12 @@ const config: GatsbyConfig = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [],
       },
     },
     `gatsby-plugin-image`,

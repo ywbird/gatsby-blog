@@ -99,21 +99,27 @@ const ToggleColorTheme = styled.div`
 
 const Header = () => {
   const [colorTheme, setColorTheme] = useState<string>('dark');
+  const isWindow: boolean = typeof window !== 'undefined';
+  // const isDocument: boolean = typeof document !== 'undefined';
   useEffect(() => {
-    setColorTheme(localStorage.getItem('mode') || 'dark');
-    document.body.className =
-      (localStorage.getItem('mode') || 'light') + '-mode';
+    setColorTheme((isWindow && window.localStorage.getItem('mode')) || 'dark');
+    if (typeof document !== 'undefined')
+      document.body.className =
+        ((isWindow && window.localStorage.getItem('mode')) || 'light') +
+        '-mode';
   }, [colorTheme]);
   const toggle = () => {
-    const mode = localStorage.getItem('mode') || 'light';
+    const mode = (isWindow && window.localStorage.getItem('mode')) || 'light';
     if (mode === 'light') {
-      localStorage.setItem('mode', 'dark');
+      isWindow && window.localStorage.setItem('mode', 'dark');
       setColorTheme('dark');
-      document.body.className = 'dark-mode';
+      if (typeof document !== 'undefined')
+        document.body.className = 'dark-mode';
     } else if (mode === 'dark') {
-      localStorage.setItem('mode', 'light');
+      isWindow && window.localStorage.setItem('mode', 'light');
       setColorTheme('light');
-      document.body.className = 'light-mode';
+      if (typeof document !== 'undefined')
+        document.body.className = 'light-mode';
     }
   };
 

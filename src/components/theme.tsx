@@ -73,8 +73,9 @@ const Theme: React.FC<{
   theme: any;
   children: React.ReactNode;
 }> = ({ theme, children }) => {
-  const mode = localStorage.getItem('mode') || 'light';
-  document.body.className = mode + '-mode';
+  const isWindow: boolean = typeof window !== 'undefined';
+  const mode = (isWindow && window.localStorage.getItem('mode')) || 'light';
+  if (typeof document !== 'undefined') document.body.className = mode + '-mode';
   return (
     <Style {...theme}>
       <GlobalStyle {...theme} />

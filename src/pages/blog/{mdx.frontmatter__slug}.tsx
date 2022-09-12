@@ -100,12 +100,29 @@ const Content = styled.div`
       /* animation: link-line 0.1s ease-in; */
       border-bottom: 2px solid var(--link-color);
     }
-
-    @keyframes link-line {
+    &.anchor {
+      transform: translateX(0);
+      opacity: 0;
+      transition: 0.08s ease-in;
+      fill: var(--border-color);
+      &:hover {
+        border-bottom: 0px;
+      }
     }
-    /* &:active {
-      color: var(--content-color);
-    } */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:hover {
+      a.anchor {
+        opacity: 100%;
+        transform: translateX(-100%);
+      }
+    }
   }
 `;
 

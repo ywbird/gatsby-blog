@@ -22,9 +22,7 @@ interface DataProps {
           gatsbyImageData: IGatsbyImageData;
         };
       };
-      toc: boolean;
     };
-    tableOfContents: { items: IItem[] };
   };
 }
 
@@ -89,7 +87,7 @@ const Content = styled.div`
   }
   color: var(--content-color);
 
-  a {
+  a:not(.gatsby-resp-image-link) {
     color: var(--link-color);
     text-decoration: none;
     transition: 0.08s cubic-bezier(0.9, 0.03, 0.31, 1.36);
@@ -131,13 +129,14 @@ const Posted = styled.p`
 `;
 
 const BlogPost: React.FC<{
+  context: { id: string };
   data: DataProps;
   children: React.ReactNode;
 }> = ({ data, children }) => {
   const image: IGatsbyImageData | undefined = getImage(
     data.mdx.frontmatter.cover
   );
-
+  // console.log(children);
   return (
     <Layout maxWidth={750} pageTitle={data.mdx.frontmatter.title}>
       <Posted>{data.mdx.frontmatter.date}</Posted>
@@ -150,7 +149,7 @@ const BlogPost: React.FC<{
   );
 };
 
-export const query = graphql`
+export const pageQuery = graphql`
   query ($id: String) {
     mdx(id: { eq: $id }) {
       frontmatter {
@@ -161,7 +160,6 @@ export const query = graphql`
             gatsbyImageData(width: 750, height: 400)
           }
         }
-        toc
       }
     }
   }

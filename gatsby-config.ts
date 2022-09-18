@@ -7,8 +7,8 @@ const config: GatsbyConfig = {
     description: `Gatsby framework blog`,
     navigation: [
       {
-        url: `/`,
-        name: `Home`,
+        url: `/categories`,
+        name: `Categories`,
       },
       {
         url: `/about`,
@@ -21,7 +21,7 @@ const config: GatsbyConfig = {
     ],
     logo: `/icon.png`,
   },
-  // pathPrefix: '/gatsby-blog',
+  pathPrefix: '/gatsby-blog',
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
   // Learn more at: https://gatsby.dev/graphql-typegen
@@ -47,13 +47,14 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 480,
+              maxWidth: 750,
             },
           },
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // className: `header-link`,
+              // offsetY: `400`,
             },
           },
           {
@@ -66,12 +67,7 @@ const config: GatsbyConfig = {
         ],
       },
     },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
-        plugins: [],
-      },
-    },
+    `gatsby-transformer-remark`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
@@ -95,7 +91,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/blog/posts`,
+        path: `${__dirname}/blog/posts`,
       },
     },
     {

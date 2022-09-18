@@ -1,4 +1,4 @@
-import { graphql, Link, useStaticQuery } from 'gatsby';
+import { graphql, Link, useStaticQuery, StaticQueryDocument } from 'gatsby';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { globalHistory } from '@reach/router';
@@ -76,14 +76,16 @@ const HeaderElement = styled.div`
   width: 100%;
   top: 0;
   z-index: 2;
+  opacity: 90%;
 `;
 
 const HeaderLinks = styled.header`
   margin: auto;
   max-width: 1000px;
+  /* max-height: 60px; */
   margin-top: 1rem;
   display: flex;
-  align-content: center;
+  /* align-content: center; */
   flex-direction: row;
   background-color: var(--background-color);
   z-index: 1;
@@ -93,7 +95,7 @@ const HeaderLinks = styled.header`
 
 const ToggleColorTheme = styled.div`
   font-family: var(--main-font);
-  width: 2em;
+  width: 2.5em;
   cursor: pointer;
 `;
 
@@ -123,8 +125,8 @@ const Header = () => {
     }
   };
 
-  const data: IData = useStaticQuery(graphql`
-    query HeaderQuery {
+  const data: Queries.HeaderQuery = useStaticQuery(graphql`
+    query Header {
       site {
         siteMetadata {
           title
@@ -141,16 +143,19 @@ const Header = () => {
       <HeaderLinks>
         <SiteTitle>
           <SiteLogo to="/">
-            <img src="/lotus.png" alt="icon" width={40} />
+            <StaticImage src="../images/lotus.png" alt="logo" width={40} />
           </SiteLogo>
-          <SiteTitleLink to="/">{data.site.siteMetadata.title}</SiteTitleLink>
+          <SiteTitleLink to="/">{data.site?.siteMetadata?.title}</SiteTitleLink>
         </SiteTitle>
         <nav>
           <NavLinks>
-            {data.site.siteMetadata.navigation.map((item, i) => (
+            {data.site?.siteMetadata?.navigation?.map((item, i) => (
               <NavItem key={i}>
-                <NavLink to={item.url} path={globalHistory.location.pathname}>
-                  {item.name}
+                <NavLink
+                  to={item?.url ?? '/'}
+                  path={globalHistory.location.pathname}
+                >
+                  {item?.name}
                 </NavLink>
               </NavItem>
             ))}

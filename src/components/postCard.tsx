@@ -21,9 +21,9 @@ const PostLinkItem = styled(Link)`
 `;
 
 const Card = styled.article`
-  width: 450px;
+  /* width: 450px; */
   height: 200px;
-  margin: 1em;
+  /* margin: 1em; */
   /* border: 2px solid var(--border-color); */
 
   background-color: var(--button-color);
@@ -43,7 +43,7 @@ const Card = styled.article`
 const Frontmatter = styled.div<{ image?: boolean }>`
   padding: 0.2em 0.5em;
   /* border-left: 1px solid black; */
-  width: ${(props) => (props.image ? '230' : '450')}px;
+  /* width: ${(props) => (props.image ? '230' : '450')}px; */
   font-family: var(--main-font);
 
   h2 {
@@ -68,6 +68,7 @@ const Posted = styled.p`
 `;
 
 const Image = styled(GatsbyImage)`
+  width: 200px;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   /* border-right: 1px solid var(--border-color); */

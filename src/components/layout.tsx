@@ -11,11 +11,16 @@ interface DataProps {
   children: React.ReactNode;
 }
 
-const Container = styled.div`
+const Body = styled.div`
   margin: auto;
+
   /* max-width: 1000px; */
   min-height: 100vh;
   /* height: 3000vh; */
+`;
+
+const Container = styled.div`
+  margin: 0 1em;
 `;
 
 const Heading = styled.h1`
@@ -37,14 +42,16 @@ const Layout: React.FC<DataProps> = ({
 }) => {
   return (
     <Theme theme={theme}>
-      <Container>
+      <Body>
         <Header />
-        <Main maxWidth={maxWidth}>
-          <Heading>{pageTitle}</Heading>
-          {children}
-        </Main>
-        {aside && <aside.node {...aside.props} />}
-      </Container>
+        <Container>
+          <Main maxWidth={maxWidth}>
+            <Heading>{pageTitle}</Heading>
+            {children}
+          </Main>
+          {aside && <aside.node {...aside.props} />}
+        </Container>
+      </Body>
     </Theme>
   );
 };

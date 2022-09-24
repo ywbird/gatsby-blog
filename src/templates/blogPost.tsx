@@ -1,13 +1,14 @@
-import { graphql, HeadFC } from 'gatsby';
-import * as React from 'react';
+import { graphql, HeadFC, PageProps } from 'gatsby';
+import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
+import ToTop from '../components/toTop';
 
 interface DataProps {
-  mdx: {
+  markdownRemark: {
     frontmatter: {
       title: string;
       date: `${string} ${number}, ${number}`;
@@ -16,9 +17,6 @@ interface DataProps {
           gatsbyImageData: IGatsbyImageData;
         };
       };
-    };
-    internal: {
-      contentFilePath: string;
     };
   };
 }
@@ -40,6 +38,12 @@ const Style = {
       font-size: 0.9em !important;
     }
 
+    blockquote {
+      margin-left: 0;
+      padding-left: 40px;
+      border-left: 3px solid var(--primary-color);
+    }
+
     .gatsby-highlight-code-line {
       background-color: #535547;
       display: block;
@@ -52,6 +56,7 @@ const Style = {
 
     .gatsby-remark-code-title {
       display: inline-block;
+      margin-top: 0.5em;
       margin-bottom: -0.6rem;
       padding: 0.3em 1em;
       font-family: var(--code-font);
@@ -97,7 +102,7 @@ const Style = {
         border-bottom: 2px solid var(--link-color);
       }
       &.anchor {
-        transform: translateX(0);
+        /* transform: translateX(0); */
         opacity: 0;
         transition: 0.08s ease-in;
         fill: var(--border-color);
@@ -116,7 +121,7 @@ const Style = {
       &:hover {
         a.anchor {
           opacity: 100%;
-          transform: translateX(-100%);
+          /* transform: translateX(-100%); */
         }
       }
     }
@@ -126,28 +131,31 @@ const Style = {
   `,
 };
 
-const BlogPost: React.FC<{
-  data: DataProps;
-}> = ({ data }) => {
+const BlogPost = ({
+  data,
+  pageContext,
+}: PageProps<DataProps, { html: string }>) => {
   const image: IGatsbyImageData | undefined = getImage(
-    data.mdx.frontmatter.cover
+    data.markdownRemark.frontmatter.cover
   );
-
   return (
-    <Layout maxWidth={750} pageTitle={data.mdx.frontmatter.title}>
-      <Style.Posted>{data.mdx.frontmatter.date}</Style.Posted>
+    <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
+      <Style.Posted>{data.markdownRemark.frontmatter.date}</Style.Posted>
       {image && <GatsbyImage image={image} alt="cover image" />}
       <hr />
       <Style.Content>
-        <MDXProvider></MDXProvider>
+        <MDXProvider>
+          <div dangerouslySetInnerHTML={{ __html: pageContext.html }}></div>
+        </MDXProvider>
       </Style.Content>
+      <ToTop />
     </Layout>
   );
 };
 
 export const pageQuery = graphql`
   query Post($id: String) {
-    mdx(id: { eq: $id }) {
+    markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
@@ -157,15 +165,12 @@ export const pageQuery = graphql`
           }
         }
       }
-      internal {
-        contentFilePath
-      }
     }
   }
 `;
 
 export const Head: HeadFC<DataProps> = ({ data }) => (
-  <Seo title={data.mdx.frontmatter.title} />
+  <Seo title={data.markdownRemark.frontmatter.title} />
 );
 
 export default BlogPost;

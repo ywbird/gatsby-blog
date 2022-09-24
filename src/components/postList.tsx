@@ -27,27 +27,36 @@ interface IData {
   //   numPages: number;
   //   currentPage: number;
   // };
-  currentPage: number;
+  // currentPage: number;
   numPages: number;
+  tag?: string;
+  // baseUrl?: string;
 }
 
 const Posts = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   display: grid;
-  gap: 32px;
+  gap: 20px;
   /* flex-direction: row;
   flex-wrap: wrap;
   justify-content: center; */
 `;
 
-const PostList: React.FC<IData> = ({ data, currentPage, numPages }) => {
+const PostList: React.FC<IData> = ({
+  data,
+  // currentPage,
+  numPages,
+  tag,
+  // baseUrl,
+}) => {
   return (
     // <Layout pageTitle="">
     <>
       <Posts>
-        {data.map((node) => (
+        {data.map((node, i) => (
           <PostCard
-            key={node.id}
+            // key={node.id}
+            key={i}
             slug={node.frontmatter.slug}
             title={node.frontmatter.title}
             date={node.frontmatter.date}
@@ -59,7 +68,7 @@ const PostList: React.FC<IData> = ({ data, currentPage, numPages }) => {
           />
         ))}
       </Posts>
-      <Pagenation currentPage={currentPage} numPages={numPages} />
+      <Pagenation tag={tag} numPages={numPages} />
     </>
     // </Layout>
   );

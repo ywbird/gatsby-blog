@@ -27,7 +27,7 @@ const Card = styled.article`
   /* border: 2px solid var(--border-color); */
 
   background-color: var(--button-color);
-  border-radius: 7px;
+  border-radius: 5px;
   transition: color 0.15s ease-out, background 0.15s ease-out,
     transform 0.15s ease-out, box-shadow 0.15s ease-out, border 0.15s ease-out;
   display: flex;
@@ -69,8 +69,8 @@ const Posted = styled.p`
 
 const Image = styled(GatsbyImage)`
   width: 200px;
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
   /* border-right: 1px solid var(--border-color); */
 `;
 
@@ -84,11 +84,11 @@ const PostCard: React.FC<PostCardProps> = ({
   const image: IGatsbyImageData | undefined = getImage(cover);
   return (
     <Card>
-      <Link to={`/blog/${slug}`}>
+      <Link to={`/post/${slug}`}>
         {image && <Image image={image} alt="cover image" />}
       </Link>
       <Frontmatter image={!!image}>
-        <PostLinkItem to={`/blog/${slug}`}>
+        <PostLinkItem to={`/post/${slug}`}>
           <h2>{title}</h2>
           <Posted>Posted: {date}</Posted>
           <Excerpt>{excerpt}</Excerpt>

@@ -7,19 +7,16 @@ const config: GatsbyConfig = {
     description: `Gatsby framework blog`,
     navigation: [
       {
-        url: `/categories`,
-        name: `Categories`,
+        url: `/tags`,
+        name: `Tags`,
       },
       {
         url: `/about`,
         name: `About`,
       },
-      {
-        url: `/blog`,
-        name: `Blog`,
-      },
     ],
     logo: `/icon.png`,
+    github: `ywbird`,
   },
   pathPrefix: '/gatsby-blog',
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
@@ -53,6 +50,7 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
+              // icon: false,
               // className: `header-link`,
               // offsetY: `400`,
             },
@@ -67,7 +65,6 @@ const config: GatsbyConfig = {
         ],
       },
     },
-    `gatsby-transformer-remark`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
@@ -90,8 +87,47 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `posts`,
+        name: `markdown-pages`,
         path: `${__dirname}/blog/posts`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
+        // Plugins configs
+        plugins: [
+          {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: 'gatsby-remark-code-title',
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 750,
+            },
+          },
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              // className: `header-link`,
+              // offsetY: `400`,
+            },
+          },
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: 'language-',
+              showLineNumbers: false,
+            },
+          },
+          `gatsby-plugin-sitemap`,
+        ],
       },
     },
     {

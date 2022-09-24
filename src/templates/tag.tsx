@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { graphql, PageProps } from 'gatsby';
+import { graphql, HeadFC, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
 import { IGatsbyImageData } from 'gatsby-plugin-image';
@@ -30,14 +30,15 @@ interface DataProps {
 interface PageContextProps {
   limit: number;
   skip: number;
-  numPages: number;
+  tag: string;
+  tagNumPages: number;
 }
 
 const CategoryPage = ({
   pageContext,
   data,
 }: PageProps<DataProps, PageContextProps>) => {
-  const { numPages } = pageContext;
+  const { tagNumPages } = pageContext;
 
   // const [posts, setPosts] = useState<IPosts[]>([]);
 
@@ -55,23 +56,28 @@ const CategoryPage = ({
       );
   }
   const pagenation = {
-    numPages,
+    numPages: tagNumPages,
   };
 
   return (
-    <Layout pageTitle="">
-      <PostList data={posts ?? []} {...pagenation} />
+    <Layout pageTitle={pageContext.tag}>
+      <PostList data={posts || []} tag={pageContext.tag} {...pagenation} />
     </Layout>
   );
 };
 
-export const Head = () => <Seo title="Home" />;
+export const Head: HeadFC<{}, PageContextProps> = ({ pageContext }) => (
+  <Seo title={pageContext.tag} />
+);
 
 export default CategoryPage;
 
 export const pageQuery = graphql`
-  query PostsPage {
-    allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }) {
+  query CategoryPage($tag: String!) {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___date }
+      filter: { frontmatter: { tag: { eq: $tag } } }
+    ) {
       nodes {
         frontmatter {
           title

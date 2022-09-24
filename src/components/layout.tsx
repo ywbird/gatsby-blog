@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from './header';
 import theme from '../themes/theme';
 import Theme from './theme';
+import Footer from './footer';
 
 interface DataProps {
   pageTitle: string;
@@ -21,6 +22,7 @@ const Body = styled.div`
 
 const Container = styled.div`
   margin: 0 1em;
+  padding-bottom: 140px;
 `;
 
 const Heading = styled.h1`
@@ -51,6 +53,7 @@ const Layout: React.FC<DataProps> = ({
           </Main>
           {aside && <aside.node {...aside.props} />}
         </Container>
+        <Footer />
       </Body>
     </Theme>
   );

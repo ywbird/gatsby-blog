@@ -28,7 +28,7 @@ const SiteTitle = styled.h1`
 
 const SiteTitleLink = styled(Link)`
   text-decoration: none;
-  color: gray;
+  color: var(--font-color);
   font-family: var(--main-font);
 `;
 
@@ -61,9 +61,8 @@ const NavItem = styled.li`
   } */
 `;
 
-const NavLink = styled(Link)<{ to: string; path?: string }>`
-  color: ${(props) =>
-    props.path === props.to ? 'var(--font-color)' : 'var(--primary-color)'};
+const NavLink = styled(Link)`
+  color: var(--font-color);
   font-family: var(--main-font);
   /* padding-right: 2rem;
   padding-left: 2rem; */
@@ -143,7 +142,7 @@ const Header = () => {
       <HeaderLinks>
         <SiteTitle>
           <SiteLogo to="/">
-            <StaticImage src="../images/lotus.png" alt="logo" width={40} />
+            <StaticImage src="../images/logo.svg" alt="logo" width={40} />
           </SiteLogo>
           <SiteTitleLink to="/">{data.site?.siteMetadata?.title}</SiteTitleLink>
         </SiteTitle>
@@ -151,12 +150,7 @@ const Header = () => {
           <NavLinks>
             {data.site?.siteMetadata?.navigation?.map((item, i) => (
               <NavItem key={i}>
-                <NavLink
-                  to={item?.url ?? '/'}
-                  path={globalHistory.location.pathname}
-                >
-                  {item?.name}
-                </NavLink>
+                <NavLink to={item?.url ?? '/'}>{item?.name}</NavLink>
               </NavItem>
             ))}
           </NavLinks>

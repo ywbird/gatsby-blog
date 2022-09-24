@@ -63,9 +63,11 @@ const GlobalStyle = createGlobalStyle<{
   }
   body {
     margin: 0;
+    position: relative;
     background-color: var(--background-color);
   }
   html{
+    height: 100%;
   }
 `;
 

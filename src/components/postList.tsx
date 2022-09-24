@@ -55,8 +55,8 @@ const PostList: React.FC<IData> = ({
       <Posts>
         {data.map((node, i) => (
           <PostCard
-            // key={node.id}
-            key={i}
+            key={node.id}
+            // key={i}
             slug={node.frontmatter.slug}
             title={node.frontmatter.title}
             date={node.frontmatter.date}

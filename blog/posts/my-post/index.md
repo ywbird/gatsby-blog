@@ -3,7 +3,7 @@ title: my-post
 date: 2022-08-19
 description: 'Hello World'
 slug: my-post
-category: test2
+tag: test2
 toc: true
 ---
 

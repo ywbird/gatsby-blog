@@ -4,7 +4,7 @@ date: 2022-08-19
 description: 'Hello World'
 slug: hello-korean-a
 cover: salty_egg.jpg
-category: test
+tag: test
 toc: true
 ---
 

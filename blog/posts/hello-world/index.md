@@ -4,7 +4,7 @@ date: 2022-08-19
 description: 'Hello World'
 slug: hello-world
 cover: salty_egg.jpg
-category: test
+tag: test
 toc: true
 ---
 
@@ -27,10 +27,15 @@ Oh, and here's a great quote from this Wikipedia on
 
 You can also write code blocks here!
 
-```js
+```js{1-2,4}:title=a.js
 const saltyDuckEgg = 'chinese preserved food product';
 a;
 sdasdasd;
+asdasd
+asd
+as
+dasd
+
 asdasdasdasdasd;
 ```
 

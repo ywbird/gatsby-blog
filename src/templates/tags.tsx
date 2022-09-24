@@ -15,7 +15,7 @@ interface PageContextProps {
 
 const Tags = ({ pageContext }: PageProps<{}, PageContextProps>) => {
   return (
-    <Layout pageTitle="Tags">
+    <Layout maxWidth={700} pageTitle="Tags">
       <div>
         {pageContext.tags.map((tag) => (
           <Tag key={tag.tag} tag={tag} />

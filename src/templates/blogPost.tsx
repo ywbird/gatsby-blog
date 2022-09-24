@@ -6,12 +6,14 @@ import Seo from '../components/seo';
 import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ToTop from '../components/toTop';
+import { Link } from '@reach/router';
 
 interface DataProps {
   markdownRemark: {
     frontmatter: {
       title: string;
       date: `${string} ${number}, ${number}`;
+      tag: string[] | string;
       cover: {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
@@ -126,8 +128,15 @@ const Style = {
       }
     }
   `,
-  Posted: styled.p`
+  Meta: styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     font-family: var(--main-font);
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
   `,
 };
 
@@ -140,7 +149,26 @@ const BlogPost = ({
   );
   return (
     <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
-      <Style.Posted>{data.markdownRemark.frontmatter.date}</Style.Posted>
+      <Style.Meta>
+        <p>{data.markdownRemark.frontmatter.date}</p>
+        <p>
+          Tag:{` `}
+          {typeof data.markdownRemark.frontmatter.tag === 'object' ? (
+            data.markdownRemark.frontmatter.tag.map((tag, i) => (
+              <>
+                <Link to={`/tag/${tag}`}>{tag}</Link>
+                {data.markdownRemark.frontmatter.tag.length !== i + 1
+                  ? `, `
+                  : ''}
+              </>
+            ))
+          ) : (
+            <Link to={`/tag/${data.markdownRemark.frontmatter.tag}`}>
+              {data.markdownRemark.frontmatter.tag}
+            </Link>
+          )}
+        </p>
+      </Style.Meta>
       {image && <GatsbyImage image={image} alt="cover image" />}
       <hr />
       <Style.Content>
@@ -159,6 +187,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
+        tag
         cover {
           childImageSharp {
             gatsbyImageData(width: 750, height: 400)

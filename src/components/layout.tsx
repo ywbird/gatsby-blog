@@ -22,7 +22,7 @@ const Body = styled.div`
 
 const Container = styled.div`
   margin: 0 1em;
-  padding-bottom: 140px;
+  padding-bottom: 160px;
 `;
 
 const Heading = styled.h1`

@@ -2,10 +2,16 @@
 title: 안녕 세상
 date: 2022-08-19
 description: 'Hello World'
-slug: hello-korean-a
+slug: hello-korean-a-asd
 cover: salty_egg.jpg
-tag: test
-toc: true
+tag: 
+ - test
+ - asdasd
+ - asdasdd
+ - asdasddasdasd
+# tag: 
+ -  asdasd
+
 ---
 
 # asdad

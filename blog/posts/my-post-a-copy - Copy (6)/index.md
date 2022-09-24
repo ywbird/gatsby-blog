@@ -3,8 +3,9 @@ title: my-post
 date: 2022-08-19
 description: 'Hello World'
 slug: my-post
-tag: test2
-toc: true
+tag: 
+ -  test2
+
 ---
 
 This is my first post on my new fake blog! How exciting!

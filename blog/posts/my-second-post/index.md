@@ -3,7 +3,8 @@ title: My Second Post!
 date: 2022-08-20
 description: my second post desc
 slug: my-second-post
-tag: test3
+tag: 
+ -  test3
 cover: flowers.jpg
 ---
 

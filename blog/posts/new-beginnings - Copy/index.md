@@ -4,8 +4,9 @@ date: 2022-08-21
 description: This is a custom description afafaedfwefiuwgefhvb for SEO and Open Graph purposes, rather than the default generated excerpt. Simply add a description field to the frontmatter.
 slug: new-beginnings
 cover: rocks.jpg
-tag: test3
-toc: true
+tag: 
+ -  test3
+
 ---
 
 ```js:title=asd.js

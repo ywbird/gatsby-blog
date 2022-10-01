@@ -1,8 +1,9 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useColorMode } from 'theme-ui';
+import { useThemeState } from './contexts';
 
 interface IData {
   site: {
@@ -107,7 +108,7 @@ const ToggleColorTheme = styled.div`
 `;
 
 const Header = () => {
-  const [colorTheme, setColorTheme] = useColorMode();
+  const [colorTheme, setColorTheme] = useThemeState();
   const nextColorMode = colorTheme === 'light' ? 'dark' : 'light';
 
   // const isWindow: boolean = typeof window !== 'undefined';

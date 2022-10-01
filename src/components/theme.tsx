@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import '../prism-dracula.css';
 import Font from './fonts';
 import Fonts from '../fonts';
+import { useColorMode } from 'theme-ui';
+import { ThemeProvider } from './contexts';
 
 const Style = styled.div`
   margin: 0;
@@ -42,8 +44,10 @@ const Theme: React.FC<{
   //     (darkMode === 'true' ? 'dark' : 'light') + '-mode';
   return (
     <Style>
-      <GlobalStyle fonts={Fonts} />
-      {children}
+      <ThemeProvider>
+        <GlobalStyle fonts={Fonts} />
+        {children}
+      </ThemeProvider>
     </Style>
   );
 };

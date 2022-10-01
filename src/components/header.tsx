@@ -1,8 +1,8 @@
-import { graphql, Link, useStaticQuery, StaticQueryDocument } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import { graphql, Link, useStaticQuery } from 'gatsby';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { globalHistory } from '@reach/router';
 import { StaticImage } from 'gatsby-plugin-image';
+import { useColorMode } from 'theme-ui';
 
 interface IData {
   site: {
@@ -28,7 +28,7 @@ const SiteTitle = styled.h1`
 
 const SiteTitleLink = styled(Link)`
   text-decoration: none;
-  color: var(--font-color);
+  color: var(--theme-ui-colors-text);
   font-family: var(--main-font);
 `;
 
@@ -53,7 +53,7 @@ const NavItem = styled.li`
     content: '|';
     margin: 0 0 0 2rem;
     white-space: pre;
-    color: var(--font-color);
+    color: var(--theme-ui-colors-text);
     pointer-events: none;
   }
   /* &:last-child::after {
@@ -62,7 +62,15 @@ const NavItem = styled.li`
 `;
 
 const NavLink = styled(Link)`
-  color: var(--font-color);
+  color: var(--theme-ui-colors-text);
+  font-family: var(--main-font);
+  /* padding-right: 2rem;
+  padding-left: 2rem; */
+  text-decoration: none;
+`;
+
+const NavLinkA = styled.a`
+  color: var(--theme-ui-colors-text);
   font-family: var(--main-font);
   /* padding-right: 2rem;
   padding-left: 2rem; */
@@ -70,7 +78,7 @@ const NavLink = styled(Link)`
 `;
 
 const HeaderElement = styled.div`
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--theme-ui-colors-border);
   position: sticky;
   width: 100%;
   top: 0;
@@ -86,7 +94,7 @@ const HeaderLinks = styled.header`
   display: flex;
   /* align-content: center; */
   flex-direction: row;
-  background-color: var(--background-color);
+  background-color: var(--theme-ui-colors-background);
   z-index: 1;
   /* justify-content: space-between; */
   align-items: baseline;
@@ -99,30 +107,44 @@ const ToggleColorTheme = styled.div`
 `;
 
 const Header = () => {
-  const [colorTheme, setColorTheme] = useState<string>('dark');
-  const isWindow: boolean = typeof window !== 'undefined';
+  const [colorTheme, setColorTheme] = useColorMode();
+  const nextColorMode = colorTheme === 'light' ? 'dark' : 'light';
+
+  // const isWindow: boolean = typeof window !== 'undefined';
   // const isDocument: boolean = typeof document !== 'undefined';
-  useEffect(() => {
-    setColorTheme((isWindow && window.localStorage.getItem('mode')) || 'dark');
-    if (typeof document !== 'undefined')
-      document.body.className =
-        ((isWindow && window.localStorage.getItem('mode')) || 'light') +
-        '-mode';
-  }, [colorTheme]);
+  // const [colorTheme, setColorTheme] = useState<string>('dark');
+  // useEffect(() => {
+  //   setColorTheme(
+  //     (isWindow && window.localStorage.getItem('darkMode')) || 'true'
+  //   );
+
+  //   if (isDocument && isWindow) {
+  //     const darkMode = window.localStorage.getItem('darkMode');
+  //     if (darkMode === 'true') {
+  //       document.body.className = 'dark-mode';
+  //     } else if (darkMode === 'false') {
+  //       document.body.className = 'light-mode';
+  //     }
+  //   }
+  // }, []);
   const toggle = () => {
-    const mode = (isWindow && window.localStorage.getItem('mode')) || 'light';
-    if (mode === 'light') {
-      isWindow && window.localStorage.setItem('mode', 'dark');
-      setColorTheme('dark');
-      if (typeof document !== 'undefined')
-        document.body.className = 'dark-mode';
-    } else if (mode === 'dark') {
-      isWindow && window.localStorage.setItem('mode', 'light');
-      setColorTheme('light');
-      if (typeof document !== 'undefined')
-        document.body.className = 'light-mode';
-    }
+    setColorTheme(nextColorMode);
+    // if (isDocument && isWindow) {
+    //   const mode = window.localStorage.getItem('darkMode') || 'false';
+    //   if (mode === 'false') {
+    //     setColorTheme('true');
+    //     window.localStorage.setItem('darkMode', 'true');
+    //     document.body.className = 'dark-mode';
+    //   } else if (mode === 'true') {
+    //     setColorTheme('false');
+    //     window.localStorage.setItem('darkMode', 'false');
+    //     document.body.className = 'light-mode';
+    //   } else {
+    //     window.localStorage.setItem('darkMode', 'true');
+    //   }
+    // }
   };
+  // const toggle = () => {};
 
   const data: Queries.HeaderQuery = useStaticQuery(graphql`
     query Header {
@@ -150,13 +172,21 @@ const Header = () => {
           <NavLinks>
             {data.site?.siteMetadata?.navigation?.map((item, i) => (
               <NavItem key={i}>
-                <NavLink to={item?.url ?? '/'}>{item?.name}</NavLink>
+                {item?.url?.startsWith('https://') ? (
+                  <NavLinkA href={item?.url ?? '/'}>{item?.name}</NavLinkA>
+                ) : (
+                  <NavLink to={item?.url ?? '/'}>{item?.name}</NavLink>
+                )}
               </NavItem>
             ))}
           </NavLinks>
         </nav>
         <ToggleColorTheme onClick={toggle}>
-          {colorTheme === 'dark' ? 'Dark' : 'Light'}
+          {colorTheme === 'dark'
+            ? 'Dark'
+            : colorTheme === 'light'
+            ? 'Light'
+            : 'Init'}
         </ToggleColorTheme>
       </HeaderLinks>
     </HeaderElement>

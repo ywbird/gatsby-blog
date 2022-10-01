@@ -12,11 +12,11 @@ interface PostCardProps {
 }
 
 const PostLinkItem = styled(Link)`
-  color: var(--font-color);
+  color: var(--theme-ui-colors-text);
   text-decoration: none;
   /* padding: 0.3em; */
   &:visited {
-    color: var(--font-color);
+    color: var(--theme-ui-colors-text);
   }
 `;
 
@@ -26,8 +26,9 @@ const Card = styled.article`
   /* margin: 1em; */
   /* border: 2px solid var(--border-color); */
 
-  background-color: var(--button-color);
-  border-radius: 5px;
+  /* background-color: var(--button-color); */
+  border: 1px solid var(--theme-ui-colors-border);
+  border-radius: 4px;
   transition: color 0.15s ease-out, background 0.15s ease-out,
     transform 0.15s ease-out, box-shadow 0.15s ease-out, border 0.15s ease-out;
   display: flex;
@@ -45,6 +46,7 @@ const Frontmatter = styled.div<{ image?: boolean }>`
   /* border-left: 1px solid black; */
   /* width: ${(props) => (props.image ? '230' : '450')}px; */
   font-family: var(--main-font);
+  width: 490px;
 
   h2 {
     margin: 0;
@@ -59,19 +61,32 @@ const Excerpt = styled.p`
   -webkit-line-clamp: 6;
   -moz-box-orient: vertical;
   -webkit-box-orient: vertical;
-  height: 125px;
   margin: 0px 0 0 0;
 `;
 
-const Posted = styled.p`
+const MetaInner = styled.p`
   margin: 8px 0;
 `;
 
 const Image = styled(GatsbyImage)`
   width: 200px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
   /* border-right: 1px solid var(--border-color); */
+`;
+
+const Meta = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: var(--main-font);
+`;
+
+const Data = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 160px;
 `;
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -90,8 +105,12 @@ const PostCard: React.FC<PostCardProps> = ({
       <Frontmatter image={!!image}>
         <PostLinkItem to={`/post/${slug}`}>
           <h2>{title}</h2>
-          <Posted>Posted: {date}</Posted>
-          <Excerpt>{excerpt}</Excerpt>
+          <Data>
+            <Excerpt>{excerpt}</Excerpt>
+            <Meta>
+              <MetaInner>{date}</MetaInner>
+            </Meta>
+          </Data>
         </PostLinkItem>
       </Frontmatter>
     </Card>

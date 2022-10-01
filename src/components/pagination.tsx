@@ -19,9 +19,10 @@ const PagenationLink = styled(Link)`
   width: 30px;
   height: 30px;
   border: 0px;
-  background-color: var(--button-color);
+  /* background-color: var(--background-color); */
   border-radius: 2px;
-  color: var(--text-color);
+  border: 1px solid var(--theme-ui-colors-border);
+  color: var(--theme-ui-colors-text);
   text-decoration: none;
   display: grid;
   place-items: center;
@@ -53,7 +54,7 @@ const Pagenation: React.FC<DataProps> = ({
           to={
             i + 1 === 1
               ? `/${tag ? `tag/${tag}` : ''}`
-              : `/${tag ? `tag/${tag}` : ''}?page=${i + 1}`
+              : `/${tag ? `tag/${tag}/` : ''}${i + 1}`
           }
         >
           {i + 1}

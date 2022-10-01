@@ -5,7 +5,7 @@ const ToTopButton = styled.div`
   /* width: 40px;
   height: 40px; */
   font-family: var(--main-font);
-  color: var(--font-color);
+  color: var(--theme-ui-colors-text);
   cursor: pointer;
   letter-spacing: 0;
   transition: 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -20,10 +20,11 @@ const ToTopEl = styled.div`
     position: fixed;
     display: block;
     left: 50%;
-    bottom: 180px;
+    bottom: 80px;
     transform: translateX(410px);
   }
   display: none;
+  z-index: 2;
 `;
 
 const ToTop: React.FC = () => {

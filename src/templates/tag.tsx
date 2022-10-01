@@ -41,27 +41,17 @@ const CategoryPage = ({
   const { tagNumPages } = pageContext;
 
   // const [posts, setPosts] = useState<IPosts[]>([]);
-
-  let posts;
-
-  if (typeof document === 'object') {
-    const params = new URLSearchParams(document.location.search);
-    const page = parseInt(params.get('page') ?? '1');
-    // const tag = params.get('tag') ?? '';
-    posts = data.allMarkdownRemark.nodes
-      // .filter((node) => (tag ? node.frontmatter.tag === tag : true))
-      .slice(
-        (page - 1) * pageContext.limit,
-        (page - 1) * pageContext.limit + pageContext.limit
-      );
-  }
   const pagenation = {
     numPages: tagNumPages,
   };
 
   return (
     <Layout pageTitle={pageContext.tag}>
-      <PostList data={posts || []} tag={pageContext.tag} {...pagenation} />
+      <PostList
+        data={data.allMarkdownRemark.nodes}
+        tag={pageContext.tag}
+        {...pagenation}
+      />
     </Layout>
   );
 };
@@ -73,10 +63,12 @@ export const Head: HeadFC<{}, PageContextProps> = ({ pageContext }) => (
 export default CategoryPage;
 
 export const pageQuery = graphql`
-  query CategoryPage($tag: String!) {
+  query CategoryPage($tag: String!, $limit: Int!, $skip: Int!) {
     allMarkdownRemark(
       sort: { order: DESC, fields: frontmatter___date }
       filter: { frontmatter: { tag: { eq: $tag } } }
+      limit: $limit
+      skip: $skip
     ) {
       nodes {
         frontmatter {

@@ -1,4 +1,4 @@
-import { graphql, HeadFC, PageProps } from 'gatsby';
+import { graphql, HeadFC, PageProps, Link } from 'gatsby';
 import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import Layout from '../components/layout';
@@ -6,14 +6,13 @@ import Seo from '../components/seo';
 import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ToTop from '../components/toTop';
-import { Link } from '@reach/router';
 
 interface DataProps {
   markdownRemark: {
     frontmatter: {
       title: string;
       date: `${string} ${number}, ${number}`;
-      tag: string[] | string;
+      tag: string[];
       cover: {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
@@ -43,7 +42,11 @@ const Style = {
     blockquote {
       margin-left: 0;
       padding-left: 40px;
-      border-left: 3px solid var(--primary-color);
+      border-left: 3px solid var(--theme-ui-colors-border);
+      opacity: 80%;
+      /* background-color: var(--background-color); */
+      color: var(--theme-ui-colors-text);
+      /* filter: invert(); */
     }
 
     .gatsby-highlight-code-line {
@@ -88,26 +91,26 @@ const Style = {
     h4,
     h5,
     h6 {
-      color: var(--heading-color);
+      color: var(--theme-ui-colors-heading);
     }
-    color: var(--content-color);
+    color: var(--theme-ui-colors-content);
 
     a {
-      color: var(--link-color);
+      color: var(--theme-ui-colors-primary);
       text-decoration: none;
       transition: 0.08s cubic-bezier(0.9, 0.03, 0.31, 1.36);
       &:visited {
-        color: var(--link-color);
+        color: var(--theme-ui-colors-primary);
       }
       &:hover {
         /* animation: link-line 0.1s ease-in; */
-        border-bottom: 2px solid var(--link-color);
+        border-bottom: 2px solid var(--theme-ui-colors-primary);
       }
       &.anchor {
         /* transform: translateX(0); */
         opacity: 0;
         transition: 0.08s ease-in;
-        fill: var(--border-color);
+        fill: var(--theme-ui-colors-heading);
         &:hover {
           border-bottom: 0px;
         }
@@ -133,12 +136,27 @@ const Style = {
     flex-direction: row;
     justify-content: space-between;
     font-family: var(--main-font);
-    a {
-      color: var(--link-color);
-      text-decoration: none;
+    p {
+      color: var(--theme-ui-colors-text);
     }
   `,
 };
+
+const TagLinks = styled.p`
+  display: flex;
+  flex-direction: row;
+  height: min-content;
+`;
+
+const TagLink = styled(Link)`
+  padding: 1px 3px;
+  margin: 0 2px;
+  border-radius: 4px;
+  border: 1px solid var(--theme-ui-colors-border);
+  height: min-content;
+  color: var(--theme-ui-colors-text);
+  text-decoration: none;
+`;
 
 const BlogPost = ({
   data,
@@ -151,23 +169,14 @@ const BlogPost = ({
     <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
       <Style.Meta>
         <p>{data.markdownRemark.frontmatter.date}</p>
-        <p>
-          Tag:{` `}
-          {typeof data.markdownRemark.frontmatter.tag === 'object' ? (
-            data.markdownRemark.frontmatter.tag.map((tag, i) => (
-              <>
-                <Link to={`/tag/${tag}`}>{tag}</Link>
-                {data.markdownRemark.frontmatter.tag.length !== i + 1
-                  ? `, `
-                  : ''}
-              </>
-            ))
-          ) : (
-            <Link to={`/tag/${data.markdownRemark.frontmatter.tag}`}>
-              {data.markdownRemark.frontmatter.tag}
-            </Link>
-          )}
-        </p>
+        <TagLinks>
+          {data.markdownRemark.frontmatter.tag.map((tag, i) => (
+            <>
+              <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
+              {/* {data.markdownRemark.frontmatter.tag.length !== i + 1 ? `, ` : ''} */}
+            </>
+          ))}
+        </TagLinks>
       </Style.Meta>
       {image && <GatsbyImage image={image} alt="cover image" />}
       <hr />

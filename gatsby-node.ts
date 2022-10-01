@@ -52,26 +52,26 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const postPerPage = 16;
   const numPages = Math.ceil(data.allMarkdownRemark.edges.length / postPerPage);
 
-  // Array.from({ length: numPages }).forEach((_, i) => {
-  //   createPage({
-  //     path: i === 0 ? `/` : `/?page=${i + 1}`,
-  //     component: path.resolve('./src/templates/posts.tsx'),
-  //     context: {
-  //       limit: postPerPage,
-  //       skip: i * postPerPage,
-  //       numPages,
-  //       currentPage: i + 1,
-  //     },
-  //   });
-  // });
-  createPage({
-    path: `/`,
-    component: path.resolve('./src/templates/posts.tsx'),
-    context: {
-      limit: postPerPage,
-      numPages,
-    },
+  Array.from({ length: numPages }).forEach((_, i) => {
+    createPage({
+      path: i === 0 ? `/` : `/${i + 1}`,
+      component: path.resolve('./src/templates/posts.tsx'),
+      context: {
+        limit: postPerPage,
+        skip: i * postPerPage,
+        numPages,
+        currentPage: i + 1,
+      },
+    });
   });
+  // createPage({
+  //   path: `/`,
+  //   component: path.resolve('./src/templates/posts.tsx'),
+  //   context: {
+  //     limit: postPerPage,
+  //     numPages,
+  //   },
+  // });
 
   data.allMarkdownRemark.edges.forEach(async ({ node }) => {
     const html = node.html;
@@ -90,31 +90,28 @@ export const createPages: GatsbyNode['createPages'] = async ({
   data.allMarkdownRemark.group.forEach((tag) => {
     const postPerPage = 18;
     const tagNumPages = Math.ceil(tag.totalCount / postPerPage);
-    // Array.from({ length: categoryNumPages }).forEach((_, i) => {
-    //   createPage({
-    //     path:
-    //       i === 0
-    //         ? `/category/${category.tag}`
-    //         : `/category/${category.tag}/${i + 1}`,
-    //     component: path.resolve('./src/templates/category.tsx'),
-    //     context: {
-    //       limit: postPerPage,
-    //       skip: i * categoryNumPages,
-    //       categoryNumPages,
-    //       currentPage: i + 1,
-    //       tag: category.tag,
-    //     },
-    //   });
-    // });
-    createPage({
-      path: `/tag/${tag.tag}`,
-      component: path.resolve('./src/templates/tag.tsx'),
-      context: {
-        limit: postPerPage,
-        tagNumPages,
-        tag: tag.tag,
-      },
+    Array.from({ length: tagNumPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/tag/${tag.tag}` : `/tag/${tag.tag}/${i + 1}`,
+        component: path.resolve('./src/templates/tag.tsx'),
+        context: {
+          limit: postPerPage,
+          skip: i * tagNumPages,
+          tagNumPages,
+          currentPage: i + 1,
+          tag: tag.tag,
+        },
+      });
     });
+    // createPage({
+    //   path: `/tag/${tag.tag}`,
+    //   component: path.resolve('./src/templates/tag.tsx'),
+    //   context: {
+    //     limit: postPerPage,
+    //     tagNumPages,
+    //     tag: tag.tag,
+    //   },
+    // });
   });
 
   createPage({

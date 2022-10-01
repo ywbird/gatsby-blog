@@ -7,20 +7,7 @@ import { graphql } from 'gatsby';
 import Pagenation from './pagination';
 
 interface IData {
-  data: {
-    frontmatter: {
-      title: string;
-      slug: string;
-      date: `${string} ${number}, ${number}`;
-      description: string;
-      cover: {
-        childImageSharp: {
-          gatsbyImageData: IGatsbyImageData;
-        };
-      };
-    };
-    id: string;
-  }[];
+  data?: IPosts[];
   // pageContext: {
   //   limit: number;
   //   skip: number;
@@ -53,20 +40,21 @@ const PostList: React.FC<IData> = ({
     // <Layout pageTitle="">
     <>
       <Posts>
-        {data.map((node, i) => (
-          <PostCard
-            key={node.id}
-            // key={i}
-            slug={node.frontmatter.slug}
-            title={node.frontmatter.title}
-            date={node.frontmatter.date}
-            excerpt={node.frontmatter.description}
-            cover={
-              node.frontmatter.cover?.childImageSharp.gatsbyImageData ??
-              undefined
-            }
-          />
-        ))}
+        {data &&
+          data.map((node, i) => (
+            <PostCard
+              key={node.id}
+              // key={i}
+              slug={node.frontmatter.slug}
+              title={node.frontmatter.title}
+              date={node.frontmatter.date}
+              excerpt={node.frontmatter.description}
+              cover={
+                node.frontmatter.cover?.childImageSharp.gatsbyImageData ??
+                undefined
+              }
+            />
+          ))}
       </Posts>
       <Pagenation tag={tag} numPages={numPages} />
     </>

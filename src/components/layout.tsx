@@ -26,7 +26,7 @@ const Container = styled.div`
 `;
 
 const Heading = styled.h1`
-  color: var(--font-color);
+  color: var(--theme-ui-colors-text);
   font-family: var(--main-font);
 `;
 

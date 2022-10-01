@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkLotus=self.webpackChunkLotus||[]).push([[49],{2766:function(t,e,u){u.r(e),u.d(e,{Head:function(){return s}});var i=u(2225),n=u(4001),r=u(5893),s=function(){return(0,r.jsx)(n.Z,{title:"About Me"})};e.default=function(){return(0,r.jsx)(i.Z,{pageTitle:"About Me",children:(0,r.jsx)("p",{children:"Hi there! I'm the proud creator of this site, which I built with Gatsby."})})}}}]);
+//# sourceMappingURL=component---src-pages-about-tsx-617fefa8e43799176d5e.js.map

@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import '../themes/prism-dracula.css';
+import '../prism-dracula.css';
 import Font from './fonts';
-import { createContext } from 'react';
 
-const Style = styled.div<{
-  fonts: { main: string; code: string };
-  colors: {
-    light: { text: string; background: string; border: string };
-    dark: { text: string; background: string; border: string };
-  };
-}>`
+const Style = styled.div`
   margin: 0;
   color: var(--theme-ui-colors-text);
   background: var(--theme-ui-colors-background);
@@ -30,9 +23,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Theme: React.FC<{
-  theme: any;
   children: React.ReactNode;
-}> = ({ theme, children }) => {
+}> = ({ children }) => {
   // const isWindow: boolean = typeof window !== 'undefined';
   // const darkMode: string =
   //   (isWindow && window.localStorage.getItem('darkMode')) || 'none';
@@ -42,8 +34,8 @@ const Theme: React.FC<{
   //   document.body.className =
   //     (darkMode === 'true' ? 'dark' : 'light') + '-mode';
   return (
-    <Style {...theme}>
-      <GlobalStyle {...theme} />
+    <Style>
+      <GlobalStyle />
       {children}
     </Style>
   );

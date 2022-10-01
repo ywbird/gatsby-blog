@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Header from './header';
-import theme from '../themes/theme';
 import Theme from './theme';
 import Footer from './footer';
 
@@ -43,7 +42,7 @@ const Layout: React.FC<DataProps> = ({
   children,
 }) => {
   return (
-    <Theme theme={theme}>
+    <Theme>
       <Body>
         <Header />
         <Container>

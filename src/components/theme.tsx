@@ -18,17 +18,6 @@ const Style = styled.div<{
   /* height: 100%; */
 `;
 
-interface IColorTheme {
-  text: string;
-  content: string;
-  link: string;
-  background: string;
-  border: string;
-  primary: string;
-  heading: string;
-  button: string;
-}
-
 const GlobalStyle = createGlobalStyle<{
   fonts: { main: string; code: string };
   colors: {
@@ -36,59 +25,10 @@ const GlobalStyle = createGlobalStyle<{
     dark: IColorTheme;
   };
 }>`
-   :root {
-    --main-font: ${(props) => props.fonts.main};
-    --code-font: ${(props) => props.fonts.code};
-    
-    /* --font-color: ${(props) => props.colors.dark.text};
-    --content-color: ${(props) => props.colors.dark.content};
-    --link-color: ${(props) => props.colors.dark.link};
-    --background-color: ${(props) => props.colors.dark.background};
-    --border-color: ${(props) => props.colors.dark.border};
-    --primary-color: ${(props) => props.colors.dark.primary};
-    --heading-color: ${(props) => props.colors.dark.heading};
-    --button-color: ${(props) => props.colors.dark.button}; */
+  :root {
+    --theme-ui-fonts-main: ${(props) => props.fonts.main};
+    --theme-ui-fonts-code: ${(props) => props.fonts.code};
   }
-  /* .light-mode {
-    --font-color: ${(props) => props.colors.light.text};
-    --content-color: ${(props) => props.colors.light.content};
-    --link-color: ${(props) => props.colors.light.link};
-    --background-color: ${(props) => props.colors.light.background};
-    --border-color: ${(props) => props.colors.light.border};
-    --primary-color: ${(props) => props.colors.light.primary};
-    --heading-color: ${(props) => props.colors.light.heading};
-    --button-color: ${(props) => props.colors.light.button};
-  }
-  .dark-mode {
-    --font-color: ${(props) => props.colors.dark.text};
-    --content-color: ${(props) => props.colors.dark.content};
-    --link-color: ${(props) => props.colors.dark.link};
-    --background-color: ${(props) => props.colors.dark.background};
-    --border-color: ${(props) => props.colors.dark.border};  
-    --primary-color: ${(props) => props.colors.dark.primary};
-    --heading-color: ${(props) => props.colors.dark.heading};
-    --button-color: ${(props) => props.colors.dark.button};
-  } */
-  /* @media (prefers-color-scheme: light) {
-    --font-color: ${(props) => props.colors.light.text};
-    --content-color: ${(props) => props.colors.light.content};
-    --link-color: ${(props) => props.colors.light.link};
-    --background-color: ${(props) => props.colors.light.background};
-    --border-color: ${(props) => props.colors.light.border};
-    --primary-color: ${(props) => props.colors.light.primary};
-    --heading-color: ${(props) => props.colors.light.heading};
-    --button-color: ${(props) => props.colors.light.button};
-  }
-  @media (prefers-color-scheme: dark) {
-    --font-color: ${(props) => props.colors.dark.text};
-    --content-color: ${(props) => props.colors.dark.content};
-    --link-color: ${(props) => props.colors.dark.link};
-    --background-color: ${(props) => props.colors.dark.background};
-    --border-color: ${(props) => props.colors.dark.border};  
-    --primary-color: ${(props) => props.colors.dark.primary};
-    --heading-color: ${(props) => props.colors.dark.heading};
-    --button-color: ${(props) => props.colors.dark.button};
-  } */
   body {
     margin: 0;
     position: relative;

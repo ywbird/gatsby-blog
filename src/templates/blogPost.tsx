@@ -140,6 +140,21 @@ const Style = {
         }
       }
     }
+    table,
+    td,
+    th {
+      border: 1px solid var(--theme-ui-colors-border);
+      padding: 1px 4px;
+    }
+    thead {
+      background-color: var(--theme-ui-colors-border);
+      color: var(--theme-ui-colors-text);
+      opacity: 80%;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
   `,
   Meta: styled.div`
     display: flex;

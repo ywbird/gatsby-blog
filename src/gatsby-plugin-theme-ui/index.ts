@@ -21,7 +21,7 @@ const theme = {
         text: '#333333',
         heading: 'black',
         content: '#444444',
-        background: '#f3f3f3',
+        background: '#efefef',
         primary: '#fb718a',
         border: '#aaaaaa',
         mute: '#555555',

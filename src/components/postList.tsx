@@ -51,10 +51,6 @@ const PostList: React.FC<IData> = ({
               title={node.frontmatter.title}
               date={node.frontmatter.date}
               excerpt={node.frontmatter.description}
-              cover={
-                node.frontmatter.cover?.childImageSharp.gatsbyImageData ??
-                undefined
-              }
             />
           ))}
       </Posts>

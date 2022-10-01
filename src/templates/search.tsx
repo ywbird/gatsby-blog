@@ -104,11 +104,6 @@ export const pageQuery = graphql`
           slug
           description
           tag
-          cover {
-            childImageSharp {
-              gatsbyImageData(width: 200, height: 200)
-            }
-          }
         }
         id
       }

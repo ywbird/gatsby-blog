@@ -1,5 +1,4 @@
 import { Link } from 'gatsby';
-import { GatsbyImage, getImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +7,6 @@ interface PostCardProps {
   title: string;
   date: string;
   excerpt: string;
-  cover: IGatsbyImageData;
 }
 
 const PostLinkItem = styled(Link)`
@@ -41,10 +39,8 @@ const Card = styled.article`
   }
 `;
 
-const Frontmatter = styled.div<{ image?: boolean }>`
+const Frontmatter = styled.div`
   padding: 0.2em 0.5em;
-  /* border-left: 1px solid black; */
-  /* width: ${(props) => (props.image ? '230' : '450')}px; */
   font-family: var(--main-font);
   width: 490px;
 
@@ -68,13 +64,6 @@ const MetaInner = styled.p`
   margin: 8px 0;
 `;
 
-const Image = styled(GatsbyImage)`
-  width: 200px;
-  border-top-left-radius: 2px;
-  border-bottom-left-radius: 2px;
-  /* border-right: 1px solid var(--border-color); */
-`;
-
 const Meta = styled.div`
   display: flex;
   flex-direction: row;
@@ -89,20 +78,10 @@ const Data = styled.div`
   height: 160px;
 `;
 
-const PostCard: React.FC<PostCardProps> = ({
-  slug,
-  title,
-  date,
-  excerpt,
-  cover,
-}) => {
-  const image: IGatsbyImageData | undefined = getImage(cover);
+const PostCard: React.FC<PostCardProps> = ({ slug, title, date, excerpt }) => {
   return (
     <Card>
-      <Link to={`/post/${slug}`}>
-        {image && <Image image={image} alt="cover image" />}
-      </Link>
-      <Frontmatter image={!!image}>
+      <Frontmatter>
         <PostLinkItem to={`/post/${slug}`}>
           <h2>{title}</h2>
           <Data>

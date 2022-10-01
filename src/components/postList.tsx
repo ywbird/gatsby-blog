@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import PostCard from './postCard';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
-import Layout from './layout';
-import { graphql } from 'gatsby';
 import Pagenation from './pagination';
 
 interface IData {
@@ -51,10 +48,6 @@ const PostList: React.FC<IData> = ({
               title={node.frontmatter.title}
               date={node.frontmatter.date}
               excerpt={node.frontmatter.description}
-              cover={
-                node.frontmatter.cover?.childImageSharp.gatsbyImageData ??
-                undefined
-              }
             />
           ))}
       </Posts>

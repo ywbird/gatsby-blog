@@ -230,11 +230,6 @@ export const pageQuery = graphql`
         date(formatString: "MMMM D, YYYY")
         tag
         blockComment
-        cover {
-          childImageSharp {
-            gatsbyImageData(width: 750, height: 400)
-          }
-        }
       }
     }
     site {

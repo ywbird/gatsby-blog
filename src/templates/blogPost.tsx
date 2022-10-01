@@ -41,7 +41,7 @@ const Style = {
       /* border-top-left-radius: 0; */
     }
 
-    pre code {
+    code {
       font-family: var(--code-font) !important;
       font-size: 0.9em !important;
     }
@@ -113,7 +113,7 @@ const Style = {
         /* animation: link-line 0.1s ease-in; */
         border-bottom: 2px solid var(--theme-ui-colors-primary);
       }
-	  &.gatsby-resp-image-link:hover {
+      &.gatsby-resp-image-link:hover {
         border-bottom: 0;
       }
       &.anchor {

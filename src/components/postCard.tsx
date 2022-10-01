@@ -8,6 +8,7 @@ interface PostCardProps {
   title: string;
   date: string;
   excerpt: string;
+  cover: IGatsbyImageData;
 }
 
 const PostLinkItem = styled(Link)`
@@ -67,6 +68,13 @@ const MetaInner = styled.p`
   margin: 8px 0;
 `;
 
+const Image = styled(GatsbyImage)`
+  width: 200px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  /* border-right: 1px solid var(--border-color); */
+`;
+
 const Meta = styled.div`
   display: flex;
   flex-direction: row;
@@ -81,10 +89,20 @@ const Data = styled.div`
   height: 160px;
 `;
 
-const PostCard: React.FC<PostCardProps> = ({ slug, title, date, excerpt }) => {
+const PostCard: React.FC<PostCardProps> = ({
+  slug,
+  title,
+  date,
+  excerpt,
+  cover,
+}) => {
+  const image: IGatsbyImageData | undefined = getImage(cover);
   return (
     <Card>
-      <Frontmatter>
+      <Link to={`/post/${slug}`}>
+        {image && <Image image={image} alt="cover image" />}
+      </Link>
+      <Frontmatter image={!!image}>
         <PostLinkItem to={`/post/${slug}`}>
           <h2>{title}</h2>
           <Data>

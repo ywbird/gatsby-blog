@@ -5,6 +5,11 @@ interface IPost {
     date: `${string} ${number}, ${number}`;
     description: string;
     tag?: string;
+    cover: {
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData;
+      };
+    };
   };
   html: string;
   id: string;

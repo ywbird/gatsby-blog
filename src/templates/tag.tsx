@@ -2,11 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
+import { IGatsbyImageData } from 'gatsby-plugin-image';
 import PostList from '../components/postList';
+
+interface IPosts {
+  frontmatter: {
+    title: string;
+    slug: string;
+    date: `${string} ${number}, ${number}`;
+    description: string;
+    tag?: string;
+    cover: {
+      childImageSharp: {
+        gatsbyImageData: IGatsbyImageData;
+      };
+    };
+  };
+  id: string;
+}
 
 interface DataProps {
   allMarkdownRemark: {
-    nodes: IPost[];
+    nodes: IPosts[];
   };
 }
 
@@ -60,6 +77,11 @@ export const pageQuery = graphql`
           slug
           description
           tag
+          cover {
+            childImageSharp {
+              gatsbyImageData(width: 200, height: 200)
+            }
+          }
         }
         id
       }

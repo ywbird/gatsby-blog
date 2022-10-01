@@ -15,6 +15,11 @@ interface DataProps {
       date: `${string} ${number}, ${number}`;
       tag: string[];
       blockComment?: boolean;
+      cover: {
+        childImageSharp: {
+          gatsbyImageData: IGatsbyImageData;
+        };
+      };
     };
   };
   site: {
@@ -164,6 +169,10 @@ const BlogPost = ({
   data,
   pageContext,
 }: PageProps<DataProps, { html: string }>) => {
+  const image: IGatsbyImageData | undefined = getImage(
+    data.markdownRemark.frontmatter.cover
+  );
+
   const {
     site: {
       siteMetadata: { giscus },
@@ -183,6 +192,7 @@ const BlogPost = ({
           ))}
         </TagLinks>
       </Style.Meta>
+      {image && <GatsbyImage image={image} alt="cover image" />}
       <hr />
       <Style.Content>
         <MDXProvider>
@@ -220,6 +230,11 @@ export const pageQuery = graphql`
         date(formatString: "MMMM D, YYYY")
         tag
         blockComment
+        cover {
+          childImageSharp {
+            gatsbyImageData(width: 750, height: 400)
+          }
+        }
       }
     }
     site {

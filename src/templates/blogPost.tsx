@@ -6,6 +6,7 @@ import Seo from '../components/seo';
 import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ToTop from '../components/toTop';
+import Giscus, { GiscusProps } from '@giscus/react';
 
 interface DataProps {
   markdownRemark: {
@@ -13,11 +14,17 @@ interface DataProps {
       title: string;
       date: `${string} ${number}, ${number}`;
       tag: string[];
+      blockComment?: boolean;
       cover: {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
         };
       };
+    };
+  };
+  site: {
+    siteMetadata: {
+      giscus: GiscusProps;
     };
   };
 }
@@ -165,16 +172,23 @@ const BlogPost = ({
   const image: IGatsbyImageData | undefined = getImage(
     data.markdownRemark.frontmatter.cover
   );
+
+  const {
+    site: {
+      siteMetadata: { giscus },
+    },
+  } = data;
+
   return (
     <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
       <Style.Meta>
         <p>{data.markdownRemark.frontmatter.date}</p>
         <TagLinks>
           {data.markdownRemark.frontmatter.tag.map((tag, i) => (
-            <>
+            <span key={i}>
               <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
               {/* {data.markdownRemark.frontmatter.tag.length !== i + 1 ? `, ` : ''} */}
-            </>
+            </span>
           ))}
         </TagLinks>
       </Style.Meta>
@@ -185,6 +199,24 @@ const BlogPost = ({
           <div dangerouslySetInnerHTML={{ __html: pageContext.html }}></div>
         </MDXProvider>
       </Style.Content>
+      <hr />
+      {!data.markdownRemark.frontmatter.blockComment && (
+        <Giscus
+          id="comment"
+          repo={giscus.repo}
+          repoId={giscus.repoId}
+          category={giscus.category}
+          categoryId={giscus.categoryId}
+          mapping={giscus.mapping}
+          strict={giscus.strict}
+          reactionsEnabled={giscus.reactionsEnabled}
+          emitMetadata={giscus.emitMetadata}
+          inputPosition={giscus.inputPosition}
+          theme={giscus.theme}
+          lang={giscus.lang}
+          loading="lazy"
+        />
+      )}
       <ToTop />
     </Layout>
   );
@@ -197,10 +229,28 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM D, YYYY")
         tag
+        blockComment
         cover {
           childImageSharp {
             gatsbyImageData(width: 750, height: 400)
           }
+        }
+      }
+    }
+    site {
+      siteMetadata {
+        giscus {
+          category
+          categoryId
+          emitMetadata
+          inputPosition
+          lang
+          mapping
+          reactionsEnabled
+          repo
+          repoId
+          strict
+          theme
         }
       }
     }

@@ -113,6 +113,9 @@ const Style = {
         /* animation: link-line 0.1s ease-in; */
         border-bottom: 2px solid var(--theme-ui-colors-primary);
       }
+	  &.gatsby-resp-image-link:hover {
+        border-bottom: 0;
+      }
       &.anchor {
         /* transform: translateX(0); */
         opacity: 0;

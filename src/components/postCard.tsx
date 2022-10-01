@@ -45,7 +45,7 @@ const Frontmatter = styled.div<{ image?: boolean }>`
   padding: 0.2em 0.5em;
   /* border-left: 1px solid black; */
   /* width: ${(props) => (props.image ? '230' : '450')}px; */
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
   width: 490px;
 
   h2 {
@@ -79,7 +79,7 @@ const Meta = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
 `;
 
 const Data = styled.div`

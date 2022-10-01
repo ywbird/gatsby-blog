@@ -7,7 +7,7 @@ import { graphql } from 'gatsby';
 import Pagenation from './pagination';
 
 interface IData {
-  data?: IPosts[];
+  posts?: IPost[];
   // pageContext: {
   //   limit: number;
   //   skip: number;
@@ -15,7 +15,8 @@ interface IData {
   //   currentPage: number;
   // };
   // currentPage: number;
-  numPages: number;
+  usePagination?: boolean;
+  numPages?: number;
   tag?: string;
   // baseUrl?: string;
 }
@@ -30,9 +31,10 @@ const Posts = styled.div`
 `;
 
 const PostList: React.FC<IData> = ({
-  data,
+  posts,
   // currentPage,
   numPages,
+  usePagination,
   tag,
   // baseUrl,
 }) => {
@@ -40,8 +42,8 @@ const PostList: React.FC<IData> = ({
     // <Layout pageTitle="">
     <>
       <Posts>
-        {data &&
-          data.map((node, i) => (
+        {posts &&
+          posts.map((node, i) => (
             <PostCard
               key={node.id}
               // key={i}
@@ -56,7 +58,13 @@ const PostList: React.FC<IData> = ({
             />
           ))}
       </Posts>
-      <Pagenation tag={tag} numPages={numPages} />
+      {usePagination === undefined && numPages ? (
+        <Pagenation tag={tag} numPages={numPages} />
+      ) : usePagination && numPages ? (
+        <Pagenation tag={tag} numPages={numPages} />
+      ) : (
+        ''
+      )}
     </>
     // </Layout>
   );

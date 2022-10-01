@@ -1,4 +1,4 @@
-interface IPosts {
+interface IPost {
   frontmatter: {
     title: string;
     slug: string;
@@ -11,5 +11,6 @@ interface IPosts {
       };
     };
   };
+  html: string;
   id: string;
 }

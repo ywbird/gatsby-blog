@@ -1,6 +1,7 @@
 const theme = {
-  config: {
-    initialColorModeName: 'dark',
+  fonts: {
+    main: 'Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum, Tahoma, Geneva, sans-serif',
+    code: 'Source Code Pro, monospace',
   },
   colors: {
     text: '#eeeeee',
@@ -18,6 +19,7 @@ const theme = {
         background: '#222222',
         primary: '#e47588',
         border: '#777777',
+        mute: '#cccccc',
       },
       light: {
         text: '#333333',
@@ -26,6 +28,7 @@ const theme = {
         background: '#f3f3f3',
         primary: '#fb718a',
         border: '#aaaaaa',
+        mute: '#555555',
       },
     },
   },

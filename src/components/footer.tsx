@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery, Link, navigate } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
+import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -24,8 +23,8 @@ const FooterInner = styled.div`
   max-width: 1000px;
   /* display: grid; */
   /* place-items: center; */
-  font-family: var(--main-font);
-  font-size: 13px;
+  font-family: var(--theme-ui-fonts-main);
+  font-size: 15px;
   display: flex;
   flex-direction: column;
   color: var(--theme-ui-colors-text);
@@ -34,10 +33,18 @@ const FooterInner = styled.div`
 `;
 
 const CopyRight = styled.div`
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
   width: 600px;
   padding: 1em 0;
+`;
+
+const Link = styled.a`
+  color: var(--theme-ui-colors-primary);
+  text-decoration: none;
+  &:hover {
+    color: var(--theme-ui-colors-primary);
+  }
 `;
 
 const Footer = () => {
@@ -45,9 +52,9 @@ const Footer = () => {
     query Footer {
       site {
         siteMetadata {
-          siteUrl
           title
           github
+          nickname
         }
       }
     }
@@ -57,7 +64,12 @@ const Footer = () => {
     <FooterElement>
       <FooterInner>
         <CopyRight>
-          © 2022 ywbird powered by Lotus. All Rights Reserved.
+          © 2022 
+          <Link href={`https://github.com/${data.site?.siteMetadata?.github}`}>
+            {data.site?.siteMetadata?.nickname}
+          </Link>
+           powered by <Link href="https://github.com/ywbird/lotus">Lotus</Link>.
+          All Rights Reserved.
         </CopyRight>
       </FooterInner>
     </FooterElement>

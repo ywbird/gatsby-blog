@@ -6,7 +6,7 @@ import PostList from '../components/postList';
 
 interface DataProps {
   allMarkdownRemark: {
-    nodes: IPosts[];
+    nodes: IPost[];
   };
 }
 
@@ -30,7 +30,7 @@ const CategoryPage = ({
 
   return (
     <Layout pageTitle="">
-      <PostList data={data.allMarkdownRemark.nodes} {...pagenation} />
+      <PostList posts={data.allMarkdownRemark.nodes} {...pagenation} />
     </Layout>
   );
 };

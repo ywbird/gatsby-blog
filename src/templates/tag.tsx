@@ -48,7 +48,7 @@ const CategoryPage = ({
   return (
     <Layout pageTitle={pageContext.tag}>
       <PostList
-        data={data.allMarkdownRemark.nodes}
+        posts={data.allMarkdownRemark.nodes}
         tag={pageContext.tag}
         {...pagenation}
       />

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ToTopButton = styled.div`
   /* width: 40px;
   height: 40px; */
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
   color: var(--theme-ui-colors-text);
   cursor: pointer;
   letter-spacing: 0;

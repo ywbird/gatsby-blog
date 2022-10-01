@@ -6,7 +6,7 @@ import Theme from './theme';
 import Footer from './footer';
 
 interface DataProps {
-  pageTitle: string;
+  pageTitle?: string;
   maxWidth?: number;
   aside?: { node: React.FC<any>; props: Object };
   children: React.ReactNode;
@@ -27,13 +27,13 @@ const Container = styled.div`
 
 const Heading = styled.h1`
   color: var(--theme-ui-colors-text);
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
 `;
 
 const Main = styled.main<{ maxWidth?: number }>`
   max-width: ${(props) => props.maxWidth ?? '1000'}px;
   margin: auto;
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
 `;
 
 const Layout: React.FC<DataProps> = ({
@@ -48,7 +48,7 @@ const Layout: React.FC<DataProps> = ({
         <Header />
         <Container>
           <Main maxWidth={maxWidth}>
-            <Heading>{pageTitle}</Heading>
+            <Heading>{pageTitle ?? ''}</Heading>
             {children}
           </Main>
           {aside && <aside.node {...aside.props} />}

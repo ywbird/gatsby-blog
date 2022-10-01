@@ -29,7 +29,7 @@ const SiteTitle = styled.h1`
 const SiteTitleLink = styled(Link)`
   text-decoration: none;
   color: var(--theme-ui-colors-text);
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
 `;
 
 const SiteLogo = styled(Link)`
@@ -63,7 +63,7 @@ const NavItem = styled.li`
 
 const NavLink = styled(Link)`
   color: var(--theme-ui-colors-text);
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
   /* padding-right: 2rem;
   padding-left: 2rem; */
   text-decoration: none;
@@ -71,7 +71,7 @@ const NavLink = styled(Link)`
 
 const NavLinkA = styled.a`
   color: var(--theme-ui-colors-text);
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
   /* padding-right: 2rem;
   padding-left: 2rem; */
   text-decoration: none;
@@ -97,11 +97,11 @@ const HeaderLinks = styled.header`
   background-color: var(--theme-ui-colors-background);
   z-index: 1;
   /* justify-content: space-between; */
-  align-items: baseline;
+  align-items: center;
 `;
 
 const ToggleColorTheme = styled.div`
-  font-family: var(--main-font);
+  font-family: var(--theme-ui-fonts-main);
   width: 2.5em;
   cursor: pointer;
 `;
@@ -179,6 +179,9 @@ const Header = () => {
                 )}
               </NavItem>
             ))}
+            <NavItem>
+              <NavLink to="/search">Search</NavLink>
+            </NavItem>
           </NavLinks>
         </nav>
         <ToggleColorTheme onClick={toggle}>

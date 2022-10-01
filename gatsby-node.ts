@@ -121,4 +121,9 @@ export const createPages: GatsbyNode['createPages'] = async ({
       tags: data.allMarkdownRemark.group,
     },
   });
+
+  createPage({
+    path: '/search',
+    component: path.resolve('./src/templates/search.tsx'),
+  });
 };

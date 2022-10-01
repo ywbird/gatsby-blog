@@ -9,14 +9,6 @@ const config: GatsbyConfig = {
     description: `Gatsby framework blog`,
     navigation: [
       {
-        url: `${siteUrl}/rss.xml`,
-        name: `Feed`,
-      },
-      {
-        url: `https://github.com/ywbird`,
-        name: `Github`,
-      },
-      {
         url: `/tags`,
         name: `Tags`,
       },
@@ -27,6 +19,7 @@ const config: GatsbyConfig = {
     ],
     logo: `/icon.png`,
     github: `ywbird`,
+    nickname: '고앵이',
   },
   pathPrefix: '/lotus',
   trailingSlash: 'never',

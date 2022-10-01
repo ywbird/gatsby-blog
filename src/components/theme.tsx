@@ -18,17 +18,7 @@ const Style = styled.div<{
   /* height: 100%; */
 `;
 
-const GlobalStyle = createGlobalStyle<{
-  fonts: { main: string; code: string };
-  colors: {
-    light: IColorTheme;
-    dark: IColorTheme;
-  };
-}>`
-  :root {
-    --theme-ui-fonts-main: ${(props) => props.fonts.main};
-    --theme-ui-fonts-code: ${(props) => props.fonts.code};
-  }
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     position: relative;

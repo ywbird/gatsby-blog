@@ -26,13 +26,13 @@ const Container = styled.div`
 
 const Heading = styled.h1`
   color: var(--theme-ui-colors-text);
-  font-family: var(--theme-ui-fonts-main);
+  font-family: var(--main-font);
 `;
 
 const Main = styled.main<{ maxWidth?: number }>`
   max-width: ${(props) => props.maxWidth ?? '1000'}px;
   margin: auto;
-  font-family: var(--theme-ui-fonts-main);
+  font-family: var(--main-font);
 `;
 
 const Layout: React.FC<DataProps> = ({

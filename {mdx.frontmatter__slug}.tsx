@@ -38,7 +38,7 @@ const Content = styled.div`
   }
 
   pre code {
-    font-family: var(--theme-ui-fonts-code) !important;
+    font-family: var(--code-font) !important;
     font-size: 0.9em !important;
   }
 
@@ -56,7 +56,7 @@ const Content = styled.div`
     display: inline-block;
     margin-bottom: -0.6rem;
     padding: 0.3em 1em;
-    font-family: var(--theme-ui-fonts-code);
+    font-family: var(--code-font);
     font-size: 1em;
 
     background-color: #282a36;
@@ -125,7 +125,7 @@ const Content = styled.div`
 `;
 
 const Posted = styled.p`
-  font-family: var(--theme-ui-fonts-main);
+  font-family: var(--main-font);
 `;
 
 const BlogPost: React.FC<{

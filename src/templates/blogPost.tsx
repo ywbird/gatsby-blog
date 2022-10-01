@@ -35,7 +35,7 @@ const Style = {
     }
 
     pre code {
-      font-family: var(--theme-ui-fonts-code) !important;
+      font-family: var(--code-font) !important;
       font-size: 0.9em !important;
     }
 
@@ -64,7 +64,7 @@ const Style = {
       margin-top: 0.5em;
       margin-bottom: -0.6rem;
       padding: 0.3em 1em;
-      font-family: var(--theme-ui-fonts-code);
+      font-family: var(--code-font);
       font-size: 1em;
 
       background-color: #282a36;
@@ -135,7 +135,7 @@ const Style = {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-family: var(--theme-ui-fonts-main);
+    font-family: var(--main-font);
     p {
       color: var(--theme-ui-colors-text);
     }

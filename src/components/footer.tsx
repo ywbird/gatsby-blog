@@ -23,7 +23,7 @@ const FooterInner = styled.div`
   max-width: 1000px;
   /* display: grid; */
   /* place-items: center; */
-  font-family: var(--theme-ui-fonts-main);
+  font-family: var(--main-font);
   font-size: 15px;
   display: flex;
   flex-direction: column;

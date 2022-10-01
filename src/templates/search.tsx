@@ -16,7 +16,7 @@ const SearchInput = styled.input`
   border: 0;
   /* border-bottom: 1px solid var(--theme-ui-colors-text); */
   color: var(--theme-ui-colors-text);
-  font-family: var(--theme-ui-fonts-main);
+  font-family: var(--main-font);
   font-size: 1em;
   width: 380px;
   &:focus {

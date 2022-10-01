@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import '../prism-dracula.css';
 import Font from './fonts';
+import Fonts from '../fonts';
 
 const Style = styled.div`
   margin: 0;
@@ -11,7 +12,13 @@ const Style = styled.div`
   /* height: 100%; */
 `;
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{
+  fonts: { main: string; code: string };
+}>`
+  :root{
+    --main-font: ${(props) => props.fonts.main};
+    --code-font: ${(props) => props.fonts.code};
+  }
   body {
     margin: 0;
     position: relative;
@@ -35,7 +42,7 @@ const Theme: React.FC<{
   //     (darkMode === 'true' ? 'dark' : 'light') + '-mode';
   return (
     <Style>
-      <GlobalStyle />
+      <GlobalStyle fonts={Fonts} />
       {children}
     </Style>
   );

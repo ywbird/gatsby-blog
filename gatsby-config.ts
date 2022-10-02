@@ -3,7 +3,7 @@ import metaConfig from './gatsby-meta-config';
 
 const config: GatsbyConfig = {
   siteMetadata: metaConfig,
-  pathPrefix: '/lotus',
+  pathPrefix: '/lotus-gatsby-theme',
   trailingSlash: 'never',
   jsxRuntime: 'automatic',
   graphqlTypegen: true,

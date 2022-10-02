@@ -12,7 +12,7 @@ interface MetaConfig {
 }
 
 const meta: MetaConfig = {
-  siteUrl: `https://ywbird.github.io/lotus`,
+  siteUrl: `https://ywbird.github.io/lotus-gatsby-theme`,
   title: `Lotus`,
   description: `Gatsby framework blog`,
   navigation: [
@@ -29,7 +29,7 @@ const meta: MetaConfig = {
   github: `ywbird`,
   nickname: '고앵이',
   giscus: {
-    repo: `ywbird/lotus`,
+    repo: `ywbird/lotus-gatsby-theme`,
     repoId: `R_kgDOH2uwzg`,
     category: 'Site Comment',
     categoryId: 'DIC_kwDOH2uwzs4CRvBI',

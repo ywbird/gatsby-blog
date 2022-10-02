@@ -140,6 +140,7 @@ const Style = {
         }
       }
     }
+
     table,
     td,
     th {
@@ -147,9 +148,9 @@ const Style = {
       padding: 1px 4px;
     }
     thead {
-      background-color: var(--theme-ui-colors-border);
+      background-color: var(--theme-ui-colors-table);
       color: var(--theme-ui-colors-text);
-      opacity: 80%;
+      /* opacity: 80%; */
     }
     table {
       border-collapse: collapse;

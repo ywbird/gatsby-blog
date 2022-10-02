@@ -6,6 +6,8 @@ const theme = {
     background: '#222222',
     primary: '#e47588',
     border: '#777777',
+    table: '#999999',
+    mute: '#cccccc',
 
     modes: {
       dark: {
@@ -15,6 +17,7 @@ const theme = {
         background: '#222222',
         primary: '#e47588',
         border: '#777777',
+        table: '#555555',
         mute: '#cccccc',
       },
       light: {
@@ -24,6 +27,7 @@ const theme = {
         background: '#efefef',
         primary: '#fb718a',
         border: '#aaaaaa',
+        table: '#cccccc',
         mute: '#555555',
       },
     },

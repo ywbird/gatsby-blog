@@ -1,39 +1,8 @@
 import type { GatsbyConfig } from 'gatsby';
-
-const siteUrl = 'https://ywbird.github.io/lotus/';
+import metaConfig from './gatsby-meta-config';
 
 const config: GatsbyConfig = {
-  siteMetadata: {
-    siteUrl: `https://ywbird.github.io/lotus`,
-    title: `Lotus`,
-    description: `Gatsby framework blog`,
-    navigation: [
-      {
-        url: `/tags`,
-        name: `Tags`,
-      },
-      {
-        url: `/about`,
-        name: `About`,
-      },
-    ],
-    logo: `/icon.png`,
-    github: `ywbird`,
-    nickname: '고앵이',
-    giscus: {
-      repo: `ywbird/lotus`,
-      repoId: `R_kgDOH2uwzg`,
-      category: 'Site Comment',
-      categoryId: 'DIC_kwDOH2uwzs4CRvBI',
-      mapping: 'title',
-      strict: '0',
-      reactionsEnabled: '1',
-      emitMetadata: '0',
-      inputPosition: 'top',
-      theme: 'dark_dimmed',
-      lang: 'en',
-    },
-  },
+  siteMetadata: metaConfig,
   pathPrefix: '/lotus',
   trailingSlash: 'never',
   jsxRuntime: 'automatic',
@@ -43,40 +12,7 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   plugins: [
     `gatsby-plugin-styled-components`,
-    `gatsby-plugin-theme-ui`, // {
-    //   resolve: `gatsby-plugin-mdx`,
-    //   options: {
-    //     gatsbyRemarkPlugins: [
-    //       {
-    //         resolve: 'gatsby-remark-code-titles',
-    //         options: {
-    //           className: 'gatsby-remark-code-title',
-    //         },
-    //       },
-    //       {
-    //         resolve: `gatsby-remark-images`,
-    //         options: {
-    //           maxWidth: 750,
-    //         },
-    //       },
-    //       {
-    //         resolve: `gatsby-remark-autolink-headers`,
-    //         options: {
-    //           // icon: false,
-    //           // className: `header-link`,
-    //           // offsetY: `400`,
-    //         },
-    //       },
-    //       {
-    //         resolve: `gatsby-remark-prismjs`,
-    //         options: {
-    //           classPrefix: 'language-',
-    //           showLineNumbers: false,
-    //         },
-    //       },
-    //     ],
-    //   },
-    // },
+    `gatsby-plugin-theme-ui`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
@@ -113,15 +49,25 @@ const config: GatsbyConfig = {
         // Plugins configs
         plugins: [
           {
-            resolve: 'gatsby-remark-code-titles',
-            options: {
-              className: 'gatsby-remark-code-title',
-            },
-          },
-          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 750,
+              linkImagesToOriginal: false,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images-medium-zoom`,
+            options: {
+              margin: 36,
+              scrollOffset: 0,
+              background: 'transparent',
+            },
+          },
+          // `gatsby-remark-images-zoom`,
+          {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: 'gatsby-remark-code-title',
             },
           },
           {
@@ -136,8 +82,10 @@ const config: GatsbyConfig = {
             options: {
               classPrefix: 'language-',
               showLineNumbers: false,
+              inlineCodeMarker: '%',
             },
           },
+          `gatsby-remark-responsive-iframe`,
         ],
       },
     },
@@ -157,46 +105,10 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-advanced-sitemap`,
       options: { output: '/sitemap.xml' },
     },
-    // {
-    //   resolve: 'gatsby-plugin-sitemap',
-    //   options: {
-    //     query: `
-    //       {
-    //         site {
-    //           siteMetadata {
-    //             siteUrl
-    //           }
-    //         }
-
-    //         allSitePage {
-    //           nodes {
-    //             path
-    //           }
-    //         }
-    //       }
-    //     `,
-    //     resolveSiteUrl: () => siteUrl,
-    //     serialize: ({ path }: { path: string }) => {
-    //       if (path.startsWith('/blog/')) {
-    //         return {
-    //           url: `${siteUrl}${path}`,
-    //           changefreq: `never`,
-    //           priority: 0.5,
-    //         };
-    //       } else {
-    //         return {
-    //           url: `${siteUrl}${path}`,
-    //           changefreq: `weekly`,
-    //           priority: 0.7,
-    //         };
-    //       }
-    //     },
-    //   },
-    // },
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl,
+        siteUrl: metaConfig.siteUrl,
       },
     },
     {
@@ -282,8 +194,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        host: siteUrl,
-        sitemap: `${siteUrl}/sitemap.xsl`,
+        host: metaConfig.siteUrl,
+        sitemap: `${metaConfig.siteUrl}/sitemap.xsl`,
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },
@@ -291,32 +203,7 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-plugin-google-tagmanager',
       options: {
         id: 'GTM-PFPXKNM',
-
-        // Include GTM in development.
-        //
-        // Defaults to false meaning GTM will only be loaded in production.
         includeInDevelopment: false,
-
-        // datalayer to be set before GTM is loaded
-        // should be an object or a function that is executed in the browser
-        //
-        // Defaults to null
-        // defaultDataLayer: { platform: 'gatsby' },
-
-        // // Specify optional GTM environment details.
-        // gtmAuth: 'YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_AUTH_STRING',
-        // gtmPreview: 'YOUR_GOOGLE_TAGMANAGER_ENVIRONMENT_PREVIEW_NAME',
-        // dataLayerName: 'YOUR_DATA_LAYER_NAME',
-
-        // Name of the event that is triggered
-        // on every Gatsby route change.
-        //
-        // Defaults to gatsby-route-change
-        // routeChangeEventName: 'YOUR_ROUTE_CHANGE_EVENT_NAME',
-        // Defaults to false
-        // enableWebVitalsTracking: true,
-        // Defaults to https://www.googletagmanager.com
-        // selfHostedOrigin: 'YOUR_SELF_HOSTED_ORIGIN',
       },
     },
   ],

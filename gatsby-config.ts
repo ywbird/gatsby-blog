@@ -145,9 +145,9 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Noto Sans KR\:400,400i,700,700i`,
-          `Noto Sans CJK KR\:400,400i,700,700i`,
-          `Nanum Gothic\:400,400i,700,700i`,
+          `Noto Sans KR\:300,300i,400,400i,500,500i`,
+          `Noto Sans CJK KR\:300,300i,400,400i,500,500i`,
+          `Nanum Gothic\:300,300i,500,500i`,
           `Source Code Pro`,
         ],
         display: 'swap',

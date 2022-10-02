@@ -29,6 +29,16 @@ const GlobalStyle = createGlobalStyle<{
   html{
     height: 100%;
   }
+  * {font-weight: 300 !important;}
+  * strong {font-weight: 500 !important}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 400 !important;
+  }
 `;
 
 const Theme: React.FC<{

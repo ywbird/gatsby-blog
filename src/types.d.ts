@@ -3,7 +3,7 @@ interface IPost {
     title: string;
     slug: string;
     date: `${string} ${number}, ${number}`;
-    description: string;
+    description?: string;
     tag?: string;
   };
   html: string;

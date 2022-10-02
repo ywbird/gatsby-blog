@@ -32,7 +32,7 @@ interface DataProps {
 const Style = {
   Content: styled.div`
     font-size: 17px;
-    code[class*='language-'],
+
     pre[class*='language-'] {
       padding: 1em;
       margin: 0em 0 0.5em 0;

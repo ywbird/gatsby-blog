@@ -1,10 +1,10 @@
 {
   "name": "lotus",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "description": "Lotus",
   "author": "ywbird",
-  "homepage": "https://ywbird.github.io/lotus",
+  "homepage": "https://ywbird.github.io/lotus-gatsby-theme",
   "keywords": [
     "gatsby"
   ],

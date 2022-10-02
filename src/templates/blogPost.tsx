@@ -32,35 +32,42 @@ interface DataProps {
 const Style = {
   Content: styled.div`
     font-size: 17px;
+    code[class*='language-'],
     pre[class*='language-'] {
       padding: 1em;
       margin: 0em 0 0.5em 0;
       /* overflow: ; */
       overflow-wrap: break-word;
       border-radius: 0.3em;
+      line-height: 1.1;
+      tab-size: 2;
+      border-radius: 0;
       /* border-top-left-radius: 0; */
     }
 
     code {
       font-family: var(--code-font) !important;
-      font-size: 0.9em !important;
+      font-size: 0.8em !important;
+      color: var(--theme-ui-colors-text);
     }
 
     blockquote {
-      margin-left: 0;
-      padding-left: 40px;
-      border-left: 3px solid var(--theme-ui-colors-border);
-      opacity: 80%;
-      /* background-color: var(--background-color); */
+      /* padding-left: 40px; */
+      border-left: 0.5em solid var(--theme-ui-colors-border);
+      /* opacity: 80%; */
+      background-color: var(--theme-ui-colors-background-secondary);
       color: var(--theme-ui-colors-text);
+      padding: 0.1em 0 0.1em 30px;
+      margin: 1em 0.5em;
       /* filter: invert(); */
     }
 
     .gatsby-highlight-code-line {
       background-color: #535547;
       display: block;
-      margin-right: calc(-1em - 2px);
-      margin-left: calc(-1em - 2px);
+      /* margin-right: calc(-1em - 2px);
+      margin-left: calc(-1em - 2px); */
+      margin: 0 calc(-1em - 3px);
       padding-right: 1em;
       padding-left: calc(0.75em + 2px);
       border-left: 0.3em solid #a6e22e;
@@ -69,26 +76,28 @@ const Style = {
     .gatsby-remark-code-title {
       display: inline-block;
       margin-top: 0.5em;
-      margin-bottom: -0.6rem;
-      padding: 0.3em 1em;
+      /* margin-bottom: -0.6rem; */
+      padding: 0.3em 0.7em;
       font-family: var(--code-font);
-      font-size: 1em;
+      font-size: 0.9em;
+      font-weight: 400;
 
       background-color: #282a36;
       color: white;
       z-index: 0;
 
-      border-top-left-radius: 0.3em;
-      border-top-right-radius: 0.3em;
+      /* border-top-left-radius: 0.3em;
+      border-top-right-radius: 0.3em; */
     }
 
     /* :not(pre) > code.language-text {
     background-color: gray;
   } */
-    div:not(pre) > code {
-      background-color: gray !important;
-      padding: 2px 5px;
-      border-radius: 4px;
+    *:not(pre) > code.language-text {
+      background-color: var(--theme-ui-colors-background-secondary) !important;
+      padding: 1px 5px;
+      color: var(--theme-ui-colors-text);
+      border-radius: 3px;
       /* color: var(--text-color); */
     }
 
@@ -99,7 +108,30 @@ const Style = {
     h5,
     h6 {
       color: var(--theme-ui-colors-heading);
+      &:hover {
+        a.anchor {
+          opacity: 100%;
+          /* transform: translateX(-100%); */
+        }
+      }
     }
+
+    h2 {
+      font-size: 1.75rem;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+    h4 {
+      font-size: 1.35rem;
+    }
+    h5 {
+      font-size: 1.2rem;
+    }
+    h6 {
+      font-size: 1.05rem;
+    }
+
     color: var(--theme-ui-colors-content);
 
     a {
@@ -126,21 +158,6 @@ const Style = {
         }
       }
     }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      &:hover {
-        a.anchor {
-          opacity: 100%;
-          /* transform: translateX(-100%); */
-        }
-      }
-    }
-
     table,
     td,
     th {
@@ -148,7 +165,7 @@ const Style = {
       padding: 1px 4px;
     }
     thead {
-      background-color: var(--theme-ui-colors-table);
+      background-color: var(--theme-ui-colors-background-secondary);
       color: var(--theme-ui-colors-text);
       /* opacity: 80%; */
     }

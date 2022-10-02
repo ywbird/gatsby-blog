@@ -36,7 +36,10 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path: `${__dirname}/blog/posts`,
+        path:
+          process.env.NODE_ENV === 'development'
+            ? `${__dirname}/blog/`
+            : `${__dirname}/blog/posts`,
       },
     },
     {

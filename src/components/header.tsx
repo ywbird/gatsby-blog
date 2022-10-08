@@ -17,11 +17,24 @@ interface IData {
   };
 }
 
+const SiteTitleDiv = styled.div`
+  margin: 1rem auto 1rem 0;
+  @media only screen and (max-device-width: 600px) {
+    margin: 0rem auto;
+    height: 50px;
+    width: 100%;
+    /* display: flex;
+    place-items: center; */
+  }
+  display: grid;
+  place-items: center;
+`;
+
 const SiteTitle = styled.h1`
   font-size: 2rem;
+  margin: 0;
   color: gray;
   font-weight: 700;
-  margin: 1rem auto 1rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,6 +56,11 @@ const NavLinks = styled.ul`
   display: flex;
   list-style: none;
   padding-left: 0;
+  /* @media only screen and (max-device-width: 600px) {
+    position: sticky;
+    width: 100%;
+    top: 0;
+  } */
 `;
 
 const NavItem = styled.li`
@@ -50,15 +68,12 @@ const NavItem = styled.li`
   &:first-child {
     padding-left: 0;
   }
-  &::after {
+  /* &::after {
     content: '|';
     margin: 0 0 0 2rem;
     white-space: pre;
     color: var(--theme-ui-colors-text);
     pointer-events: none;
-  }
-  /* &:last-child::after {
-    content: '';
   } */
 `;
 
@@ -83,11 +98,16 @@ const HeaderElement = styled.div`
   position: sticky;
   width: 100%;
   top: 0;
-  z-index: 2;
+  z-index: 2000;
   opacity: 90%;
+
+  @media only screen and (max-device-width: 600px) {
+    position: sticky;
+    top: -57px;
+  }
 `;
 
-const HeaderLinks = styled.header`
+const HeaderInner = styled.header`
   margin: auto;
   max-width: 1000px;
   /* max-height: 60px; */
@@ -96,14 +116,29 @@ const HeaderLinks = styled.header`
   /* align-content: center; */
   flex-direction: row;
   background-color: var(--theme-ui-colors-background);
-  z-index: 1;
+  z-index: 1000;
   /* justify-content: space-between; */
   align-items: center;
+
+  @media only screen and (max-device-width: 1000px) and (min-device-width: 601px) {
+    min-width: max-content;
+    padding: 0 1em;
+  }
+
+  @media only screen and (max-device-width: 600px) {
+    flex-direction: column;
+  }
+
+  /* @media only screen and (max-device-width: 768px) {
+    flex-direction: column;
+  } */
 `;
 
-const ToggleColorTheme = styled.div`
+const ToggleColorTheme = styled.li`
   font-family: var(--main-font);
+  margin: 0 2rem 0 0;
   width: 2.5em;
+  margin-right: 0;
   cursor: pointer;
 `;
 
@@ -111,41 +146,9 @@ const Header = () => {
   const [colorTheme, setColorTheme] = useThemeState();
   const nextColorMode = colorTheme === 'light' ? 'dark' : 'light';
 
-  // const isWindow: boolean = typeof window !== 'undefined';
-  // const isDocument: boolean = typeof document !== 'undefined';
-  // const [colorTheme, setColorTheme] = useState<string>('dark');
-  // useEffect(() => {
-  //   setColorTheme(
-  //     (isWindow && window.localStorage.getItem('darkMode')) || 'true'
-  //   );
-
-  //   if (isDocument && isWindow) {
-  //     const darkMode = window.localStorage.getItem('darkMode');
-  //     if (darkMode === 'true') {
-  //       document.body.className = 'dark-mode';
-  //     } else if (darkMode === 'false') {
-  //       document.body.className = 'light-mode';
-  //     }
-  //   }
-  // }, []);
   const toggle = () => {
     setColorTheme(nextColorMode);
-    // if (isDocument && isWindow) {
-    //   const mode = window.localStorage.getItem('darkMode') || 'false';
-    //   if (mode === 'false') {
-    //     setColorTheme('true');
-    //     window.localStorage.setItem('darkMode', 'true');
-    //     document.body.className = 'dark-mode';
-    //   } else if (mode === 'true') {
-    //     setColorTheme('false');
-    //     window.localStorage.setItem('darkMode', 'false');
-    //     document.body.className = 'light-mode';
-    //   } else {
-    //     window.localStorage.setItem('darkMode', 'true');
-    //   }
-    // }
   };
-  // const toggle = () => {};
 
   const data: Queries.HeaderQuery = useStaticQuery(graphql`
     query Header {
@@ -162,37 +165,41 @@ const Header = () => {
   `);
   return (
     <HeaderElement>
-      <HeaderLinks>
-        <SiteTitle>
-          <SiteLogo to="/">
-            <StaticImage src="../images/logo.svg" alt="logo" width={40} />
-          </SiteLogo>
-          <SiteTitleLink to="/">{data.site?.siteMetadata?.title}</SiteTitleLink>
-        </SiteTitle>
-        <nav>
-          <NavLinks>
-            {data.site?.siteMetadata?.navigation?.map((item, i) => (
-              <NavItem key={i}>
-                {item?.url?.startsWith('https://') ? (
-                  <NavLinkA href={item?.url ?? '/'}>{item?.name}</NavLinkA>
-                ) : (
-                  <NavLink to={item?.url ?? '/'}>{item?.name}</NavLink>
-                )}
-              </NavItem>
-            ))}
-            <NavItem>
-              <NavLink to="/search">Search</NavLink>
+      <HeaderInner>
+        <SiteTitleDiv>
+          <SiteTitle>
+            <SiteLogo to="/">
+              <StaticImage src="../images/logo.svg" alt="logo" width={40} />
+            </SiteLogo>
+            <SiteTitleLink to="/">
+              {data.site?.siteMetadata?.title}
+            </SiteTitleLink>
+          </SiteTitle>
+        </SiteTitleDiv>
+        {/* <HeaderLinks> */}
+        <NavLinks>
+          {data.site?.siteMetadata?.navigation?.map((item, i) => (
+            <NavItem key={i}>
+              {item?.url?.startsWith('https://') ? (
+                <NavLinkA href={item?.url ?? '/'}>{item?.name}</NavLinkA>
+              ) : (
+                <NavLink to={item?.url ?? '/'}>{item?.name}</NavLink>
+              )}
             </NavItem>
-          </NavLinks>
-        </nav>
-        <ToggleColorTheme onClick={toggle}>
-          {colorTheme === 'dark'
-            ? 'Dark'
-            : colorTheme === 'light'
-            ? 'Light'
-            : 'Init'}
-        </ToggleColorTheme>
-      </HeaderLinks>
+          ))}
+          <NavItem>
+            <NavLink to="/search">Search</NavLink>
+          </NavItem>
+          <ToggleColorTheme onClick={toggle}>
+            {colorTheme === 'dark'
+              ? 'Dark'
+              : colorTheme === 'light'
+              ? 'Light'
+              : 'Init'}
+          </ToggleColorTheme>
+        </NavLinks>
+        {/* </HeaderLinks> */}
+      </HeaderInner>
     </HeaderElement>
   );
 };

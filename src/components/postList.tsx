@@ -25,6 +25,9 @@ const Posts = styled.div`
   /* flex-direction: row;
   flex-wrap: wrap;
   justify-content: center; */
+  @media only screen and (max-device-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const PostList: React.FC<IData> = ({
@@ -47,7 +50,7 @@ const PostList: React.FC<IData> = ({
               slug={node.frontmatter.slug}
               title={node.frontmatter.title}
               date={node.frontmatter.date}
-              excerpt={node.frontmatter.description}
+              excerpt={node.excerpt || ''}
             />
           ))}
       </Posts>

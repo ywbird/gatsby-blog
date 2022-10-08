@@ -30,12 +30,16 @@ const FooterInner = styled.div`
   color: var(--theme-ui-colors-text);
   justify-content: space-evenly;
   /* align-content: space-around; */
+
+  @media only screen and (max-device-width: 1000px) {
+    min-width: auto;
+  }
 `;
 
 const CopyRight = styled.div`
   display: flex;
   justify-content: center;
-  width: 600px;
+  /* width: 600px; */
   padding: 1em 0;
 `;
 

@@ -20,7 +20,7 @@ const PostLinkItem = styled(Link)`
 
 const Card = styled.article`
   /* width: 450px; */
-  height: 200px;
+  /* height: 200px; */
   /* margin: 1em; */
   /* border: 2px solid var(--border-color); */
 
@@ -31,18 +31,17 @@ const Card = styled.article`
     transform 0.15s ease-out, box-shadow 0.15s ease-out, border 0.15s ease-out;
   display: flex;
   flex-direction: row;
-  /* box-shadow: 5px 5px var(--border-color); */
-  &:hover {
-    /* box-shadow: 3px 3px var(--border-color); */
-    /* transform: translate(0px, 2px); */
-    /* background-color: aqua; */
+
+  @media only screen and (max-device-width: 600px) {
+    /* height: 110px; */
+    /* min-width: 300px; */
   }
 `;
 
 const Frontmatter = styled.div`
   padding: 0.2em 0.5em;
   font-family: var(--main-font);
-  width: 490px;
+  /* width: 490px; */
 
   h2 {
     margin: 0;
@@ -51,31 +50,26 @@ const Frontmatter = styled.div`
   }
 `;
 
-const Excerpt = styled.p`
-  overflow: hidden;
+const Title = styled.h2`
   display: -webkit-box;
-  -webkit-line-clamp: 6;
   -moz-box-orient: vertical;
-  -webkit-box-orient: vertical;
-  margin: 0px 0 0 0;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  word-break: break-all;
 `;
 
-const MetaInner = styled.p`
-  margin: 8px 0;
-`;
-
-const Meta = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: var(--main-font);
+const Excerpt = styled.p`
+  display: -webkit-box;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  word-break: break-all;
 `;
 
 const Data = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 160px;
 `;
 
 const PostCard: React.FC<PostCardProps> = ({ slug, title, date, excerpt }) => {
@@ -83,12 +77,9 @@ const PostCard: React.FC<PostCardProps> = ({ slug, title, date, excerpt }) => {
     <Card>
       <Frontmatter>
         <PostLinkItem to={`/post/${slug}`}>
-          <h2>{title}</h2>
+          <Title>{title}</Title>
           <Data>
             <Excerpt>{excerpt}</Excerpt>
-            <Meta>
-              <MetaInner>{date}</MetaInner>
-            </Meta>
           </Data>
         </PostLinkItem>
       </Frontmatter>

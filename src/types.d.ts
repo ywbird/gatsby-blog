@@ -3,9 +3,9 @@ interface IPost {
     title: string;
     slug: string;
     date: `${string} ${number}, ${number}`;
-    description?: string;
     tag?: string;
   };
+  excerpt?: string;
   html: string;
   id: string;
 }

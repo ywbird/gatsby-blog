@@ -57,16 +57,11 @@ const Search = ({ data }: PageProps<DataProps>) => {
   }, []);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const SearchFilter = (node: {
-      frontmatter: { title: string; description?: string };
-    }) => {
+    const SearchFilter = (node: { frontmatter: { title: string } }) => {
       const title = node.frontmatter.title;
-      const desc = node.frontmatter.description ?? '';
       return (
-        (title.toLowerCase().search(e.target.value) !== -1 &&
-          title.toLowerCase().search(e.target.value) !== undefined) ||
-        (desc.toLowerCase().search(e.target.value) !== -1 &&
-          desc.toLowerCase().search(e.target.value) !== undefined)
+        title.toLowerCase().search(e.target.value) !== -1 &&
+        title.toLowerCase().search(e.target.value) !== undefined
       );
     };
     const temp: IPost[] = data.allMarkdownRemark.nodes.filter(SearchFilter);
@@ -102,9 +97,9 @@ export const pageQuery = graphql`
           title
           date(formatString: "MMM D, YYYY")
           slug
-          description
           tag
         }
+        excerpt
         id
       }
     }

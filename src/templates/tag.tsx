@@ -59,9 +59,9 @@ export const pageQuery = graphql`
           title
           date(formatString: "MMM D, YYYY")
           slug
-          description
           tag
         }
+        excerpt
         id
       }
     }

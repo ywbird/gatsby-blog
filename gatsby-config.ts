@@ -63,7 +63,7 @@ const config: GatsbyConfig = {
             options: {
               margin: 36,
               scrollOffset: 0,
-              background: 'transparent',
+              background: 'rgba(0,0,0,0.5)',
             },
           },
           // `gatsby-remark-images-zoom`,
@@ -76,7 +76,8 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              // className: `header-link`,
+              // className: `header-link`,,
+              isIconAfterHeader: true,
               // offsetY: `400`,
             },
           },
@@ -146,7 +147,7 @@ const config: GatsbyConfig = {
                     html: string;
                     frontmatter: {
                       title: string;
-                      description: string;
+                      excerpt: string;
                       date: string;
                       slug: string;
                     };
@@ -156,7 +157,7 @@ const config: GatsbyConfig = {
             }) => {
               return allMarkdownRemark.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
-                  description: node.frontmatter.description,
+                  excerpt: node.frontmatter.excerpt,
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.frontmatter.slug,
                   guid: site.siteMetadata.siteUrl + node.frontmatter.slug,
@@ -172,7 +173,7 @@ const config: GatsbyConfig = {
                   nodes {
                     html
                     frontmatter {
-                      description
+                      excerpt
                       slug
                       title
                       date

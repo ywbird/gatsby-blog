@@ -155,9 +155,9 @@ const config: GatsbyConfig = {
                 allMarkdownRemark: {
                   nodes: {
                     html: string;
+                    excerpt: string;
                     frontmatter: {
                       title: string;
-                      excerpt: string;
                       date: string;
                       slug: string;
                     };
@@ -167,7 +167,7 @@ const config: GatsbyConfig = {
             }) => {
               return allMarkdownRemark.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
-                  excerpt: node.frontmatter.excerpt,
+                  excerpt: node.excerpt,
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.frontmatter.slug,
                   guid: site.siteMetadata.siteUrl + node.frontmatter.slug,

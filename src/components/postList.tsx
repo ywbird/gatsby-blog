@@ -39,7 +39,6 @@ const PostList: React.FC<IData> = ({
   // baseUrl,
 }) => {
   return (
-    // <Layout pageTitle="">
     <>
       <Posts>
         {posts &&
@@ -62,7 +61,6 @@ const PostList: React.FC<IData> = ({
         ''
       )}
     </>
-    // </Layout>
   );
 };
 

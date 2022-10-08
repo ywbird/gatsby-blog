@@ -4,4 +4,4 @@ public
 src/gatsby-types.d.ts
 .vscode/
 
-./__test/
+__test/

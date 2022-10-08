@@ -95,7 +95,7 @@ const config: GatsbyConfig = {
               theme: 'One Dark Pro',
               extensions: ['material-theme'],
               inlineCode: {
-                marker: '%',
+                marker: '^%',
               },
             },
           },

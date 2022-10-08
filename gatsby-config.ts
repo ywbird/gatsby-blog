@@ -182,8 +182,8 @@ const config: GatsbyConfig = {
                 ) {
                   nodes {
                     html
+                    excerpt
                     frontmatter {
-                      excerpt
                       slug
                       title
                       date

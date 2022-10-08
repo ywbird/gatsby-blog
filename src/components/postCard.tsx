@@ -56,6 +56,7 @@ const Title = styled.h2`
   -webkit-line-clamp: 4;
   overflow: hidden;
   word-break: break-all;
+  color: var(--theme-ui-colors-text);
 `;
 
 const Excerpt = styled.p`
@@ -64,6 +65,7 @@ const Excerpt = styled.p`
   -webkit-line-clamp: 4;
   overflow: hidden;
   word-break: break-all;
+  color: var(--theme-ui-colors-mute);
 `;
 
 const Data = styled.div`

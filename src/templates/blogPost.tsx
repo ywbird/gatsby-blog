@@ -31,10 +31,14 @@ interface DataProps {
 
 const Style = {
   Content: styled.div`
-    font-size: 17px;
+    font-size: 16px;
 
-    pre[class*='language-'] {
-      padding: 1em;
+    code {
+      font-family: var(--code-font);
+    }
+
+    pre[data-language] {
+      /* padding: 1em; */
       margin: 0em 0 0.5em 0;
       /* overflow: ; */
       overflow-wrap: break-word;
@@ -42,13 +46,21 @@ const Style = {
       line-height: 1.1;
       tab-size: 2;
       border-radius: 0;
+      font-size: 15px;
       /* border-top-left-radius: 0; */
     }
 
-    code {
-      font-family: var(--code-font) !important;
-      font-size: 0.8em !important;
+    *:not(pre) > code:not([data-language]) {
+      background-color: var(--theme-ui-colors-background-secondary) !important;
+      padding: 1px 5px;
       color: var(--theme-ui-colors-text);
+      border-radius: 3px;
+      font-size: 15px;
+    }
+
+    *:not(pre) > code[data-language] {
+      padding: 2px 4px;
+      font-size: 15px;
     }
 
     blockquote {
@@ -62,15 +74,22 @@ const Style = {
       /* filter: invert(); */
     }
 
-    .gatsby-highlight-code-line {
+    /* .gatsby-highlight-code-line {
       background-color: #535547;
       display: block;
       /* margin-right: calc(-1em - 2px);
-      margin-left: calc(-1em - 2px); */
+      margin-left: calc(-1em - 2px);
       margin: 0 calc(-1em - 3px);
       padding-right: 1em;
       padding-left: calc(0.75em + 2px);
       border-left: 0.3em solid #a6e22e;
+    } */
+
+    .grvsc-has-line-highlighting > .grvsc-code > .grvsc-line::before {
+      /* background-color: #fff; */
+
+      width: 750px;
+      /* border-collapse: collapse; */
     }
 
     .gatsby-remark-code-title {
@@ -93,13 +112,6 @@ const Style = {
     /* :not(pre) > code.language-text {
     background-color: gray;
   } */
-    *:not(pre) > code.language-text {
-      background-color: var(--theme-ui-colors-background-secondary) !important;
-      padding: 1px 5px;
-      color: var(--theme-ui-colors-text);
-      border-radius: 3px;
-      /* color: var(--text-color); */
-    }
 
     h1,
     h2,
@@ -171,7 +183,12 @@ const Style = {
     }
     table {
       border-collapse: collapse;
-      width: 100%;
+      /* width: 200px; */
+    }
+    table > * {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      word-break: break-all;
     }
   `,
   Meta: styled.div`

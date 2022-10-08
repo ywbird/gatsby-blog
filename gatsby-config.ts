@@ -81,12 +81,22 @@ const config: GatsbyConfig = {
               // offsetY: `400`,
             },
           },
+          // {
+          //   resolve: `gatsby-remark-prismjs`,
+          //   options: {
+          //     classPrefix: 'language-',
+          //     showLineNumbers: false,
+          //     inlineCodeMarker: '%',
+          //   },
+          // },
           {
-            resolve: `gatsby-remark-prismjs`,
+            resolve: `gatsby-remark-vscode`,
             options: {
-              classPrefix: 'language-',
-              showLineNumbers: false,
-              inlineCodeMarker: '%',
+              theme: 'One Dark Pro',
+              extensions: ['material-theme'],
+              inlineCode: {
+                marker: '%',
+              },
             },
           },
           `gatsby-remark-responsive-iframe`,

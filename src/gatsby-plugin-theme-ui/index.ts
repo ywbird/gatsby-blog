@@ -15,7 +15,7 @@ const theme = {
         heading: 'white',
         content: '#cccccc',
         background: '#222222',
-        'background-secondary': '#555555',
+        'background-secondary': '#2c2c2c',
         primary: '#e47588',
         border: '#777777',
         mute: '#cccccc',

@@ -1,6 +1,5 @@
 import React, { createContext } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import '../prism-dracula.css';
 import Font from './fonts';
 import Fonts from '../fonts';
 import { useColorMode } from 'theme-ui';

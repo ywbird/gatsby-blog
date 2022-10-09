@@ -30,7 +30,7 @@ const Seo: React.FC<{
       <meta name="description" content={data.site.siteMetadata.description} />
       <meta http-equiv="Author" content={data.site.siteMetadata.nickname} />
       <meta property="og:image" content={data.site.siteMetadata.logo} />
-      <meta property="og:title" content={data.site.siteMetadata.title} />
+      <meta property="og:title" content={title} />
       <meta property="og:site_name" content={data.site.siteMetadata.title} />
       {date && <meta name="Date" content={date} />}
       {description && <meta property="og:description" content={description} />}

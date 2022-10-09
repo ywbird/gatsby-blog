@@ -13,14 +13,17 @@ interface DataProps {
     frontmatter: {
       title: string;
       date: `${string} ${number}, ${number}`;
+      metaDate: string;
       tag: string[];
       blockComment?: boolean;
+      slug: string;
       cover: {
         childImageSharp: {
           gatsbyImageData: IGatsbyImageData;
         };
       };
     };
+    excerpt: string;
   };
   site: {
     siteMetadata: {
@@ -281,9 +284,12 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
+        metaDate: date
         tag
         blockComment
+        slug
       }
+      excerpt
     }
     site {
       siteMetadata {
@@ -306,7 +312,12 @@ export const pageQuery = graphql`
 `;
 
 export const Head: HeadFC<DataProps> = ({ data }) => (
-  <Seo title={data.markdownRemark.frontmatter.title} />
+  <Seo
+    title={data.markdownRemark.frontmatter.title}
+    date={data.markdownRemark.frontmatter.metaDate}
+    description={data.markdownRemark.excerpt}
+    slug={data.markdownRemark.frontmatter.slug}
+  />
 );
 
 export default BlogPost;

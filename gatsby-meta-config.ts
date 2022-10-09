@@ -3,12 +3,15 @@ import { GiscusProps } from '@giscus/react';
 interface MetaConfig {
   siteUrl: string;
   title: string;
+  shortTitle?: string;
   description: string;
   navigation: { url: string; name: string }[];
   logo: string;
   github: string;
   nickname: string;
   giscus: GiscusProps;
+  baseUrl?: string;
+  favicon?: string;
 }
 
 const meta: MetaConfig = {
@@ -41,6 +44,7 @@ const meta: MetaConfig = {
     theme: 'dark_dimmed',
     lang: 'en',
   },
+  baseUrl: '/lotus-gatsby-theme',
 };
 
 const metaConfig = { ...meta };

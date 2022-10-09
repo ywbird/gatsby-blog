@@ -1,9 +1,10 @@
 import type { GatsbyConfig } from 'gatsby';
 import metaConfig from './gatsby-meta-config';
+import theme from './src/gatsby-plugin-theme-ui/index';
 
 const config: GatsbyConfig = {
   siteMetadata: metaConfig,
-  pathPrefix: '/lotus-gatsby-theme',
+  pathPrefix: metaConfig.baseUrl || '',
   trailingSlash: 'never',
   jsxRuntime: 'automatic',
   graphqlTypegen: true,
@@ -40,6 +41,18 @@ const config: GatsbyConfig = {
           process.env.NODE_ENV === 'development'
             ? `${__dirname}/blog/`
             : `${__dirname}/blog/posts`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: metaConfig.title,
+        short_name: metaConfig.shortTitle || metaConfig.title,
+        start_url: metaConfig.baseUrl || '/',
+        background_color: theme.colors.background,
+        theme_color: theme.colors.primary,
+        display: `standalone`,
+        icon: metaConfig.favicon || 'src/images/logo.png',
       },
     },
     {

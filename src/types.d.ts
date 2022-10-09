@@ -6,6 +6,7 @@ interface IPost {
     tag?: string;
   };
   excerpt?: string;
-  html: string;
+  rawMarkdownBody?: string;
+  html?: string;
   id: string;
 }

@@ -28,7 +28,7 @@ const Seo: React.FC<{
       </title>
       <meta charSet="UTF-8" />
       <meta name="description" content={data.site.siteMetadata.description} />
-      <meta http-equiv="Author" content={data.site.siteMetadata.nickname} />
+      <meta httpEquiv="Author" content={data.site.siteMetadata.nickname} />
       <meta property="og:image" content={data.site.siteMetadata.logo} />
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={data.site.siteMetadata.title} />

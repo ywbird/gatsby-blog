@@ -3,9 +3,9 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 const Seo: React.FC<{
   title: string;
-  date: string;
-  description: string;
-  slug: string;
+  date?: string;
+  description?: string;
+  slug?: string;
 }> = ({ title, date, description, slug }) => {
   const data = useStaticQuery(graphql`
     query {
@@ -34,10 +34,12 @@ const Seo: React.FC<{
       <meta property="og:site_name" content={data.site.siteMetadata.title} />
       {date && <meta name="Date" content={date} />}
       {description && <meta property="og:description" content={description} />}
-      <meta
-        property="og:url"
-        content={data.site.siteMetadata.nickname + '/post/' + slug}
-      />
+      {slug && (
+        <meta
+          property="og:url"
+          content={data.site.siteMetadata.siteUrl + '/post/' + slug}
+        />
+      )}
     </>
   );
 };

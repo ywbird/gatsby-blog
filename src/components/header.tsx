@@ -100,6 +100,7 @@ const HeaderElement = styled.div`
   width: 100%;
   top: 0;
   z-index: 2000;
+  background-color: var(--theme-ui-colors-background);
   opacity: 90%;
 
   @media only screen and (max-device-width: 600px) {
@@ -116,7 +117,6 @@ const HeaderInner = styled.header`
   display: flex;
   /* align-content: center; */
   flex-direction: row;
-  background-color: var(--theme-ui-colors-background);
   z-index: 1000;
   /* justify-content: space-between; */
   align-items: center;

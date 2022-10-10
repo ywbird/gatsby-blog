@@ -113,8 +113,14 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-vscode`,
             options: {
-              theme: 'One Dark Pro',
-              extensions: ['material-theme'],
+              theme: {
+                default: 'One Dark Pro',
+                parentSelector: {
+                  'body.dark': 'One Dark Pro',
+                  'body.light': 'GitHub Plus',
+                },
+              },
+              extensions: ['material-theme', 'github-plus-theme'],
               inlineCode: {
                 marker: '^%',
               },

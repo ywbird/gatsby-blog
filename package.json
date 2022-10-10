@@ -1,6 +1,6 @@
 {
   "name": "lotus",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "description": "Lotus",
   "author": "ywbird",
@@ -49,6 +49,7 @@
     "gatsby-source-filesystem": "^4.21.1",
     "gatsby-transformer-remark": "^5.23.0",
     "gatsby-transformer-sharp": "^4.21.0",
+    "github-plus-theme": "thenikso/github-plus-theme",
     "material-theme": "Binaryify/OneDark-Pro",
     "path": "^0.12.7",
     "react": "^18.1.0",

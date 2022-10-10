@@ -149,6 +149,10 @@ const Header = () => {
 
   const toggle = () => {
     setColorTheme(nextColorMode);
+    if (typeof document !== 'undefined') {
+      document.body.classList.add(nextColorMode);
+      document.body.classList.remove(colorTheme);
+    }
   };
 
   const data: Queries.HeaderQuery = useStaticQuery(graphql`

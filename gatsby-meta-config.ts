@@ -5,10 +5,11 @@ interface MetaConfig {
   title: string;
   shortTitle?: string;
   description: string;
+  nickname: string;
+  avatar?: string;
   navigation: { url: string; name: string }[];
   logo: string;
   github: string;
-  nickname: string;
   giscus: GiscusProps;
   baseUrl?: string;
   favicon?: string;
@@ -28,7 +29,8 @@ const meta: MetaConfig = {
       name: `About`,
     },
   ],
-  logo: `/icon.png`,
+  logo: `logo.svg`,
+  avatar: 'avatar.gif',
   github: `ywbird`,
   nickname: '고앵이',
   giscus: {

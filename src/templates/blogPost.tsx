@@ -38,6 +38,7 @@ const Style = {
 
     code {
       font-family: var(--code-font);
+      border-radius: 2px;
     }
 
     pre[data-language] {
@@ -177,7 +178,7 @@ const Style = {
     td,
     th {
       border: 1px solid var(--theme-ui-colors-border);
-      padding: 1px 4px;
+      padding: 3px 4px;
     }
     thead {
       background-color: var(--theme-ui-colors-background-secondary);
@@ -225,10 +226,6 @@ const BlogPost = ({
   data,
   pageContext,
 }: PageProps<DataProps, { html: string }>) => {
-  const image: IGatsbyImageData | undefined = getImage(
-    data.markdownRemark.frontmatter.cover
-  );
-
   const {
     site: {
       siteMetadata: { giscus },
@@ -237,18 +234,22 @@ const BlogPost = ({
 
   return (
     <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
-      <Style.Meta>
-        <p>{data.markdownRemark.frontmatter.date}</p>
-        <TagLinks>
-          {data.markdownRemark.frontmatter.tag.map((tag, i) => (
-            <span key={i}>
-              <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
-              {/* {data.markdownRemark.frontmatter.tag.length !== i + 1 ? `, ` : ''} */}
-            </span>
-          ))}
-        </TagLinks>
-      </Style.Meta>
-      {image && <GatsbyImage image={image} alt="cover image" />}
+      {data.markdownRemark.frontmatter.date &&
+        data.markdownRemark.frontmatter.tag && (
+          <Style.Meta>
+            <p>{data.markdownRemark.frontmatter.date}</p>
+            {data.markdownRemark.frontmatter.tag && (
+              <TagLinks>
+                {data.markdownRemark.frontmatter.tag.map((tag, i) => (
+                  <span key={i}>
+                    <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
+                    {/* {data.markdownRemark.frontmatter.tag.length !== i + 1 ? `, ` : ''} */}
+                  </span>
+                ))}
+              </TagLinks>
+            )}
+          </Style.Meta>
+        )}
       <hr />
       <Style.Content>
         <MDXProvider>
@@ -316,7 +317,7 @@ export const Head: HeadFC<DataProps> = ({ data }) => (
     title={data.markdownRemark.frontmatter.title}
     date={data.markdownRemark.frontmatter.metaDate}
     description={data.markdownRemark.excerpt}
-    slug={data.markdownRemark.frontmatter.slug}
+    slug={'/post' + data.markdownRemark.frontmatter.slug}
   />
 );
 

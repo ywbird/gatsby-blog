@@ -101,7 +101,10 @@ export const Head: HeadFC = () => <Seo title="Search" />;
 
 export const pageQuery = graphql`
   query SearchPage {
-    allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }) {
+    allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___date }
+      filter: { frontmatter: { type: { ne: "about" } } }
+    ) {
       nodes {
         frontmatter {
           title

@@ -8,6 +8,7 @@ interface IData {
         node: {
           frontmatter: {
             slug: string;
+            type?: 'post' | 'about';
           };
           id: string;
           html: string;
@@ -18,6 +19,8 @@ interface IData {
         totalCount: number;
       }[];
     };
+    about: { html: string };
+    site: { siteMetadata: { avatar?: string } };
   };
 }
 
@@ -29,8 +32,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const { createPage } = actions;
 
   const { data } = (await graphql(`
-    query Posts {
-      allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+    query GatsbyNode {
+      allMarkdownRemark(
+        sort: { fields: frontmatter___date, order: DESC }
+        filter: { frontmatter: { type: { ne: "about" } } }
+      ) {
         edges {
           node {
             frontmatter {
@@ -43,6 +49,14 @@ export const createPages: GatsbyNode['createPages'] = async ({
         group(field: frontmatter___tag) {
           tag: fieldValue
           totalCount
+        }
+      }
+      about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
+        html
+      }
+      site {
+        siteMetadata {
+          avatar
         }
       }
     }
@@ -125,5 +139,14 @@ export const createPages: GatsbyNode['createPages'] = async ({
   createPage({
     path: '/search',
     component: path.resolve('./src/templates/search.tsx'),
+  });
+
+  createPage({
+    path: '/about',
+    component: path.resolve('./src/templates/about.tsx'),
+    context: {
+      html: data.about.html,
+      avatar: data.site.siteMetadata.avatar,
+    },
   });
 };

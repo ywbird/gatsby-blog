@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useColorMode } from 'theme-ui';
 import { useThemeState } from './contexts';
+import Image from './image';
 
 interface IData {
   site: {
@@ -155,6 +156,7 @@ const Header = () => {
       site {
         siteMetadata {
           title
+          logo
           navigation {
             name
             url
@@ -169,7 +171,11 @@ const Header = () => {
         <SiteTitleDiv>
           <SiteTitle>
             <SiteLogo to="/">
-              <StaticImage src="../images/logo.svg" alt="logo" width={40} />
+              <Image
+                src={data.site?.siteMetadata?.logo || ''}
+                alt="logo"
+                width="45"
+              />
             </SiteLogo>
             <SiteTitleLink to="/">
               {data.site?.siteMetadata?.title}

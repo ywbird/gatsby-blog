@@ -37,7 +37,7 @@ const Seo: React.FC<{
       {slug && (
         <meta
           property="og:url"
-          content={data.site.siteMetadata.siteUrl + '/post/' + slug}
+          content={data.site.siteMetadata.siteUrl + slug}
         />
       )}
     </>

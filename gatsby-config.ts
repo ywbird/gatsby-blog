@@ -28,6 +28,14 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `assets`,
+        path: `${__dirname}/assets/`,
+      },
+      __key: `assets`,
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
       },

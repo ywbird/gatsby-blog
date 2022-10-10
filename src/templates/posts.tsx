@@ -45,6 +45,7 @@ export const pageQuery = graphql`
       limit: $limit
       skip: $skip
       sort: { order: DESC, fields: frontmatter___date }
+      filter: { frontmatter: { type: { ne: "about" } } }
     ) {
       nodes {
         frontmatter {

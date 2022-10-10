@@ -1,5 +1,5 @@
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { StaticImage } from 'gatsby-plugin-image';
 import { useColorMode } from 'theme-ui';
@@ -147,12 +147,15 @@ const Header = () => {
   const [colorTheme, setColorTheme] = useThemeState();
   const nextColorMode = colorTheme === 'light' ? 'dark' : 'light';
 
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove(nextColorMode);
+      document.body.classList.add(colorTheme);
+    }
+  }, [colorTheme]);
+
   const toggle = () => {
     setColorTheme(nextColorMode);
-    if (typeof document !== 'undefined') {
-      document.body.classList.add(nextColorMode);
-      document.body.classList.remove(colorTheme);
-    }
   };
 
   const data: Queries.HeaderQuery = useStaticQuery(graphql`

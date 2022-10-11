@@ -6,6 +6,7 @@ interface DataProps {
   // currentPage: number;
   numPages: number;
   tag?: string;
+  series?: string;
   // baseUrl?: string;
 }
 
@@ -42,6 +43,7 @@ const Pagenation: React.FC<DataProps> = ({
   // currentPage,
   numPages,
   tag,
+  series,
   // baseUrl,
 }) => {
   // const params = new URLSearchParams(document.location.search);
@@ -53,8 +55,10 @@ const Pagenation: React.FC<DataProps> = ({
           key={i}
           to={
             i + 1 === 1
-              ? `/${tag ? `tag/${tag}` : ''}`
-              : `/${tag ? `tag/${tag}/` : ''}${i + 1}`
+              ? `/${tag ? `tag/${tag}` : series ? `series/${series}` : null}`
+              : `/${tag ? `tag/${tag}/` : series ? `series/${series}/` : null}${
+                  i + 1
+                }`
           }
         >
           {i + 1}

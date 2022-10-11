@@ -5,8 +5,8 @@ import Layout from '../components/layout';
 import Seo from '../components/seo';
 
 interface PageContextProps {
-  tags: {
-    tag: string;
+  tag: {
+    name: string;
     totalCount: number;
   }[];
 }
@@ -34,10 +34,10 @@ const Tags = ({ pageContext }: PageProps<{}, PageContextProps>) => {
   return (
     <Layout maxWidth={700} pageTitle="Tags">
       <div>
-        {pageContext.tags.map((tag) => (
-          <TagEl key={tag.tag}>
-            <LinkText to={`/tag/${tag.tag}`}>
-              {tag.tag} • {tag.totalCount}
+        {pageContext.tag.map((tag) => (
+          <TagEl key={tag.name}>
+            <LinkText to={`/tag/${tag.name}`}>
+              {tag.name} • {tag.totalCount}
             </LinkText>
           </TagEl>
         ))}

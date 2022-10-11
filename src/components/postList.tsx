@@ -15,6 +15,7 @@ interface IData {
   usePagination?: boolean;
   numPages?: number;
   tag?: string;
+  series?: string;
   // baseUrl?: string;
 }
 
@@ -36,6 +37,7 @@ const PostList: React.FC<IData> = ({
   numPages,
   usePagination,
   tag,
+  series,
   // baseUrl,
 }) => {
   return (
@@ -54,9 +56,9 @@ const PostList: React.FC<IData> = ({
           ))}
       </Posts>
       {usePagination === undefined && numPages ? (
-        <Pagenation tag={tag} numPages={numPages} />
+        <Pagenation tag={tag} series={series} numPages={numPages} />
       ) : usePagination && numPages ? (
-        <Pagenation tag={tag} numPages={numPages} />
+        <Pagenation tag={tag} series={series} numPages={numPages} />
       ) : (
         ''
       )}

@@ -14,7 +14,8 @@ interface DataProps {
       title: string;
       date: `${string} ${number}, ${number}`;
       metaDate: string;
-      tag: string[];
+      tag?: string[];
+      series?: string;
       blockComment?: boolean;
       slug: string;
       cover: {

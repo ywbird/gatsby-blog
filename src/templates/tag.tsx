@@ -18,7 +18,7 @@ interface PageContextProps {
   tagNumPages: number;
 }
 
-const CategoryPage = ({
+const TagPage = ({
   pageContext,
   data,
 }: PageProps<DataProps, PageContextProps>) => {
@@ -44,10 +44,10 @@ export const Head: HeadFC<{}, PageContextProps> = ({ pageContext }) => (
   <Seo title={pageContext.tag} />
 );
 
-export default CategoryPage;
+export default TagPage;
 
 export const pageQuery = graphql`
-  query CategoryPage($tag: String!, $limit: Int!, $skip: Int!) {
+  query TagPage($tag: String!, $limit: Int!, $skip: Int!) {
     allMarkdownRemark(
       sort: { order: DESC, fields: frontmatter___date }
       filter: { frontmatter: { tag: { eq: $tag } } }

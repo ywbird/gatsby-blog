@@ -21,6 +21,10 @@ const meta: MetaConfig = {
   description: `Gatsby framework blog`,
   navigation: [
     {
+      url: `/series`,
+      name: `Series`,
+    },
+    {
       url: `/tags`,
       name: `Tags`,
     },

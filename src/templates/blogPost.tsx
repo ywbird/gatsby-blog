@@ -194,6 +194,10 @@ const Style = {
       overflow-wrap: break-word;
       word-break: break-all;
     }
+
+    img {
+      max-width: 100%;
+    }
   `,
   Meta: styled.div`
     display: flex;

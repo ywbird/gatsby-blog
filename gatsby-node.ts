@@ -69,7 +69,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
         }
       }
     `)
-  ).data as Queries.GatsbyNodeQuery;
+  ).data as IData;
 
   // console.log(data);
   const postPerPage = 16;

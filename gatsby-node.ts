@@ -2,12 +2,13 @@ import { GatsbyNode } from 'gatsby';
 import path from 'path';
 
 interface IData {
-  allMarkdownRemark: {
+  post: {
     edges: {
       node: {
         frontmatter: {
           slug: string;
           series?: string;
+          tag?: string[];
         };
         id: string;
         html: string;
@@ -35,8 +36,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   const data = (
     await graphql(`
-      query GatsbyNode {
-        allMarkdownRemark(
+      query GatsbyNodePost {
+        post: allMarkdownRemark(
           sort: { fields: frontmatter___date, order: DESC }
           filter: { frontmatter: { type: { ne: "about" } } }
         ) {
@@ -45,18 +46,11 @@ export const createPages: GatsbyNode['createPages'] = async ({
               frontmatter {
                 slug
                 series
+                tag
               }
               id
               html
             }
-          }
-          tag: group(field: frontmatter___tag) {
-            name: fieldValue
-            totalCount
-          }
-          series: group(field: frontmatter___series) {
-            name: fieldValue
-            totalCount
           }
         }
         about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
@@ -73,7 +67,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   // console.log(data);
   const postPerPage = 16;
-  const numPages = Math.ceil(data.allMarkdownRemark.edges.length / postPerPage);
+  const numPages = Math.ceil(data.post.edges.length / postPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
@@ -96,7 +90,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   //   },
   // });
 
-  data.allMarkdownRemark.edges.forEach(({ node }) => {
+  data.post.edges.forEach(({ node }) => {
     const html = node.html;
     const slug = node.frontmatter?.slug;
     const series = node.frontmatter?.series;
@@ -107,69 +101,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
       context: {
         id: node.id,
         seriesName: series,
-        series: data.allMarkdownRemark.series.find((s) => s.name === series),
+        series: data.post.series.find((s) => s.name === series),
         html,
       },
     });
-  });
-
-  // create tag page
-  data.allMarkdownRemark.tag.forEach((tag) => {
-    const postPerPage = 18;
-    const tagNumPages = Math.ceil(tag.totalCount / postPerPage);
-    Array.from({ length: tagNumPages }).forEach((_, i) => {
-      createPage({
-        path: i === 0 ? `/tag/${tag.name}` : `/tag/${tag.name}/${i + 1}`,
-        component: path.resolve('./src/templates/tag.tsx'),
-        context: {
-          limit: postPerPage,
-          skip: i * tagNumPages,
-          tagNumPages,
-          currentPage: i + 1,
-          tag: tag.name,
-        },
-      });
-    });
-  });
-
-  // create sereis page
-  data.allMarkdownRemark.series.forEach((series) => {
-    const postPerPage = 18;
-    const seriesNumPages = Math.ceil(series.totalCount / postPerPage);
-    Array.from({ length: seriesNumPages }).forEach((_, i) => {
-      createPage({
-        path:
-          i === 0
-            ? `/series/${series.name}`
-            : `/series/${series.name}/${i + 1}`,
-        component: path.resolve('./src/templates/series.tsx'),
-        context: {
-          limit: postPerPage,
-          skip: i * seriesNumPages,
-          seriesNumPages,
-          currentPage: i + 1,
-          series: series.name,
-        },
-      });
-    });
-  });
-
-  // create tags page
-  createPage({
-    path: '/tags',
-    component: path.resolve('./src/templates/tags.tsx'),
-    context: {
-      tags: data.allMarkdownRemark.tag,
-    },
-  });
-
-  // create series page
-  createPage({
-    path: '/series',
-    component: path.resolve('./src/templates/seriez.tsx'),
-    context: {
-      series: data.allMarkdownRemark.series,
-    },
   });
 
   createPage({
@@ -185,4 +120,97 @@ export const createPages: GatsbyNode['createPages'] = async ({
       avatar: data.site?.siteMetadata?.avatar,
     },
   });
+
+  if (data.post.edges.every((p) => !!p.node.frontmatter.tag)) {
+    const tags = (
+      await graphql(`
+        query GatsbyNodePost {
+          post: allMarkdownRemark(
+            sort: { fields: frontmatter___date, order: DESC }
+            filter: { frontmatter: { type: { ne: "about" } } }
+          ) {
+            tag: group(field: frontmatter___tag) {
+              name: fieldValue
+              totalCount
+            }
+          }
+        }
+      `)
+    ).data as IData;
+    // create tag page
+    tags.post.tag.forEach((tag) => {
+      const postPerPage = 18;
+      const tagNumPages = Math.ceil(tag.totalCount / postPerPage);
+      Array.from({ length: tagNumPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `/tag/${tag.name}` : `/tag/${tag.name}/${i + 1}`,
+          component: path.resolve('./src/templates/tag.tsx'),
+          context: {
+            limit: postPerPage,
+            skip: i * tagNumPages,
+            tagNumPages,
+            currentPage: i + 1,
+            tag: tag.name,
+          },
+        });
+      });
+    });
+
+    // create tags page
+    createPage({
+      path: '/tags',
+      component: path.resolve('./src/templates/tags.tsx'),
+      context: {
+        tags: tags.post.tag,
+      },
+    });
+  }
+
+  if (data.post.edges.every((p) => !!p.node.frontmatter.series)) {
+    const series = (
+      await graphql(`
+        query GatsbyNodePost {
+          post: allMarkdownRemark(
+            sort: { fields: frontmatter___date, order: DESC }
+            filter: { frontmatter: { type: { ne: "about" } } }
+          ) {
+            series: group(field: frontmatter___series) {
+              name: fieldValue
+              totalCount
+            }
+          }
+        }
+      `)
+    ).data as IData;
+    // create sereis page
+    series.post.series.forEach((series) => {
+      const postPerPage = 18;
+      const seriesNumPages = Math.ceil(series.totalCount / postPerPage);
+      Array.from({ length: seriesNumPages }).forEach((_, i) => {
+        createPage({
+          path:
+            i === 0
+              ? `/series/${series.name}`
+              : `/series/${series.name}/${i + 1}`,
+          component: path.resolve('./src/templates/series.tsx'),
+          context: {
+            limit: postPerPage,
+            skip: i * seriesNumPages,
+            seriesNumPages,
+            currentPage: i + 1,
+            series: series.name,
+          },
+        });
+      });
+    });
+
+    // create series list page
+    createPage({
+      path: '/series',
+      component: path.resolve('./src/templates/seriez.tsx'),
+      context: {
+        series: series.post.series,
+      },
+    });
+  }
 };

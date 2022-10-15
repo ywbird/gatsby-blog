@@ -124,7 +124,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (data.post.edges.every((p) => !!p.node.frontmatter.tag)) {
     const tags = (
       await graphql(`
-        query GatsbyNodePost {
+        query GatsbyNodeTag {
           post: allMarkdownRemark(
             sort: { fields: frontmatter___date, order: DESC }
             filter: { frontmatter: { type: { ne: "about" } } }
@@ -169,7 +169,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   if (data.post.edges.every((p) => !!p.node.frontmatter.series)) {
     const series = (
       await graphql(`
-        query GatsbyNodePost {
+        query GatsbyNodeSeries {
           post: allMarkdownRemark(
             sort: { fields: frontmatter___date, order: DESC }
             filter: { frontmatter: { type: { ne: "about" } } }

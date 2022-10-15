@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { graphql, HeadFC, PageProps } from 'gatsby';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-import { IGatsbyImageData } from 'gatsby-plugin-image';
-import PostList from '../components/postList';
+import SeriesList from '../components/seriesList';
 
 interface DataProps {
   allMarkdownRemark: {
@@ -30,8 +29,8 @@ const CategoryPage = ({
   };
 
   return (
-    <Layout pageTitle={pageContext.series}>
-      <PostList
+    <Layout maxWidth={600} pageTitle={pageContext.series}>
+      <SeriesList
         posts={data.allMarkdownRemark.nodes}
         series={pageContext.series}
         {...pagenation}
@@ -49,7 +48,7 @@ export default CategoryPage;
 export const pageQuery = graphql`
   query SeriesPage($series: String!, $limit: Int!, $skip: Int!) {
     allMarkdownRemark(
-      sort: { order: DESC, fields: frontmatter___date }
+      sort: { order: ASC, fields: frontmatter___date }
       filter: { frontmatter: { series: { eq: $series } } }
       limit: $limit
       skip: $skip

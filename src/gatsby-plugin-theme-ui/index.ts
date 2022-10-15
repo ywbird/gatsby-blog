@@ -7,7 +7,7 @@ const theme = {
     primary: '#e47588',
     border: '#777777',
     table: '#999999',
-    mute: '#cccccc',
+    mute: '#bababa',
 
     modes: {
       dark: {
@@ -18,7 +18,7 @@ const theme = {
         'background-secondary': '#2c2c2c',
         primary: '#e47588',
         border: '#777777',
-        mute: '#cccccc',
+        mute: '#bababa',
       },
       light: {
         text: '#2a2a2a',

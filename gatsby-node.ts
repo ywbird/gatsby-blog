@@ -2,30 +2,28 @@ import { GatsbyNode } from 'gatsby';
 import path from 'path';
 
 interface IData {
-  data: {
-    posts: {
-      edges: {
-        node: {
-          frontmatter: {
-            slug: string;
-            series?: string;
-          };
-          id: string;
-          html: string;
+  posts: {
+    edges: {
+      node: {
+        frontmatter: {
+          slug: string;
+          series?: string;
         };
-      }[];
-      tag: {
-        name: string;
-        totalCount: number;
-      }[];
-      series: {
-        name: string;
-        totalCount: number;
-      }[];
-    };
-    about: { html: string };
-    site: { siteMetadata: { avatar?: string } };
+        id: string;
+        html: string;
+      };
+    }[];
+    tag: {
+      name: string;
+      totalCount: number;
+    }[];
+    series: {
+      name: string;
+      totalCount: number;
+    }[];
   };
+  about: { html: string };
+  site: { siteMetadata: { avatar?: string } };
 }
 
 export const createPages: GatsbyNode['createPages'] = async ({
@@ -35,41 +33,43 @@ export const createPages: GatsbyNode['createPages'] = async ({
 }) => {
   const { createPage } = actions;
 
-  const { data } = (await graphql(`
-    query GatsbyNode {
-      posts: allMarkdownRemark(
-        sort: { fields: frontmatter___date, order: DESC }
-        filter: { frontmatter: { type: { ne: "about" } } }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              slug
-              series
+  const data = (
+    await graphql(`
+      query GatsbyNode {
+        posts: allMarkdownRemark(
+          sort: { fields: frontmatter___date, order: DESC }
+          filter: { frontmatter: { type: { ne: "about" } } }
+        ) {
+          edges {
+            node {
+              frontmatter {
+                slug
+                series
+              }
+              id
+              html
             }
-            id
-            html
+          }
+          tag: group(field: frontmatter___tag) {
+            name: fieldValue
+            totalCount
+          }
+          series: group(field: frontmatter___series) {
+            name: fieldValue
+            totalCount
           }
         }
-        tag: group(field: frontmatter___tag) {
-          name: fieldValue
-          totalCount
+        about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
+          html
         }
-        series: group(field: frontmatter___series) {
-          name: fieldValue
-          totalCount
-        }
-      }
-      about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
-        html
-      }
-      site {
-        siteMetadata {
-          avatar
+        site {
+          siteMetadata {
+            avatar
+          }
         }
       }
-    }
-  `)) as IData;
+    `)
+  ).data as Queries.GatsbyNodeQuery;
 
   // console.log(data);
   const postPerPage = 16;
@@ -98,8 +98,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   data.posts.edges.forEach(({ node }) => {
     const html = node.html;
-    const slug = node.frontmatter.slug;
-    const series = node.frontmatter.series;
+    const slug = node.frontmatter?.slug;
+    const series = node.frontmatter?.series;
 
     createPage({
       path: `/post/${slug}`,
@@ -163,7 +163,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     },
   });
 
-  // create tags page
+  // create series page
   createPage({
     path: '/series',
     component: path.resolve('./src/templates/seriez.tsx'),
@@ -181,8 +181,8 @@ export const createPages: GatsbyNode['createPages'] = async ({
     path: '/about',
     component: path.resolve('./src/templates/about.tsx'),
     context: {
-      html: data.about.html,
-      avatar: data.site.siteMetadata.avatar,
+      html: data.about?.html,
+      avatar: data.site?.siteMetadata?.avatar,
     },
   });
 };

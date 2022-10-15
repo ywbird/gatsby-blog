@@ -3,28 +3,22 @@ import React from 'react';
 import { MDXProvider } from '@mdx-js/react';
 import Layout from '../components/layout';
 import Seo from '../components/seo';
-import { IGatsbyImageData, GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { IGatsbyImageData } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import ToTop from '../components/toTop';
 import Giscus, { GiscusProps } from '@giscus/react';
+import Series from '../components/seriesBox';
 
 interface DataProps {
-  markdownRemark: {
+  post: IPost & {
     frontmatter: {
-      title: string;
-      date: `${string} ${number}, ${number}`;
       metaDate: string;
-      tag?: string[];
-      series?: string;
-      blockComment?: boolean;
-      slug: string;
-      cover: {
-        childImageSharp: {
-          gatsbyImageData: IGatsbyImageData;
-        };
-      };
     };
-    excerpt: string;
+  };
+  series: {
+    edges: {
+      node: IPost;
+    }[];
   };
   site: {
     siteMetadata: {
@@ -230,31 +224,52 @@ const TagLink = styled(Link)`
 const BlogPost = ({
   data,
   pageContext,
-}: PageProps<DataProps, { html: string }>) => {
+}: PageProps<
+  DataProps,
+  {
+    html: string;
+    series?: { name: string; totalCount: number };
+    seriesName: string;
+  }
+>) => {
   const {
     site: {
       siteMetadata: { giscus },
     },
   } = data;
 
+  const series = {
+    name: pageContext.series?.name || '',
+    totalCount: pageContext.series?.totalCount || 0,
+    current: data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1,
+    slug: data.post.frontmatter.slug,
+    next: data.series.edges[
+      data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1
+    ]?.node?.frontmatter?.slug,
+    previous:
+      data.series.edges[
+        data.series.edges.findIndex((p) => p.node.id === data.post.id) - 1
+      ]?.node?.frontmatter?.slug,
+    other: data.series.edges.map((e) => e.node),
+  };
+
   return (
-    <Layout maxWidth={750} pageTitle={data.markdownRemark.frontmatter.title}>
-      {data.markdownRemark.frontmatter.date &&
-        data.markdownRemark.frontmatter.tag && (
-          <Style.Meta>
-            <p>{data.markdownRemark.frontmatter.date}</p>
-            {data.markdownRemark.frontmatter.tag && (
-              <TagLinks>
-                {data.markdownRemark.frontmatter.tag.map((tag, i) => (
-                  <span key={i}>
-                    <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
-                    {/* {data.markdownRemark.frontmatter.tag.length !== i + 1 ? `, ` : ''} */}
-                  </span>
-                ))}
-              </TagLinks>
-            )}
-          </Style.Meta>
-        )}
+    <Layout maxWidth={750} pageTitle={data.post.frontmatter.title}>
+      {pageContext.seriesName && <Series {...series} />}
+      {data.post.frontmatter.date || data.post.frontmatter.tag ? (
+        <Style.Meta>
+          <p>{data.post.frontmatter.date}</p>
+          {data.post.frontmatter.tag && (
+            <TagLinks>
+              {data.post.frontmatter.tag.map((tag, i) => (
+                <span key={i}>
+                  <TagLink to={`/tag/${tag}`}>{tag}</TagLink>
+                </span>
+              ))}
+            </TagLinks>
+          )}
+        </Style.Meta>
+      ) : null}
       <hr />
       <Style.Content>
         <MDXProvider>
@@ -262,7 +277,7 @@ const BlogPost = ({
         </MDXProvider>
       </Style.Content>
       <hr />
-      {!data.markdownRemark.frontmatter.blockComment && (
+      {!data.post.frontmatter.blockComment && (
         <Giscus
           id="comment"
           repo={giscus.repo}
@@ -285,8 +300,8 @@ const BlogPost = ({
 };
 
 export const pageQuery = graphql`
-  query Post($id: String) {
-    markdownRemark(id: { eq: $id }) {
+  query Post($seriesName: String, $id: String) {
+    post: markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
@@ -295,7 +310,22 @@ export const pageQuery = graphql`
         blockComment
         slug
       }
+      id
       excerpt
+    }
+    series: allMarkdownRemark(
+      filter: { frontmatter: { series: { eq: $seriesName } } }
+      sort: { fields: frontmatter___date, order: ASC }
+    ) {
+      edges {
+        node {
+          id
+          frontmatter {
+            title
+            slug
+          }
+        }
+      }
     }
     site {
       siteMetadata {
@@ -319,10 +349,10 @@ export const pageQuery = graphql`
 
 export const Head: HeadFC<DataProps> = ({ data }) => (
   <Seo
-    title={data.markdownRemark.frontmatter.title}
-    date={data.markdownRemark.frontmatter.metaDate}
-    description={data.markdownRemark.excerpt}
-    slug={'/post' + data.markdownRemark.frontmatter.slug}
+    title={data.post.frontmatter.title}
+    date={data.post.frontmatter.metaDate}
+    description={data.post.excerpt}
+    slug={'/post' + data.post.frontmatter.slug}
   />
 );
 

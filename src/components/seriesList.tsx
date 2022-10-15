@@ -14,14 +14,13 @@ interface IData {
   // currentPage: number;
   usePagination?: boolean;
   numPages?: number;
-  tag?: string;
-  series?: string;
+  series: string;
   // baseUrl?: string;
 }
 
 const Posts = styled.div`
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-template-rows: repeat(auto-fill, minmax(130px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); */
+  grid-template-columns: 1fr;
   display: grid;
   gap: 20px;
   /* flex-direction: row;
@@ -32,12 +31,11 @@ const Posts = styled.div`
   }
 `;
 
-const PostList: React.FC<IData> = ({
+const SeriesList: React.FC<IData> = ({
   posts,
   // currentPage,
   numPages,
   usePagination,
-  tag,
   series,
   // baseUrl,
 }) => {
@@ -48,18 +46,17 @@ const PostList: React.FC<IData> = ({
           posts.map((node, i) => (
             <PostCard
               key={node.id}
-              // key={i}
               slug={node.frontmatter.slug}
-              title={node.frontmatter.title}
+              title={`${i + 1}. ${node.frontmatter.title}`}
               date={node.frontmatter.date}
               excerpt={node.excerpt || ''}
             />
           ))}
       </Posts>
       {usePagination === undefined && numPages ? (
-        <Pagenation tag={tag} series={series} numPages={numPages} />
+        <Pagenation series={series} numPages={numPages} />
       ) : usePagination && numPages ? (
-        <Pagenation tag={tag} series={series} numPages={numPages} />
+        <Pagenation series={series} numPages={numPages} />
       ) : (
         ''
       )}
@@ -67,4 +64,4 @@ const PostList: React.FC<IData> = ({
   );
 };
 
-export default PostList;
+export default SeriesList;

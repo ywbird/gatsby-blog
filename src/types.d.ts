@@ -3,9 +3,9 @@ interface IPost {
     title: string;
     slug: string;
     date: `${string} ${number}, ${number}`;
-    tag?: string;
+    tag?: string[];
     series?: string;
-    series_index?: number;
+    blockComment: boolean;
   };
   excerpt?: string;
   rawMarkdownBody?: string;

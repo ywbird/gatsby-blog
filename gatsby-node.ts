@@ -90,23 +90,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
   //   },
   // });
 
-  data.post.edges.forEach(({ node }) => {
-    const html = node.html;
-    const slug = node.frontmatter?.slug;
-    const series = node.frontmatter?.series;
-
-    createPage({
-      path: `/post/${slug}`,
-      component: path.resolve('./src/templates/blogPost.tsx'),
-      context: {
-        id: node.id,
-        seriesName: series,
-        series: data.post.series.find((s) => s.name === series),
-        html,
-      },
-    });
-  });
-
   createPage({
     path: '/search',
     component: path.resolve('./src/templates/search.tsx'),
@@ -121,7 +104,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     },
   });
 
-  if (data.post.edges.every((p) => !!p.node.frontmatter.tag)) {
+  if (data.post.edges.map((e) => e.node.frontmatter.series).some((p) => !!p)) {
     const tags = (
       await graphql(`
         query GatsbyNodeTag {
@@ -137,6 +120,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
         }
       `)
     ).data as IData;
+
     // create tag page
     tags.post.tag.forEach((tag) => {
       const postPerPage = 18;
@@ -166,7 +150,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     });
   }
 
-  if (data.post.edges.every((p) => !!p.node.frontmatter.series)) {
+  if (data.post.edges.map((e) => e.node.frontmatter.series).some((p) => !!p)) {
     const series = (
       await graphql(`
         query GatsbyNodeSeries {
@@ -213,4 +197,21 @@ export const createPages: GatsbyNode['createPages'] = async ({
       },
     });
   }
+
+  data.post.edges.forEach(({ node }) => {
+    const html = node.html;
+    const slug = node.frontmatter?.slug;
+    const series = node.frontmatter?.series;
+
+    createPage({
+      path: `/post/${slug}`,
+      component: path.resolve('./src/templates/blogPost.tsx'),
+      context: {
+        id: node.id,
+        seriesName: series,
+        // series: data.post.series.find((s) => s.name === series),
+        html,
+      },
+    });
+  });
 };

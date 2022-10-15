@@ -19,6 +19,10 @@ interface DataProps {
     edges: {
       node: IPost;
     }[];
+    series: {
+      fieldValue: string;
+      totalCount: number;
+    }[];
   };
   site: {
     siteMetadata: {
@@ -228,8 +232,7 @@ const BlogPost = ({
   DataProps,
   {
     html: string;
-    series?: { name: string; totalCount: number };
-    seriesName: string;
+    seriesName?: string;
   }
 >) => {
   const {
@@ -238,9 +241,13 @@ const BlogPost = ({
     },
   } = data;
 
+  const postSeries = data.series.series.find(
+    (s) => s.fieldValue === pageContext.seriesName
+  );
+
   const series = {
-    name: pageContext.series?.name || '',
-    totalCount: pageContext.series?.totalCount || 0,
+    name: postSeries?.fieldValue || '',
+    totalCount: postSeries?.totalCount || 0,
     current: data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1,
     slug: data.post.frontmatter.slug,
     next: data.series.edges[
@@ -325,6 +332,10 @@ export const pageQuery = graphql`
             slug
           }
         }
+      }
+      series: group(field: frontmatter___series) {
+        fieldValue
+        totalCount
       }
     }
     site {

@@ -126,6 +126,22 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              active: true,
+              class: 'emoji-icon',
+              size: 64,
+              styles: {
+                display: 'inline',
+                margin: '0',
+                'margin-top': '1px',
+                position: 'relative',
+                top: '5px',
+                width: '20px',
+              },
+            },
+          },
           `gatsby-remark-responsive-iframe`,
         ],
       },

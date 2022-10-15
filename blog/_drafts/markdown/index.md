@@ -100,3 +100,8 @@ export default App;
 ![sourcecodepro](sourcecodepro.png)
 
 ## Emoji
+
+:poop:
+😀
+:smile:
+:memo:

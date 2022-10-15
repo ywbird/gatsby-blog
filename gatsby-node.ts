@@ -3,12 +3,12 @@ import path from 'path';
 
 interface IData {
   data: {
-    allMarkdownRemark: {
+    posts: {
       edges: {
         node: {
           frontmatter: {
             slug: string;
-            type?: 'post' | 'about';
+            series?: string;
           };
           id: string;
           html: string;
@@ -37,7 +37,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   const { data } = (await graphql(`
     query GatsbyNode {
-      allMarkdownRemark(
+      posts: allMarkdownRemark(
         sort: { fields: frontmatter___date, order: DESC }
         filter: { frontmatter: { type: { ne: "about" } } }
       ) {
@@ -45,6 +45,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           node {
             frontmatter {
               slug
+              series
             }
             id
             html
@@ -72,7 +73,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
 
   // console.log(data);
   const postPerPage = 16;
-  const numPages = Math.ceil(data.allMarkdownRemark.edges.length / postPerPage);
+  const numPages = Math.ceil(data.posts.edges.length / postPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
@@ -95,22 +96,25 @@ export const createPages: GatsbyNode['createPages'] = async ({
   //   },
   // });
 
-  data.allMarkdownRemark.edges.forEach(async ({ node }) => {
+  data.posts.edges.forEach(({ node }) => {
     const html = node.html;
     const slug = node.frontmatter.slug;
+    const series = node.frontmatter.series;
 
     createPage({
       path: `/post/${slug}`,
       component: path.resolve('./src/templates/blogPost.tsx'),
       context: {
         id: node.id,
+        seriesName: series,
+        series: data.posts.series.find((s) => s.name === series),
         html,
       },
     });
   });
 
   // create tag page
-  data.allMarkdownRemark.tag.forEach((tag) => {
+  data.posts.tag.forEach((tag) => {
     const postPerPage = 18;
     const tagNumPages = Math.ceil(tag.totalCount / postPerPage);
     Array.from({ length: tagNumPages }).forEach((_, i) => {
@@ -129,7 +133,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   });
 
   // create sereis page
-  data.allMarkdownRemark.series.forEach((series) => {
+  data.posts.series.forEach((series) => {
     const postPerPage = 18;
     const seriesNumPages = Math.ceil(series.totalCount / postPerPage);
     Array.from({ length: seriesNumPages }).forEach((_, i) => {
@@ -155,7 +159,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     path: '/tags',
     component: path.resolve('./src/templates/tags.tsx'),
     context: {
-      tags: data.allMarkdownRemark.tag,
+      tags: data.posts.tag,
     },
   });
 
@@ -164,7 +168,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     path: '/series',
     component: path.resolve('./src/templates/seriez.tsx'),
     context: {
-      series: data.allMarkdownRemark.series,
+      series: data.posts.series,
     },
   });
 

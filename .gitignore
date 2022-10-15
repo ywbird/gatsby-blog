@@ -5,3 +5,5 @@ src/gatsby-types.d.ts
 .vscode/
 
 __test/
+
+yarn-error.log

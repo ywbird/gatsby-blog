@@ -1,15 +1,9 @@
 import { graphql, HeadFC, PageProps } from 'gatsby';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Layout from '../components/layout';
 import PostList from '../components/postList';
 import Seo from '../components/seo';
-
-interface DataProps {
-  allMarkdownRemark: {
-    nodes: IPost[];
-  };
-}
 
 const SearchInput = styled.input`
   background-color: transparent;
@@ -50,11 +44,14 @@ const SearchWapper = styled.div`
   padding: 3em 0;
 `;
 
+interface DataProps {
+  allMarkdownRemark: {
+    nodes: IPost[];
+  };
+}
+
 const Search = ({ data }: PageProps<DataProps>) => {
-  const [result, setResult] = useState<IPost[]>();
-  useEffect(() => {
-    setResult((prev) => (prev = data.allMarkdownRemark.nodes));
-  }, []);
+  const [result, setResult] = useState<IPost[]>(data.allMarkdownRemark.nodes);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const SearchFilter = (node: IPost) => {
@@ -106,14 +103,13 @@ export const pageQuery = graphql`
       filter: { frontmatter: { type: { ne: "about" } } }
     ) {
       nodes {
+        fields {
+          slug
+        }
         frontmatter {
           title
-          date(formatString: "MMM D, YYYY")
-          slug
-          tag
         }
         excerpt
-        rawMarkdownBody
         id
       }
     }

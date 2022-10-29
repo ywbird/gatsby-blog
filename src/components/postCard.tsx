@@ -78,7 +78,7 @@ const PostCard: React.FC<PostCardProps> = ({ slug, title, date, excerpt }) => {
   return (
     <Card>
       <Frontmatter>
-        <PostLinkItem to={`/post/${slug}`}>
+        <PostLinkItem to={slug}>
           <Title>{title}</Title>
           <Data>
             <Excerpt>{excerpt}</Excerpt>

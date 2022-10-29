@@ -7,7 +7,6 @@ import Footer from './footer';
 interface DataProps {
   pageTitle?: string;
   maxWidth?: number;
-  aside?: { node: React.FC<any>; props: Object };
   children: React.ReactNode;
 }
 
@@ -35,22 +34,16 @@ const Main = styled.main<{ maxWidth?: number }>`
   font-family: var(--main-font);
 `;
 
-const Layout: React.FC<DataProps> = ({
-  pageTitle,
-  maxWidth,
-  aside,
-  children,
-}) => {
+const Layout: React.FC<DataProps> = ({ pageTitle, maxWidth, children }) => {
   return (
     <Theme>
       <Body>
         <Header />
         <Container>
           <Main maxWidth={maxWidth}>
-            <Heading>{pageTitle ?? ''}</Heading>
+            <Heading>{pageTitle || ''}</Heading>
             {children}
           </Main>
-          {aside && <aside.node {...aside.props} />}
         </Container>
         <Footer />
       </Body>

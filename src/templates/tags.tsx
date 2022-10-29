@@ -35,11 +35,15 @@ const Tags = ({ pageContext }: PageProps<{}, PageContextProps>) => {
     <Layout maxWidth={700} pageTitle="Tags">
       <div>
         {pageContext.tags.map((tag) => (
-          <TagEl key={tag.name}>
-            <LinkText to={`/tag/${tag.name}`}>
-              {tag.name} • {tag.totalCount}
-            </LinkText>
-          </TagEl>
+          <>
+            {!!tag.name && (
+              <TagEl key={tag.name}>
+                <LinkText to={`/tag/${tag.name}`}>
+                  {tag.name} • {tag.totalCount}
+                </LinkText>
+              </TagEl>
+            )}
+          </>
         ))}
       </div>
     </Layout>

@@ -46,7 +46,7 @@ const SeriesList: React.FC<IData> = ({
           posts.map((node, i) => (
             <PostCard
               key={node.id}
-              slug={node.frontmatter.slug}
+              slug={node.fields.slug}
               title={`${i + 1}. ${node.frontmatter.title}`}
               date={node.frontmatter.date}
               excerpt={node.excerpt || ''}

@@ -73,7 +73,7 @@ const SeriesNumber = ({
   return (
     <SeriesNumberWrapper>
       {previous ? (
-        <LinkColor to={'/post/' + previous || '#'}>Previous</LinkColor>
+        <LinkColor to={previous || '#'}>Previous</LinkColor>
       ) : (
         <MuteLink>Previous</MuteLink>
       )}
@@ -81,7 +81,7 @@ const SeriesNumber = ({
         {current}/{totalCount}
       </span>
       {next ? (
-        <LinkColor to={'/post/' + next || '#'}>Next</LinkColor>
+        <LinkColor to={next || '#'}>Next</LinkColor>
       ) : (
         <MuteLink>Next</MuteLink>
       )}
@@ -99,18 +99,17 @@ const PostListDetails = styled.details`
 `;
 
 const Series: React.FC<{
-  name: string;
   totalCount: number;
   current: number;
   next?: string;
   previous?: string;
-  other: IPost[];
+  other: { title: String; slug: string }[];
   slug: string;
-}> = ({ name, totalCount, current, next, previous, other, slug }) => {
+}> = ({ totalCount, current, next, previous, other, slug }) => {
   return (
     <SeriesWrapper>
       <div>
-        <SeriesName>{name}</SeriesName>
+        <SeriesName>Post Series</SeriesName>
         <SeriesNumber
           current={current}
           totalCount={totalCount}
@@ -123,13 +122,13 @@ const Series: React.FC<{
         <summary>Show List</summary>
         <List>
           {other.map((p, i) => (
-            <li key={p.id}>
+            <li key={p.slug}>
               {typeof window !== 'undefined' ? (
                 <ListItem
-                  id={slug === p.frontmatter.slug ? 'current-post' : ''}
-                  to={'/post/' + p.frontmatter.slug}
+                  id={slug === p.slug ? 'current-post' : ''}
+                  to={p.slug}
                 >
-                  {p.frontmatter.title}
+                  {p.title}
                 </ListItem>
               ) : null}
             </li>

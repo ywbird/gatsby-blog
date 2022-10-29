@@ -15,15 +15,15 @@ interface DataProps {
       metaDate: string;
     };
   };
-  series: {
-    edges: {
-      node: IPost;
-    }[];
-    series: {
-      fieldValue: string;
-      totalCount: number;
-    }[];
-  };
+  // series: {
+  //   edges: {
+  //     node: IPost;
+  //   }[];
+  //   series: {
+  //     fieldValue: string;
+  //     totalCount: number;
+  //   }[];
+  // };
   site: {
     siteMetadata: {
       giscus: GiscusProps;
@@ -51,6 +51,15 @@ const Style = {
       border-radius: 0;
       font-size: 15px;
       /* border-top-left-radius: 0; */
+
+      /* &::after {
+        content: ' ';
+        display: block;
+        width: 100%;
+        height: 2.5rem;
+        transform: translateY(-6rem);
+        background-color: black;
+      } */
     }
 
     *:not(pre) > code:not([data-language]) {
@@ -96,20 +105,17 @@ const Style = {
     }
 
     .gatsby-remark-code-title {
-      display: inline-block;
+      display: block;
       margin-top: 0.5em;
       /* margin-bottom: -0.6rem; */
-      padding: 0.3em 0.7em;
+      padding: 0.6em 1.5rem;
       font-family: var(--code-font);
       font-size: 0.9em;
       font-weight: 400;
 
-      background-color: #282a36;
-      color: white;
-      z-index: 0;
-
-      /* border-top-left-radius: 0.3em;
-      border-top-right-radius: 0.3em; */
+      background-color: var(--theme-ui-colors-background-secondary);
+      border-bottom: 1px solid var(--theme-ui-colors-border);
+      /* z-index: 0; */
     }
 
     /* :not(pre) > code.language-text {
@@ -232,7 +238,7 @@ const BlogPost = ({
   DataProps,
   {
     html: string;
-    seriesName?: string;
+    series: { slug: string; title: string; num: number }[];
   }
 >) => {
   const {
@@ -241,28 +247,47 @@ const BlogPost = ({
     },
   } = data;
 
-  const postSeries = data.series.series.find(
-    (s) => s.fieldValue === pageContext.seriesName
-  );
+  // const postSeries = data.series.series.find(
+  //   (s) => s.fieldValue === pageContext.seriesName
+  // );
 
-  const series = {
-    name: postSeries?.fieldValue || '',
-    totalCount: postSeries?.totalCount || 0,
-    current: data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1,
-    slug: data.post.frontmatter.slug,
-    next: data.series.edges[
-      data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1
-    ]?.node?.frontmatter?.slug,
-    previous:
-      data.series.edges[
-        data.series.edges.findIndex((p) => p.node.id === data.post.id) - 1
-      ]?.node?.frontmatter?.slug,
-    other: data.series.edges.map((e) => e.node),
+  // const series = {
+  //   name: postSeries?.fieldValue || '',
+  //   totalCount: postSeries?.totalCount || 0,
+  //   current: data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1,
+  //   slug: data.post.frontmatter.slug,
+  //   next: data.series.edges[
+  //     data.series.edges.findIndex((p) => p.node.id === data.post.id) + 1
+  //   ]?.node?.frontmatter?.slug,
+  //   previous:
+  //     data.series.edges[
+  //       data.series.edges.findIndex((p) => p.node.id === data.post.id) - 1
+  //     ]?.node?.frontmatter?.slug,
+  //   other: data.series.edges.map((e) => e.node),
+  // };
+
+  console.log(pageContext.series);
+  const current =
+    pageContext.series.find((s) => data.post.fields.slug === s.slug)?.num || 0;
+  const series: {
+    totalCount: number;
+    current: number;
+    next?: string;
+    previous?: string;
+    other: { title: String; slug: string }[];
+    slug: string;
+  } = {
+    totalCount: pageContext.series.length,
+    current,
+    next: pageContext.series.find((s) => s.num === current + 1)?.slug,
+    previous: pageContext.series.find((s) => s.num === current - 1)?.slug,
+    other: pageContext.series,
+    slug: data.post.fields.slug,
   };
 
   return (
     <Layout maxWidth={750} pageTitle={data.post.frontmatter.title}>
-      {pageContext.seriesName && <Series {...series} />}
+      {pageContext.series.length ? <Series {...series} /> : null}
       {data.post.frontmatter.date || data.post.frontmatter.tag ? (
         <Style.Meta>
           <p>{data.post.frontmatter.date}</p>
@@ -284,59 +309,41 @@ const BlogPost = ({
         </MDXProvider>
       </Style.Content>
       <hr />
-      {!data.post.frontmatter.blockComment && (
-        <Giscus
-          id="comment"
-          repo={giscus.repo}
-          repoId={giscus.repoId}
-          category={giscus.category}
-          categoryId={giscus.categoryId}
-          mapping={giscus.mapping}
-          strict={giscus.strict}
-          reactionsEnabled={giscus.reactionsEnabled}
-          emitMetadata={giscus.emitMetadata}
-          inputPosition={giscus.inputPosition}
-          theme={giscus.theme}
-          lang={giscus.lang}
-          loading="lazy"
-        />
-      )}
+      <Giscus
+        id="comment"
+        repo={giscus.repo}
+        repoId={giscus.repoId}
+        category={giscus.category}
+        categoryId={giscus.categoryId}
+        mapping={giscus.mapping}
+        strict={giscus.strict}
+        reactionsEnabled={giscus.reactionsEnabled}
+        emitMetadata={giscus.emitMetadata}
+        inputPosition={giscus.inputPosition}
+        theme={giscus.theme}
+        lang={giscus.lang}
+        loading="lazy"
+      />
+
       <ToTop />
     </Layout>
   );
 };
 
 export const pageQuery = graphql`
-  query Post($seriesName: String, $id: String) {
+  query Post($id: String) {
     post: markdownRemark(id: { eq: $id }) {
+      fields {
+        slug
+      }
       frontmatter {
         title
         date(formatString: "MMMM D, YYYY")
         metaDate: date
         tag
-        blockComment
-        slug
       }
       id
       excerpt
-    }
-    series: allMarkdownRemark(
-      filter: { frontmatter: { series: { eq: $seriesName } } }
-      sort: { fields: frontmatter___date, order: ASC }
-    ) {
-      edges {
-        node {
-          id
-          frontmatter {
-            title
-            slug
-          }
-        }
-      }
-      series: group(field: frontmatter___series) {
-        fieldValue
-        totalCount
-      }
     }
     site {
       siteMetadata {
@@ -363,7 +370,7 @@ export const Head: HeadFC<DataProps> = ({ data }) => (
     title={data.post.frontmatter.title}
     date={data.post.frontmatter.metaDate}
     description={data.post.excerpt}
-    slug={'/post' + data.post.frontmatter.slug}
+    slug={'/post' + data.post.fields.slug}
   />
 );
 

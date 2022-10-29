@@ -48,10 +48,12 @@ export const pageQuery = graphql`
       filter: { frontmatter: { type: { ne: "about" } } }
     ) {
       nodes {
+        fields {
+          slug
+        }
         frontmatter {
           title
           date(formatString: "MMM D, YYYY")
-          slug
           tag
         }
         excerpt

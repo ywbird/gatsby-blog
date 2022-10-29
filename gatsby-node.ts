@@ -2,25 +2,9 @@ import { GatsbyNode } from 'gatsby';
 import path from 'path';
 
 interface IData {
-  post: {
+  allMarkdownRemark: {
     edges: {
-      node: {
-        frontmatter: {
-          slug: string;
-          series?: string;
-          tag?: string[];
-        };
-        id: string;
-        html: string;
-      };
-    }[];
-    tag: {
-      name: string;
-      totalCount: number;
-    }[];
-    series: {
-      name: string;
-      totalCount: number;
+      node: IPost;
     }[];
   };
   about: { html: string };
@@ -34,96 +18,97 @@ export const createPages: GatsbyNode['createPages'] = async ({
 }) => {
   const { createPage } = actions;
 
-  const data = (
-    await graphql(`
-      query GatsbyNodePost {
-        post: allMarkdownRemark(
-          sort: { fields: frontmatter___date, order: DESC }
-          filter: { frontmatter: { type: { ne: "about" } } }
-        ) {
-          edges {
-            node {
-              frontmatter {
-                slug
-                series
-                tag
-              }
-              id
-              html
+  const { data }: { error?: any; data?: IData } = await graphql(`
+    {
+      allMarkdownRemark(
+        sort: { fields: frontmatter___date }
+        filter: { frontmatter: { type: { ne: "about" } } }
+      ) {
+        edges {
+          node {
+            fields {
+              slug
             }
-          }
-        }
-        about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
-          html
-        }
-        site {
-          siteMetadata {
-            avatar
+            frontmatter {
+              tag
+            }
+            id
+            rawMarkdownBody
+            html
           }
         }
       }
-    `)
-  ).data as IData;
+      about: markdownRemark(frontmatter: { type: { eq: "about" } }) {
+        html
+      }
+      site {
+        siteMetadata {
+          avatar
+        }
+      }
+    }
+  `);
+  const edges = data?.allMarkdownRemark.edges;
 
-  // console.log(data);
-  const postPerPage = 16;
-  const numPages = Math.ceil(data.post.edges.length / postPerPage);
+  const getSeries = (target: string) => {
+    const splitedSlug = target
+      .split('/')
+      [target.split('/').length - 1].split('_');
+    if (splitedSlug.length >= 3) return 0;
 
-  Array.from({ length: numPages }).forEach((_, i) => {
+    const seriesNum = splitedSlug[splitedSlug.length - 1].split('/').join('');
+    const isNum = !/[^0-9]/g.test(seriesNum);
+
+    if (isNum) return parseInt(seriesNum, 10);
+    return 0;
+  };
+
+  if (typeof edges !== 'undefined') {
+    // console.log(data);
+    const postPerPage = 16;
+    const numPages = Math.ceil(edges.length / postPerPage);
+    const postListTemplate = path.resolve('./src/templates/posts.tsx');
+    Array.from({ length: numPages }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/` : `/${i + 1}`,
+        component: postListTemplate,
+        context: {
+          limit: postPerPage,
+          skip: i * postPerPage,
+          numPages,
+          currentPage: i + 1,
+        },
+      });
+    });
+
     createPage({
-      path: i === 0 ? `/` : `/${i + 1}`,
-      component: path.resolve('./src/templates/posts.tsx'),
+      path: '/search',
+      component: path.resolve('./src/templates/search.tsx'),
+    });
+
+    createPage({
+      path: '/about',
+      component: path.resolve('./src/templates/about.tsx'),
       context: {
-        limit: postPerPage,
-        skip: i * postPerPage,
-        numPages,
-        currentPage: i + 1,
+        html: data?.about.html,
+        avatar: data?.site.siteMetadata.avatar,
       },
     });
-  });
-  // createPage({
-  //   path: `/`,
-  //   component: path.resolve('./src/templates/posts.tsx'),
-  //   context: {
-  //     limit: postPerPage,
-  //     numPages,
-  //   },
-  // });
 
-  createPage({
-    path: '/search',
-    component: path.resolve('./src/templates/search.tsx'),
-  });
-
-  createPage({
-    path: '/about',
-    component: path.resolve('./src/templates/about.tsx'),
-    context: {
-      html: data.about?.html,
-      avatar: data.site?.siteMetadata?.avatar,
-    },
-  });
-
-  if (data.post.edges.map((e) => e.node.frontmatter.series).some((p) => !!p)) {
-    const tags = (
-      await graphql(`
-        query GatsbyNodeTag {
-          post: allMarkdownRemark(
-            sort: { fields: frontmatter___date, order: DESC }
-            filter: { frontmatter: { type: { ne: "about" } } }
-          ) {
-            tag: group(field: frontmatter___tag) {
-              name: fieldValue
-              totalCount
-            }
-          }
+    let tag: { name: string; totalCount: number }[] = [];
+    edges
+      .flatMap((x) => x.node.frontmatter.tag)
+      .forEach((s) => {
+        const find = tag.find((f) => f.name === s);
+        if (find) {
+          tag[tag.findIndex((fd) => fd.name === s)].totalCount++;
+        } else {
+          tag.push({ name: s || '', totalCount: 0 });
         }
-      `)
-    ).data as IData;
+      });
 
     // create tag page
-    tags.post.tag.forEach((tag) => {
-      const postPerPage = 18;
+    tag.forEach((tag) => {
       const tagNumPages = Math.ceil(tag.totalCount / postPerPage);
       Array.from({ length: tagNumPages }).forEach((_, i) => {
         createPage({
@@ -145,73 +130,44 @@ export const createPages: GatsbyNode['createPages'] = async ({
       path: '/tags',
       component: path.resolve('./src/templates/tags.tsx'),
       context: {
-        tags: tags.post.tag,
+        tags: tag,
       },
     });
-  }
 
-  if (data.post.edges.map((e) => e.node.frontmatter.series).some((p) => !!p)) {
-    const series = (
-      await graphql(`
-        query GatsbyNodeSeries {
-          post: allMarkdownRemark(
-            sort: { fields: frontmatter___date, order: DESC }
-            filter: { frontmatter: { type: { ne: "about" } } }
-          ) {
-            series: group(field: frontmatter___series) {
-              name: fieldValue
-              totalCount
+    edges.forEach(({ node }) => {
+      const { html } = node;
+      const { slug } = node.fields;
+
+      const series = [];
+      if (getSeries(slug)) {
+        const seriesEdges = edges.filter((edge) =>
+          getSeries(edge.node.fields.slug)
+        );
+        if (seriesEdges.length) {
+          for (const e of seriesEdges) {
+            const num = getSeries(e.node.fields.slug);
+            if (num) {
+              series.push({
+                slug: e.node.fields.slug,
+                title: e.node.frontmatter.title,
+                num,
+              });
             }
           }
+
+          series.sort((a, b) => a.num - b.num);
         }
-      `)
-    ).data as IData;
-    // create sereis page
-    series.post.series.forEach((series) => {
-      const postPerPage = 18;
-      const seriesNumPages = Math.ceil(series.totalCount / postPerPage);
-      Array.from({ length: seriesNumPages }).forEach((_, i) => {
-        createPage({
-          path:
-            i === 0
-              ? `/series/${series.name}`
-              : `/series/${series.name}/${i + 1}`,
-          component: path.resolve('./src/templates/series.tsx'),
-          context: {
-            limit: postPerPage,
-            skip: i * seriesNumPages,
-            seriesNumPages,
-            currentPage: i + 1,
-            series: series.name,
-          },
-        });
+      }
+
+      createPage({
+        path: slug,
+        component: path.resolve('./src/templates/blogPost.tsx'),
+        context: {
+          id: node.id,
+          series,
+          html,
+        },
       });
     });
-
-    // create series list page
-    createPage({
-      path: '/series',
-      component: path.resolve('./src/templates/seriez.tsx'),
-      context: {
-        series: series.post.series,
-      },
-    });
   }
-
-  data.post.edges.forEach(({ node }) => {
-    const html = node.html;
-    const slug = node.frontmatter?.slug;
-    const series = node.frontmatter?.series;
-
-    createPage({
-      path: `/post/${slug}`,
-      component: path.resolve('./src/templates/blogPost.tsx'),
-      context: {
-        id: node.id,
-        seriesName: series,
-        // series: data.post.series.find((s) => s.name === series),
-        html,
-      },
-    });
-  });
 };

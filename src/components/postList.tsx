@@ -49,7 +49,7 @@ const PostList: React.FC<IData> = ({
             <PostCard
               key={node.id}
               // key={i}
-              slug={node.frontmatter.slug}
+              slug={node.fields.slug}
               title={node.frontmatter.title}
               date={node.frontmatter.date}
               excerpt={node.excerpt || ''}

@@ -55,10 +55,12 @@ export const pageQuery = graphql`
       skip: $skip
     ) {
       nodes {
+        fields {
+          slug
+        }
         frontmatter {
           title
           date(formatString: "MMM D, YYYY")
-          slug
           tag
         }
         excerpt

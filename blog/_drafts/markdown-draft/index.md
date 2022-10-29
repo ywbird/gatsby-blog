@@ -1,7 +1,6 @@
 ---
 title: Test Draft
 date: 2022-10-02
-slug: test-draft
 tag:
  - test
 description: test post, this post only show in develop runtime.

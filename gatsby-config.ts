@@ -45,11 +45,9 @@ const config: GatsbyConfig = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `markdown-pages`,
-        path:
-          process.env.NODE_ENV === 'development'
-            ? `${__dirname}/blog/`
-            : `${__dirname}/blog/posts`,
+        path: `${__dirname}/blog/_posts`,
       },
+      __key: `posts`,
     },
     {
       resolve: `gatsby-plugin-manifest`,
@@ -183,7 +181,22 @@ const config: GatsbyConfig = {
         includeInDevelopment: false,
       },
     },
+    `gatsby-plugin-slug`,
   ],
 };
+
+if (process.env.NODE_ENV === 'development') {
+  config.plugins?.push({
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      path: `${__dirname}/blog/_drafts`,
+      name: 'markdown-pages',
+    },
+  });
+}
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins?.push(`gatsby-plugin-preact`);
+}
 
 export default config;

@@ -20,7 +20,8 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "postinstall": "husky install",
     "test": "vitest",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -33,7 +34,7 @@
   },
   "dependencies": {
     "gatsby": "5.0.1",
-    "gatsby-plugin-pnpm": "1.2.10",
+    "husky": "8.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tsconfig-paths-webpack-plugin": "4.0.0"
@@ -67,13 +68,13 @@
     "eslint-plugin-promise": "6.1.1",
     "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "4.6.0",
-    "husky": "8.0.2",
     "identity-obj-proxy": "3.0.0",
     "jsdom": "20.0.2",
     "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "typescript": "4.8.4",
     "vite-tsconfig-paths": "3.5.2",
-    "vitest": "0.25.1"
+    "vitest": "0.25.1",
+    "husky": "^8.0.0"
   }
 }

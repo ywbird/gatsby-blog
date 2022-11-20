@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://ywbird.github.io/lotus-gatsby-theme/sitemap.xsl
-Host: https://ywbird.github.io

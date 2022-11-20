@@ -6,3 +6,6 @@
 </h1>
 
 Simple, Compact GatsbyJs Static Blog
+
+> **Warning**
+> Doesn't work(don't know why)

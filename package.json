@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-ts",
-  "description": "A TypeScript starter for Gatsby that includes all you need to build amazing projects",
-  "version": "1.0.0",
+  "name": "lotus",
+  "description": "GatsbyJS static blog template",
+  "version": "2.0.0",
   "private": true,
-  "author": "João Pedro Schmitz <hey@joaopedro.dev> (https://joaopedro.dev)",
+  "author": "ywbird <ywbird@naver.com> (https://ywbird.github.io)",
   "license": "MIT",
   "keywords": [
     "gatsby",

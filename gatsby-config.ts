@@ -4,6 +4,10 @@ import metaConfig from './gatsby-meta-config';
 
 const config: GatsbyConfig = {
   siteMetadata: metaConfig,
+  pathPrefix: metaConfig.baseUrl || ``,
+  trailingSlash: `never`,
+  jsxRuntime: `automatic`,
+  graphqlTypegen: false,
   // Since `gatsby-plugin-typescript` is automatically included in Gatsby you
   // don't need to define it here (just if you need to change the options)
   plugins: [
@@ -115,7 +119,6 @@ const config: GatsbyConfig = {
     },
     // `gatsby-remark-responsive-iframe`,
   ],
-  jsxRuntime: `automatic`,
 };
 
 if (process.env.NODE_ENV === `development`) {

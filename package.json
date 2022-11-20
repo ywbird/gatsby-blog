@@ -5,6 +5,7 @@
   "private": true,
   "author": "ywbird <ywbird@naver.com> (https://ywbird.github.io)",
   "license": "MIT",
+  "homepage": "https://ywbird.github.io/lotus-gatsby-theme",
   "keywords": [
     "gatsby",
     "starter",
@@ -21,7 +22,9 @@
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "test": "vitest",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "predeploy": "gatsby build --prefix-paths",
+    "deploy": "gh-pages -d public"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -34,12 +37,14 @@
   },
   "dependencies": {
     "@emotion/react": "11.10.5",
+    "@giscus/react": "2.2.3",
     "@mdx-js/react": "v1",
     "@theme-ui/mdx": "0.15.4",
     "eslint-plugin-css-modules": "2.11.0",
     "gatsby": "5.0.1",
     "gatsby-plugin-google-fonts": "1.0.1",
     "gatsby-plugin-image": "3.0.0",
+    "gatsby-plugin-preact": "7.0.0",
     "gatsby-plugin-sass": "6.0.0",
     "gatsby-plugin-sharp": "5.0.0",
     "gatsby-plugin-slug": "2.0.0",
@@ -53,9 +58,12 @@
     "gatsby-source-filesystem": "5.0.0",
     "gatsby-transformer-remark": "6.0.0",
     "gatsby-transformer-sharp": "5.0.0",
+    "gh-pages": "4.0.0",
     "jetjet-theme": "JetJet13/jetjet-theme-vscode",
     "material-theme": "Binaryify/OneDark-Pro",
     "node-sass": "8.0.0",
+    "preact": "10.11.3",
+    "preact-render-to-string": "5.2.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "theme-ui": "0.15.4",

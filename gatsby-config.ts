@@ -1,17 +1,9 @@
 import type { GatsbyConfig } from 'gatsby';
 import path from 'path';
+import metaConfig from './gatsby-meta-config';
 
 const config: GatsbyConfig = {
-  siteMetadata: {
-    title: `Lotus`,
-    nickname: `ywbird`,
-    github: `ywbird`,
-    nav: [
-      { name: `Search`, path: `/search`, icon: `mdi:magnify` },
-      { name: `Home`, path: `/`, icon: `mdi:home` },
-      { name: `About`, path: `/about`, icon: `mdi:account` },
-    ],
-  },
+  siteMetadata: metaConfig,
   // Since `gatsby-plugin-typescript` is automatically included in Gatsby you
   // don't need to define it here (just if you need to change the options)
   plugins: [
@@ -135,5 +127,9 @@ if (process.env.NODE_ENV === `development`) {
     },
   });
 }
+
+// if (process.env.NODE_ENV === `production`) {
+//   config.plugins?.push(`gatsby-plugin-preact`);
+// }
 
 export default config;

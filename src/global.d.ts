@@ -10,6 +10,7 @@ export interface IPost {
     title: string;
     date: `${string}, ${number} ${string}` | `${number}-${number}-${number}`;
     tags: string[];
+    metaDate: string;
   };
 }
 

@@ -128,6 +128,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
     }
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter
+      fields: Fields
     }
     type Frontmatter {
       title: String
@@ -135,6 +136,9 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       date: Date @dateformat
       tags: [String]
       series: String
+    }
+    type Fields {
+      slug: String
     }
   `);
   };

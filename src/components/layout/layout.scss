@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.container {
+  margin: auto;
+  min-height: 100vh;
+  font-family: $main-font;
+  max-width: $small-width;
+  &.narrow {
+    max-width: $small-width;
+  }
+  &.wide {
+    max-width: $big-width;
+  }
+}
+
+.heading {
+  color: $heading;
+}

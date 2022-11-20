@@ -1,0 +1,26 @@
+$main-font: 'Nanum Gothic', Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum,
+  Tahoma, Geneva, sans-serif;
+$code-font: Source Code Pro, Noto Sans KR, Noto Sans CJK KR, monospace;
+$heading-font: NanumSquare, Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum,
+  Tahoma, Geneva, sans-serif;
+
+$font-size-1: 1rem;
+$font-size-2: 1.1rem;
+$font-size-3: 1.3rem;
+$font-size-4: 1.6rem;
+
+$weight-regular: 300;
+$weight-bold: 400;
+$weight-heading: 600;
+
+$small-width: 700px;
+$big-width: 900px;
+
+$text: var(--theme-ui-colors-text);
+$heading: var(--theme-ui-colors-heading);
+$content: var(--theme-ui-colors-content);
+$background: var(--theme-ui-colors-background);
+$second-background: var(--theme-ui-colors-second-background);
+$primary: var(--theme-ui-colors-primary);
+$border: var(--theme-ui-colors-border);
+$mute: var(--theme-ui-colors-mute);

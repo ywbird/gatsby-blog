@@ -55,6 +55,7 @@
         "project": "."
       }
     },
+    "import/ignore": [".scss$", "node_modules/*"],
     "react": {
       "version": "detect"
     }

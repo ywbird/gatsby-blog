@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+.search-result {
+  margin-top: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+}
+.condition {
+  display: grid;
+  width: 900px;
+  height: 80px;
+  place-items: center;
+  color: $mute;
+}
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  fill: $mute;
+
+  .search-input {
+    background-color: transparent;
+    border: 0;
+    color: $text;
+    font-family: $main-font;
+    font-size: 1em;
+    height: 2em;
+    width: 380px;
+    border-bottom: 2px solid $border;
+    &:focus {
+      outline: 0;
+    }
+    &::placeholder {
+      color: $mute;
+      opacity: 80%;
+      font-style: italic;
+    }
+  }
+  .search-icon {
+    height: 2em;
+    border-bottom: 2px solid $border;
+    color: $mute;
+    cursor: text;
+  }
+}

@@ -1,0 +1,52 @@
+@import '../../styles/variables';
+
+#header {
+  position: sticky;
+  width: 100%;
+  padding: 10px;
+  top: 0;
+  background-color: $background;
+  opacity: 90%;
+  z-index: 999;
+  margin-top: 30px;
+  height: 80px;
+  border-bottom: 5px double $border;
+  header {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+    font-family: $main-font;
+    justify-content: space-between;
+
+    .title {
+      font-size: $font-size-4;
+      font-weight: $weight-bold;
+      text-decoration: none;
+      color: $text;
+    }
+    nav > ul {
+      display: flex;
+      flex-direction: row;
+      gap: 1.3em;
+      list-style: none;
+      li > .nav-link {
+        text-decoration: none;
+        color: $text;
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        .iconify {
+          display: inline-block;
+        }
+        &[aria-current='page'] {
+          color: $mute;
+        }
+      }
+      .color-toggle {
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -23,7 +23,6 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "test": "vitest",
     "test:watch": "vitest watch",
-    "predeploy": "gatsby build --prefix-paths",
     "deploy": "gh-pages -d public"
   },
   "engines": {

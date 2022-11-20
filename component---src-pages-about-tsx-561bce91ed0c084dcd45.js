@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunklotus=self.webpackChunklotus||[]).push([[49],{2766:function(t,e,i){i.r(e),i.d(e,{Head:function(){return h}});var s=i(2212),u=i(5893);const h=()=>(0,u.jsx)("title",{children:"About Me"});e.default=()=>(0,u.jsx)(s.Z,{pageTitle:"About Me",children:(0,u.jsx)("p",{children:"Hi there! I'm the proud creator of this site, which I built with Gatsby."})})}}]);
+//# sourceMappingURL=component---src-pages-about-tsx-561bce91ed0c084dcd45.js.map

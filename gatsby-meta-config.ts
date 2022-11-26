@@ -17,7 +17,6 @@ const meta: MetaConfig = {
   nickname: `고앵이`,
   github: `ywbird`,
   nav: [
-    { name: `Search`, path: `/search`, icon: `mdi:magnify` },
     { name: `Home`, path: `/`, icon: `mdi:home` },
     { name: `About`, path: `/about`, icon: `mdi:account` },
   ],
@@ -32,7 +31,7 @@ const meta: MetaConfig = {
     reactionsEnabled: `1`,
     emitMetadata: `0`,
     inputPosition: `top`,
-    theme: `dark_dimmed`,
+    theme: `preferred_color_scheme`,
     lang: `en`,
   },
   baseUrl: `/lotus-gatsby-theme`,

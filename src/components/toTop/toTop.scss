@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+#to_top {
+  @media (min-width: 935px) {
+    position: fixed;
+    display: block;
+    right: 50px;
+    bottom: 80px;
+  }
+  display: none;
+  z-index: 2;
+  .back-to-top {
+    font-family: $main-font;
+    color: $text;
+    cursor: pointer;
+    letter-spacing: 0;
+    // transition: 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+}

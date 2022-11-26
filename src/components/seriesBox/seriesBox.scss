@@ -1,0 +1,63 @@
+@import '../../styles/variables.scss';
+
+.series-warpper {
+  background-color: $second-background;
+  padding: 1em;
+  .series-name {
+    margin: 0 0 0.8em 0;
+  }
+  .series-number {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 1em;
+  }
+  .prevnext {
+    color: $text;
+    text-decoration: none;
+    &:visited {
+      color: $text;
+    }
+    &.mute {
+      color: $mute;
+      cursor: not-allowed;
+      user-select: none;
+    }
+  }
+  .series-list {
+    .list-show {
+      display: flex;
+      align-items: center;
+      user-select: none;
+    }
+    cursor: pointer;
+
+    ol {
+      padding: 0 0 0 1.5em;
+      margin: 0;
+
+      li {
+        margin: 5px 0 0 10px;
+        &::marker {
+          font-style: italic;
+          color: $mute;
+          margin-right: 3px;
+        }
+        a {
+          color: $text;
+          text-decoration: none;
+          &:visited {
+            color: $text;
+          }
+          &:hover {
+            text-decoration: underline;
+          }
+          &#current-post {
+            color: $primary;
+            font-weight: 400 !important;
+          }
+        }
+      }
+    }
+  }
+}

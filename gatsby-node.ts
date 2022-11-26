@@ -26,6 +26,9 @@ export const createPages: GatsbyNode['createPages'] = async ({
           fields {
             slug
           }
+          frontmatter {
+            series
+          }
         }
         tags: group(field: { frontmatter: { tags: SELECT } }) {
           name: fieldValue
@@ -59,6 +62,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
           id: post.id,
           previousPostId,
           nextPostId,
+          series: post.frontmatter.series ?? ``,
         },
       });
     });

@@ -18,7 +18,7 @@ const theme = {
         'second-background': `#282c34`,
         primary: `#e47588`,
         border: `#777777`,
-        mute: `#bababa`,
+        mute: `#bdbdbd`,
       },
       light: {
         text: `#2a2a2a`,

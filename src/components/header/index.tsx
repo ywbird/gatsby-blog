@@ -50,6 +50,11 @@ const Header: FC<props> = ({ links, siteTitle }) => {
                 <Icon width={20} icon="fa-solid:adjust" />
               )}
             </li>
+            <li>
+              <Link className="nav-link" to="/search">
+                <Icon width={20} icon="fa6-solid:magnifying-glass" />
+              </Link>
+            </li>
           </ul>
         </nav>
       </header>

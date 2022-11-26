@@ -14,3 +14,4 @@ Simple, Compact GatsbyJs Static Blog
 - Tag :bookmark:
 - Code highlight with VSCode theme :eye:
 - Code title & line highlight :straight_ruler:
+- Series 📚

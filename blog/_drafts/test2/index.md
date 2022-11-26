@@ -4,6 +4,7 @@ date: 2022-10-10
 tags:
   - test
   - test2
+series: test
 ---
 
 Laboris culpa dolor exercitation aute mollit fugiat id. Magna sunt eiusmod in anim ullamco non proident officia excepteur nisi ad id est. Officia in enim minim aliqua adipisicing tempor aliqua eu laborum excepteur in nisi.

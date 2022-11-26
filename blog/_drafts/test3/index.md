@@ -1,6 +1,7 @@
 ---
 title: Ut cupidatat duis anim dolore aliqua non aliqua labore enim aliquip laboris ex sitasd asdsasdasdsadasda Cillum nostrud tempor minim anim nostrud velit incididunt aute velit pariatur laboris.
 date: 2022-10-10
+series: test
 ---
 
 Laboris culpa dolor exercitation aute mollit fugiat id. Magna sunt eiusmod in anim ullamco non proident officia excepteur nisi ad id est. Officia in enim minim aliqua adipisicing tempor aliqua eu laborum excepteur in nisi.

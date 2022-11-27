@@ -117,6 +117,13 @@ const config: GatsbyConfig = {
         display: `swap`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: `GTM-PFPXKNM`,
+        includeInDevelopment: false,
+      },
+    },
     // `gatsby-remark-responsive-iframe`,
   ],
 };
@@ -130,9 +137,5 @@ if (process.env.NODE_ENV === `development`) {
     },
   });
 }
-
-// if (process.env.NODE_ENV === `production`) {
-//   config.plugins?.push(`gatsby-plugin-preact`);
-// }
 
 export default config;

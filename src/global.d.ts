@@ -13,6 +13,7 @@ export interface IPost {
     series: String;
     metaDate: string;
   };
+  tableOfContents: string;
 }
 
 export interface ITag {

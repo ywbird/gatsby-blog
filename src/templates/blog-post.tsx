@@ -9,6 +9,7 @@ import ToTop from '@/components/toTop';
 import './blog-post.scss';
 import Seo from '@/components/seo';
 import SeriesBox from '@/components/seriesBox';
+import TOC from '@/components/toc';
 
 interface DataProps {
   markdownRemark: IPost;
@@ -39,6 +40,7 @@ const BlogPostTemplate = ({
       html,
       fields: { slug },
       frontmatter: { title, date, tags },
+      tableOfContents,
     },
     site: {
       siteMetadata: { giscus },
@@ -84,6 +86,8 @@ const BlogPostTemplate = ({
         {data?.previous && <Article post={data.previous} />}
         {data?.next && <Article post={data.next} />}
       </div>
+      <hr />
+      <TOC content={tableOfContents} />
       <hr />
       <div className="comment">
         <Giscus
@@ -154,6 +158,7 @@ export const pageQuery = graphql`
         description
         tags
       }
+      tableOfContents
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
       fields {

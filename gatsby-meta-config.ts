@@ -31,11 +31,12 @@ const meta: MetaConfig = {
     reactionsEnabled: `1`,
     emitMetadata: `0`,
     inputPosition: `top`,
-    theme: `preferred_color_scheme`,
     lang: `en`,
   },
   baseUrl: `/lotus-gatsby-theme`,
 };
+
+meta.giscus.theme = `dark_dimmed`;
 
 const metaConfig = { ...meta };
 

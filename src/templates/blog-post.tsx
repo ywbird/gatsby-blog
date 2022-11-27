@@ -1,15 +1,17 @@
 import { graphql, PageProps, Link, HeadFC } from 'gatsby';
-import Giscus, { GiscusProps } from '@giscus/react';
+import Giscus, { GiscusProps, Theme } from '@giscus/react';
+import { useState, useEffect } from 'react';
+import { useColorMode } from 'theme-ui';
 
 import Layout from '@/components/layout';
 import { IPost } from '@/global';
 import Article from '@/components/article';
 import ToTop from '@/components/toTop';
-
-import './blog-post.scss';
 import Seo from '@/components/seo';
 import SeriesBox from '@/components/seriesBox';
 import TOC from '@/components/toc';
+
+import './blog-post.scss';
 
 interface DataProps {
   markdownRemark: IPost;
@@ -21,7 +23,7 @@ interface DataProps {
   next: IPost;
   site: {
     siteMetadata: {
-      giscus: GiscusProps;
+      giscus: GiscusProps & { theme: { dark: Theme; light: Theme } };
     };
   };
 }
@@ -34,6 +36,10 @@ const BlogPostTemplate = ({
   data,
   pageContext,
 }: PageProps<DataProps, ContextProps>) => {
+  const [colorMode] = useColorMode();
+  const [comment, setComment] = useState<JSX.Element | null>();
+  const theme = { dark: `dark_dimmed`, light: `light_tritanopia` };
+
   const {
     series: { nodes: series, count },
     markdownRemark: {
@@ -47,6 +53,29 @@ const BlogPostTemplate = ({
     },
   } = data;
 
+  const renderComment = (
+    giscus: GiscusProps & { theme: { dark: Theme; light: Theme } },
+    colorMode: string,
+  ) => {
+    setComment(() => (
+      <Giscus
+        id="comment"
+        repo={giscus.repo}
+        repoId={giscus.repoId}
+        category={giscus.category}
+        categoryId={giscus.categoryId}
+        mapping={giscus.mapping}
+        strict={giscus.strict}
+        reactionsEnabled={giscus.reactionsEnabled}
+        emitMetadata={giscus.emitMetadata}
+        inputPosition={giscus.inputPosition}
+        theme={theme[colorMode as 'dark' | 'light']}
+        lang={giscus.lang}
+        loading="lazy"
+      />
+    ));
+  };
+
   const current = series.findIndex((s) => slug === s.fields.slug) || 0;
   const seriesObj = {
     count,
@@ -56,6 +85,11 @@ const BlogPostTemplate = ({
     others: series,
     name: pageContext.series,
   };
+
+  useEffect(() => {
+    setComment(() => null);
+    renderComment(giscus, colorMode);
+  }, [colorMode]);
 
   return (
     <Layout pageTitle={title}>
@@ -87,26 +121,9 @@ const BlogPostTemplate = ({
         {data?.next && <Article post={data.next} />}
       </div>
       <hr />
-      <TOC content={tableOfContents} />
-      <hr />
-      <div className="comment">
-        <Giscus
-          id="comment"
-          repo={giscus.repo}
-          repoId={giscus.repoId}
-          category={giscus.category}
-          categoryId={giscus.categoryId}
-          mapping={giscus.mapping}
-          strict={giscus.strict}
-          reactionsEnabled={giscus.reactionsEnabled}
-          emitMetadata={giscus.emitMetadata}
-          inputPosition={giscus.inputPosition}
-          theme={giscus.theme}
-          lang={giscus.lang}
-          loading="lazy"
-        />
-      </div>
+      <div className="comment">{comment}</div>
       <ToTop />
+      <TOC content={tableOfContents} />
     </Layout>
   );
 };

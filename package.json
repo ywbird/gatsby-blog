@@ -1,7 +1,7 @@
 {
   "name": "lotus",
   "description": "GatsbyJS static blog template",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "private": true,
   "author": "ywbird <ywbird@naver.com> (https://ywbird.github.io)",
   "license": "MIT",
@@ -48,6 +48,7 @@
     "gatsby-plugin-image": "3.0.0",
     "gatsby-plugin-sass": "6.0.0",
     "gatsby-plugin-sharp": "5.0.0",
+    "gatsby-plugin-sitemap": "6.3.1",
     "gatsby-plugin-slug": "2.0.0",
     "gatsby-plugin-theme-ui": "0.15.4",
     "gatsby-remark-autolink-headers": "6.0.0",

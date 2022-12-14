@@ -1,7 +1,7 @@
 {
   "name": "lotus",
   "description": "GatsbyJS static blog template",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "author": "ywbird <ywbird@naver.com> (https://ywbird.github.io)",
   "license": "MIT",
@@ -23,7 +23,8 @@
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "test": "vitest",
     "test:watch": "vitest watch",
-    "deploy": "gh-pages -d public"
+    "deploy": "gh-pages -d public",
+    "setting": "node ./setting/index.js"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -39,7 +40,9 @@
     "@giscus/react": "2.2.3",
     "@mdx-js/react": "v1",
     "@theme-ui/mdx": "0.15.4",
+    "body-parser": "1.20.1",
     "eslint-plugin-css-modules": "2.11.0",
+    "express": "4.18.2",
     "gatsby": "5.0.1",
     "gatsby-plugin-google-fonts": "1.0.1",
     "gatsby-plugin-google-tagmanager": "5.2.0",

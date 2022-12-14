@@ -1,0 +1,34 @@
+{
+  "siteUrl": "https://ywbird.github.io/lotus-gatsby-theme",
+  "title": "Lotus",
+  "nickname": "고앵이, ywbird",
+  "github": "ywbird",
+  "nav": [
+    {
+      "name": "Home",
+      "path": "/",
+      "icon": "mdi:home"
+    },
+    {
+      "name": "About",
+      "path": "/about",
+      "icon": "mdi:account"
+    }
+  ],
+  "description": "Gatsby framework blog by ywbird",
+  "giscus": {
+    "repo": "ywbird/lotus-gatsby-theme",
+    "repoId": "R_kgDOH2uwzg",
+    "category": "Site Comment",
+    "categoryId": "DIC_kwDOH2uwzs4CRvBI",
+    "mapping": "title",
+    "strict": "0",
+    "reactionsEnabled": "1",
+    "emitMetadata": "0",
+    "inputPosition": "top",
+    "theme": "dark_dimmed",
+    "lang": "en"
+  },
+  "baseUrl": "/lotus-gatsby-theme",
+  "gtag": "GTM-PFPXKNM"
+}

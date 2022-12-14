@@ -1,10 +1,10 @@
 import type { GatsbyConfig } from 'gatsby';
 import path from 'path';
-import metaConfig from './gatsby-meta-config';
+import configJson from './config.json';
 
 const config: GatsbyConfig = {
-  siteMetadata: metaConfig,
-  pathPrefix: metaConfig.baseUrl || ``,
+  siteMetadata: configJson,
+  pathPrefix: configJson?.baseUrl || ``,
   trailingSlash: `never`,
   jsxRuntime: `automatic`,
   graphqlTypegen: false,
@@ -120,7 +120,7 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        id: `GTM-PFPXKNM`,
+        id: configJson.gtag,
         includeInDevelopment: false,
       },
     },

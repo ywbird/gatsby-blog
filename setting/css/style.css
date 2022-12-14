@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  --border: black;
+  --color: black;
+  --bgcolor: rgb(230 230 230);
+}
+
+body {
+  display: grid;
+  background-color: var(--bgcolor);
+  color: var(--color);
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a:visited {
+  color: dodgerblue;
+}
+
+.container {
+  padding: 2rem;
+  display: grid;
+  place-items: center;
+  max-width: 700px;
+}
+
+.inputs {
+  display: table;
+}
+input- {
+  display: table-row;
+}
+label {
+  display: table-cell;
+}
+input {
+  margin-left: 10px;
+  font-family: monospace;
+  margin-bottom: 3px;
+  border: 1px solid var(--border);
+  display: table-cell;
+  background-color: var(--bgcolor);
+  color: var(--color);
+}
+
+.inputs input[type='text'] {
+  width: 330px;
+}
+input[type='text']:focus {
+  outline: none;
+}
+
+input[type='checkbox'] {
+  border: 1px solid var(--border);
+}
+
+button {
+  color: var(--color);
+  background-color: var(--bgcolor);
+  cursor: pointer;
+}
+
+.save {
+  border: 2px solid var(--border);
+  padding: 2px 3px 3px 3px;
+}
+
+.rmbtn {
+  border: 1px solid var(--border);
+  margin-left: 3px;
+  font-size: 12px;
+  padding: 1px;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* height: 30px; */
+}
+
+.und {
+  font-size: 7px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 3px;
+}
+
+.und button {
+  border: 1px solid var(--border);
+}
+
+.und button:disabled {
+  color: gray;
+  cursor: default;
+}
+
+.und button:last-child {
+  border-top: 0;
+}

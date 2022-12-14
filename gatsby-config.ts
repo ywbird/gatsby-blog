@@ -117,13 +117,6 @@ const config: GatsbyConfig = {
         display: `swap`,
       },
     },
-    {
-      resolve: `gatsby-plugin-google-tagmanager`,
-      options: {
-        id: configJson.gtag,
-        includeInDevelopment: false,
-      },
-    },
     // `gatsby-remark-responsive-iframe`,
   ],
 };

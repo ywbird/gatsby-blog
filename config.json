@@ -29,6 +29,5 @@
     "theme": "dark_dimmed",
     "lang": "en"
   },
-  "baseUrl": "/lotus-gatsby-theme",
-  "gtag": "GTM-PFPXKNM"
+  "baseUrl": "/lotus-gatsby-theme"
 }

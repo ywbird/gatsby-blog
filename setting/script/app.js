@@ -31,7 +31,7 @@ const url = document.querySelector(`#url`);
 const baseurl = document.querySelector(`#baseurl`);
 const github = document.querySelector(`#github`);
 const desc = document.querySelector(`#desc`);
-const gtag = document.querySelector(`#gtag`);
+
 const giscus = {};
 giscus.repo = document.querySelector(`#repo`);
 giscus.repoid = document.querySelector(`#repoid`);
@@ -198,7 +198,6 @@ window.addEventListener(`load`, async () => {
   baseurl.value = `${settingData.baseUrl}`;
   github.value = `${settingData.github}`;
   desc.value = `${settingData.description}`;
-  gtag.value = `${settingData.gtag}`;
 
   giscus.repo.value = `${settingData.giscus.repo}`;
   giscus.repoid.value = `${settingData.giscus.repoId}`;
@@ -228,7 +227,6 @@ save.addEventListener(`click`, async () => {
   settingData.baseUrl = `${baseurl.value}`;
   settingData.github = `${github.value}`;
   settingData.description = `${desc.value}`;
-  settingData.gtag = `${gtag.value}`;
 
   settingData.giscus.repo = `${giscus.repo.value}`;
   settingData.giscus.repoId = `${giscus.repoid.value}`;

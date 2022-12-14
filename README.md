@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Gatsby" src="/logo.svg" width="60" />
+  <img alt="Gatsby" src="/logo.svg" width="120" />
 </p>
 <h1 align="center">
   Lotus

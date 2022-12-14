@@ -25,8 +25,10 @@ Run following command.
 $ yarn setting
 ```
 
-will open setting server at `localhost:3000`.
+It will open setting server at `localhost:3000`.
 
 ![setting page](https://user-images.githubusercontent.com/83404333/207529518-008e8175-3bf5-4607-907d-35f00de171b2.png)
 
 Happy Hacking!
+
+> Icons using [Iconify](https://iconify.design/)

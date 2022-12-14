@@ -15,3 +15,4 @@ Simple, Compact GatsbyJs Static Blog
 - Code highlight with VSCode theme :eye:
 - Code title & line highlight :straight_ruler:
 - Series 📚
+- Settings page ⚙

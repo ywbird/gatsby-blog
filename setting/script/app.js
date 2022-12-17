@@ -41,6 +41,8 @@ giscus.mapping = document.querySelector(`#mapping`);
 giscus.reactions = document.querySelector(`#reactions`);
 giscus.inputpostop = document.querySelector(`#inputpostop`);
 
+const siteurl = document.querySelector(`#siteurl`);
+
 function arrayMove(arr, oldIndex, newIndex) {
   if (newIndex >= arr.length) {
     let k = newIndex - arr.length + 1;
@@ -52,8 +54,14 @@ function arrayMove(arr, oldIndex, newIndex) {
   return arr; // for testing
 }
 
+const onChange = () => {
+  siteurl.value = `https://${url.value}${baseurl.value}`;
+};
+
 window.addEventListener(`load`, async () => {
   settingData = await fetch(`/get`).then((res) => res.json());
+
+  siteurl.disabled = `disabled`;
 
   class Nav extends HTMLElement {
     connectedCallback() {
@@ -135,17 +143,17 @@ window.addEventListener(`load`, async () => {
         const a = document.createElement(`div`);
         const nameInput = document.createElement(`input`);
         nameInput.type = `text`;
-        nameInput.placeholder = `Name`;
+        nameInput.placeholder = `Name (*)`;
         a.appendChild(nameInput);
 
         const iconInput = document.createElement(`input`);
         iconInput.type = `text`;
-        iconInput.placeholder = `Icon`;
+        iconInput.placeholder = `Icon (*:*)`;
         a.appendChild(iconInput);
 
         const pathInput = document.createElement(`input`);
         pathInput.type = `text`;
-        pathInput.placeholder = `Path`;
+        pathInput.placeholder = `Path (/*)`;
         a.appendChild(pathInput);
 
         const addBtn = document.createElement(`button`);
@@ -194,7 +202,7 @@ window.addEventListener(`load`, async () => {
 
   title.value = `${settingData.title}`;
   nick.value = `${settingData.nickname}`;
-  url.value = `${settingData.siteUrl}`;
+  url.value = `${settingData.url}`;
   baseurl.value = `${settingData.baseUrl}`;
   github.value = `${settingData.github}`;
   desc.value = `${settingData.description}`;
@@ -216,14 +224,21 @@ window.addEventListener(`load`, async () => {
       : `${settingData.giscus.inputPosition}` === `bottom`
       ? false
       : null;
+
+  onChange();
 });
 
 const save = document.querySelector(`.save`);
 
+setInterval(() => {
+  onChange();
+}, 100);
+
 save.addEventListener(`click`, async () => {
   settingData.title = `${title.value}`;
   settingData.nickname = `${nick.value}`;
-  settingData.siteUrl = `${url.value}`;
+  settingData.siteUrl = `https://${url.value}${baseurl.value}`;
+  settingData.url = `${url.value}`;
   settingData.baseUrl = `${baseurl.value}`;
   settingData.github = `${github.value}`;
   settingData.description = `${desc.value}`;

@@ -10,6 +10,7 @@ import ToTop from '@/components/toTop';
 import Seo from '@/components/seo';
 import SeriesBox from '@/components/seriesBox';
 import TOC from '@/components/toc';
+import Like from '@/components/like';
 
 import './blog-post.scss';
 
@@ -23,6 +24,8 @@ interface DataProps {
   next: IPost;
   site: {
     siteMetadata: {
+      url: string;
+      baseUrl: string;
       giscus: GiscusProps & { theme: { dark: Theme; light: Theme } };
     };
   };
@@ -49,7 +52,7 @@ const BlogPostTemplate = ({
       tableOfContents,
     },
     site: {
-      siteMetadata: { giscus },
+      siteMetadata: { giscus, url, baseUrl },
     },
   } = data;
 
@@ -115,6 +118,10 @@ const BlogPostTemplate = ({
       )}
       <hr />
       <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
+      <Like
+        url={url}
+        slug={baseUrl.replace(`/`, ``) + slug.replace(`/`, `-`)}
+      />
       <hr />
       <div className="nextPrev">
         {data?.previous && <Article post={data.previous} />}
@@ -197,6 +204,8 @@ export const pageQuery = graphql`
     }
     site {
       siteMetadata {
+        url
+        baseUrl
         giscus {
           category
           categoryId

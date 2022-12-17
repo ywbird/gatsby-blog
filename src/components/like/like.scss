@@ -1,0 +1,12 @@
+.like {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .like-btn {
+    cursor: pointer;
+  }
+  .like-count {
+    margin: 0;
+    font-weight: 500;
+  }
+}

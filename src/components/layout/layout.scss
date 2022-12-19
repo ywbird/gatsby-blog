@@ -5,6 +5,7 @@
   min-height: 100vh;
   font-family: $main-font;
   max-width: $small-width;
+  padding: 0.6rem;
   &.narrow {
     max-width: $small-width;
   }

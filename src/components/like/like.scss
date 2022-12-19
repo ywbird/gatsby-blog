@@ -1,3 +1,4 @@
+@import '../../styles/variables';
 .like {
   display: flex;
   align-items: center;
@@ -7,6 +8,6 @@
   }
   .like-count {
     margin: 0;
-    font-weight: 500;
+    font-weight: $weight-bold;
   }
 }

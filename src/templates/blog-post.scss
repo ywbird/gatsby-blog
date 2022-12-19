@@ -9,6 +9,8 @@
   color: $content;
   margin-bottom: 2em;
 
+  overflow-x: hidden;
+
   code {
     font-family: $code-font;
     font-size: 14px;

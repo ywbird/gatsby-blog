@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 
 import './like.scss';
 
-const Like: FC<{ slug: string; url: string }> = ({ url, slug }) => {
+const Like: FC<{ id: string; url: string }> = ({ url, id }) => {
   const [likes, setLikes] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
@@ -15,18 +15,18 @@ const Like: FC<{ slug: string; url: string }> = ({ url, slug }) => {
     if (!isLiked) {
       setIsLiked((prev) => !prev);
       setLikes((prev) => prev + 1);
-      countapi.visits(slug).then((result) => {
+      countapi.visits(id).then((result) => {
         setLikes(() => result.value);
       });
       const liked: string[] = JSON.parse(
         window.localStorage.getItem(`liked`) || `[]`,
       );
-      liked.push(slug);
+      liked.push(id);
       window.localStorage.setItem(`liked`, JSON.stringify(liked));
     } else {
       setIsLiked((prev) => !prev);
       setLikes((prev) => prev - 1);
-      countapi.update(url, slug, -1).then((result) => {
+      countapi.update(url, id, -1).then((result) => {
         setLikes(() => result.value);
       });
       const liked: string[] = JSON.parse(
@@ -34,7 +34,7 @@ const Like: FC<{ slug: string; url: string }> = ({ url, slug }) => {
       );
       window.localStorage.setItem(
         `liked`,
-        JSON.stringify(liked.splice(liked.indexOf(slug), 1)),
+        JSON.stringify(liked.splice(liked.indexOf(id), 1)),
       );
     }
   };
@@ -44,13 +44,13 @@ const Like: FC<{ slug: string; url: string }> = ({ url, slug }) => {
       setIsLiked(() =>
         (
           JSON.parse(window.localStorage.getItem(`liked`) || `[]`) as string[]
-        ).includes(slug),
+        ).includes(id),
       );
     }
-    countapi.info(url, slug).then(({ status }: { status: number }) => {
+    countapi.info(url, id).then(({ status }: { status: number }) => {
       if (status !== 200) {
         countapi.create({
-          key: slug,
+          key: id,
           namespace: url,
           enable_reset: true,
           update_lowerbound: -1,
@@ -58,7 +58,7 @@ const Like: FC<{ slug: string; url: string }> = ({ url, slug }) => {
         });
       }
     });
-    countapi.get(url, slug).then((result) => {
+    countapi.get(url, id).then((result) => {
       setLikes(() => result.value);
     });
   }, []);

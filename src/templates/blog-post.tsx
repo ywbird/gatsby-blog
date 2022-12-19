@@ -46,13 +46,14 @@ const BlogPostTemplate = ({
   const {
     series: { nodes: series, count },
     markdownRemark: {
+      id,
       html,
       fields: { slug },
       frontmatter: { title, date, tags },
       tableOfContents,
     },
     site: {
-      siteMetadata: { giscus, url, baseUrl },
+      siteMetadata: { giscus, url },
     },
   } = data;
 
@@ -118,10 +119,7 @@ const BlogPostTemplate = ({
       )}
       <hr />
       <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
-      <Like
-        url={url}
-        slug={baseUrl.replace(`/`, ``) + slug.replace(`/`, `-`)}
-      />
+      <Like url={url} id={id} />
       <hr />
       <div className="nextPrev">
         {data?.previous && <Article post={data.previous} />}

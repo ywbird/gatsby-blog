@@ -56,8 +56,8 @@ const PostList: FC<props> = ({ posts }) => {
   }, [list]); //eslint-disable-line
 
   return (
-    <>
-      <div className="post-list">
+    <div className="post-list">
+      <div className="post-grid">
         {list.map((post) => (
           <Article key={post.id} post={post} />
         ))}
@@ -65,7 +65,7 @@ const PostList: FC<props> = ({ posts }) => {
       <div className="condition" ref={loadRef}>
         {hasMore ? <p>Loading...</p> : <p>No more posts</p>}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -6,13 +6,12 @@
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
   gap: 15px;
-}
-.condition {
-  display: grid;
-  width: 900px;
-  height: 80px;
-  place-items: center;
-  color: $mute;
+  .condition {
+    display: grid;
+    height: 80px;
+    place-items: center;
+    color: $mute;
+  }
 }
 .search-wrapper {
   display: flex;

@@ -32,7 +32,7 @@ export default TagTemplate;
 export const pageQuery = graphql`
   query TagPageQuery($name: String!) {
     allMarkdownRemark(
-      sort: { frontmatter: { date: ASC } }
+      sort: { frontmatter: { date: DESC } }
       limit: 1000
       filter: { frontmatter: { tags: { eq: $name } } }
     ) {

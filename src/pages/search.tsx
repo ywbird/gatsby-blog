@@ -86,7 +86,7 @@ export default SearchPage;
 
 export const pageQuery = graphql`
   query SearchPage {
-    allMarkdownRemark(sort: { frontmatter: { date: ASC } }) {
+    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
       nodes {
         fields {
           slug

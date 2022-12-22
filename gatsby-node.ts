@@ -20,7 +20,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
     data?: { allMarkdownRemark: { nodes: IPost[]; tags: ITag[] } } | undefined;
   } = await graphql(`
     {
-      allMarkdownRemark(sort: { frontmatter: { date: ASC } }, limit: 1000) {
+      allMarkdownRemark(limit: 1000) {
         nodes {
           id
           fields {

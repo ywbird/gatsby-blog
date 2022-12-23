@@ -111,7 +111,7 @@ const config: GatsbyConfig = {
         fonts: [
           `Noto Sans KR:300,300i,400,400i,500,500i`,
           `Noto Sans CJK KR:300,300i,400,400i,500,500i`,
-          `Nanum Gothic:300,300i,500,500i`,
+          `Nanum Gothic:400,400i,700,700i`,
           `Source Code Pro`,
         ],
         display: `swap`,

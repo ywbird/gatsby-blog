@@ -4903,13 +4903,6 @@ cosmiconfig@^7.0.0:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
-countapi-js@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/countapi-js/-/countapi-js-1.0.2.tgz#932412160ef94a81fb0568a0919fd3ab567c0cb0"
-  integrity sha512-HteIJM3mB+Um9Kwdk9tdzF6cit39crhksA2EIlg9qBpecAzU8xxG6NGxFQnDmvKtgYu9SD6u0LNiXg5FxDm8dw==
-  dependencies:
-    cross-fetch "^3.0.4"
-
 create-gatsby@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/create-gatsby/-/create-gatsby-3.0.0.tgz#4802bc54fc340cbf8af3c899ef7d8ea7ad52f3e7"
@@ -4922,7 +4915,7 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
-cross-fetch@^3.0.4, cross-fetch@^3.1.5:
+cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
   integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==

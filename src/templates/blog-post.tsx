@@ -153,7 +153,7 @@ export const pageQuery = graphql`
   ) {
     series: allMarkdownRemark(
       filter: { frontmatter: { series: { eq: $series } } }
-      sort: { frontmatter: { date: DESC } }
+      sort: { frontmatter: { date: ASC } }
     ) {
       nodes {
         id

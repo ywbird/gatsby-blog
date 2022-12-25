@@ -12,6 +12,7 @@ $font-size-4: 1.6rem;
 $weight-regular: 400;
 $weight-bold: 700;
 $weight-heading: 700;
+$weight-title: 800;
 
 $small-width: 700px;
 $big-width: 900px;
@@ -21,6 +22,7 @@ $heading: var(--theme-ui-colors-heading);
 $content: var(--theme-ui-colors-content);
 $background: var(--theme-ui-colors-background);
 $second-background: var(--theme-ui-colors-second-background);
+$code-background: var(--theme-ui-colors-code-background);
 $primary: var(--theme-ui-colors-primary);
 $border: var(--theme-ui-colors-border);
 $mute: var(--theme-ui-colors-mute);

@@ -6,6 +6,8 @@
   font-family: $main-font;
   max-width: $small-width;
   padding: 0.6rem;
+  box-sizing: content-box;
+
   &.narrow {
     max-width: $small-width;
   }
@@ -16,4 +18,5 @@
 
 .heading {
   color: $heading;
+  font-weight: $weight-title;
 }

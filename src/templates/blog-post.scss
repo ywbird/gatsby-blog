@@ -3,15 +3,13 @@
 .content {
   // width: $small-width;
   font-size: 16px;
+  line-height: 23px;
+  color: $content;
 
   max-width: 700px;
-
-  color: $content;
-  margin-bottom: 2em;
-
   overflow-x: hidden;
 
-  line-height: 23px;
+  margin-bottom: 2em;
 
   code {
     font-family: $code-font;
@@ -29,20 +27,11 @@
     tab-size: 2;
     border-radius: 0;
     font-size: 15px;
-    /* border-top-left-radius: 0; */
-
-    /* &::after {
-      content: ' ';
-      display: block;
-      width: 100%;
-      height: 2.5rem;
-      transform: translateY(-6rem);
-      background-color: black;
-    } */
+    background-color: $code-background !important;
   }
 
   *:not(pre) > code:not([data-language]) {
-    background-color: $second-background !important;
+    background-color: $code-background !important;
     padding: 1px 5px;
     color: $text;
     border-radius: 3px;
@@ -56,20 +45,34 @@
 
   blockquote {
     /* padding-left: 40px; */
-    border-left: 0.2em solid $border;
+    // border-left: 0.2em solid $border;
     /* opacity: 80%; */
     background-color: $second-background;
     color: $text;
-    padding: 0.1em 0 0.1em 30px;
-    margin: 1em 0.5em;
+    padding: 1rem 1rem 1rem 1.4rem;
+    box-sizing: content-box;
+    margin: 0.5em 0em;
+    position: relative;
+
+    p {
+      margin: 0;
+    }
+
+    &::before {
+      content: ' ';
+      left: 0;
+      top: 0;
+      background-color: $border;
+      width: 0.4rem;
+      height: 100%;
+      position: absolute;
+    }
+
     /* filter: invert(); */
   }
 
-  .grvsc-has-line-highlighting > .grvsc-code > .grvsc-line::before {
-    /* background-color: #fff; */
-
-    width: 700px;
-    /* border-collapse: collapse; */
+  .grvsc-code {
+    width: 100%;
   }
 
   .gatsby-remark-code-title {
@@ -81,7 +84,7 @@
     font-size: 0.9em;
     font-weight: $weight-bold;
 
-    background-color: $second-background;
+    background-color: $code-background;
     border-bottom: 1px solid $border;
     /* z-index: 0; */
   }
@@ -99,6 +102,13 @@
         fill: $heading;
         /* transform: translateX(-100%); */
       }
+    }
+  }
+
+  @for $i from 1 through 6 {
+    h#{$i} {
+      font-size: calc(2rem - (0.12rem * #{$i}));
+      margin-block: calc(0.35rem * (7 - #{$i}));
     }
   }
 
@@ -134,7 +144,7 @@
   th {
     border: 1px solid $border;
     padding: 3px 4px;
-    font-weight: $weight-bold;
+    font-weight: $weight-regular;
   }
   thead {
     background-color: $second-background;

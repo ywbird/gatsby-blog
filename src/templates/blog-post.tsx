@@ -10,7 +10,6 @@ import ToTop from '@/components/toTop';
 import Seo from '@/components/seo';
 import SeriesBox from '@/components/seriesBox';
 import TOC from '@/components/toc';
-import Like from '@/components/like';
 
 import './blog-post.scss';
 
@@ -46,14 +45,13 @@ const BlogPostTemplate = ({
   const {
     series: { nodes: series, count },
     markdownRemark: {
-      id,
       html,
       fields: { slug },
       frontmatter: { title, date, tags },
       tableOfContents,
     },
     site: {
-      siteMetadata: { giscus, url },
+      siteMetadata: { giscus },
     },
   } = data;
 
@@ -119,7 +117,6 @@ const BlogPostTemplate = ({
       )}
       <hr />
       <div className="content" dangerouslySetInnerHTML={{ __html: html }} />
-      <Like url={url} id={id} />
       <hr />
       <div className="nextPrev">
         {data?.previous && <Article post={data.previous} />}

@@ -33,8 +33,6 @@ interface ContextProps {
   series: String;
 }
 
-const isDocument = typeof document !== `undefined`;
-
 const BlogPostTemplate = ({
   data,
   pageContext,
@@ -49,7 +47,6 @@ const BlogPostTemplate = ({
       html,
       fields: { slug },
       frontmatter: { title, date, tags },
-      headings,
     },
     site: {
       siteMetadata: { giscus },

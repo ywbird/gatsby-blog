@@ -14,6 +14,11 @@ export interface IPost {
     metaDate: string;
   };
   tableOfContents: string;
+  headings: {
+    depth: number;
+    value: string;
+    id: string;
+  }[];
 }
 
 export interface ITag {

@@ -9,7 +9,6 @@ import Article from '@/components/article';
 import ToTop from '@/components/toTop';
 import Seo from '@/components/seo';
 import SeriesBox from '@/components/seriesBox';
-import TOC from '@/components/toc';
 
 import './blog-post.scss';
 
@@ -34,6 +33,8 @@ interface ContextProps {
   series: String;
 }
 
+const isDocument = typeof document !== `undefined`;
+
 const BlogPostTemplate = ({
   data,
   pageContext,
@@ -48,7 +49,7 @@ const BlogPostTemplate = ({
       html,
       fields: { slug },
       frontmatter: { title, date, tags },
-      tableOfContents,
+      headings,
     },
     site: {
       siteMetadata: { giscus },
@@ -124,8 +125,9 @@ const BlogPostTemplate = ({
       </div>
       <hr />
       <div className="comment">{comment}</div>
-      <ToTop />
-      <TOC content={tableOfContents} />
+      <aside>
+        <ToTop />
+      </aside>
     </Layout>
   );
 };
@@ -177,7 +179,6 @@ export const pageQuery = graphql`
         description
         tags
       }
-      tableOfContents
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
       fields {

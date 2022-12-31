@@ -2,7 +2,7 @@
 
 .content {
   // width: $small-width;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 160%;
   color: $content;
 
@@ -198,4 +198,50 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(110px, 1fr));
   gap: 15px;
+}
+
+.toc {
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  translate: 450px 0;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    background-color: $border;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    // margin-left: 20px;
+    // margin-left: 0.7rem;
+    li {
+      list-style: none;
+      margin: 0;
+    }
+  }
+  p {
+    margin-block: 0.2rem;
+  }
+
+  a {
+    color: $mute;
+    text-decoration: none;
+  }
+
+  @for $i from 1 through 6 {
+    .depth#{$i} {
+      margin-left: calc((0.7rem * (#{$i} - 1)) + 0.3rem);
+    }
+  }
 }

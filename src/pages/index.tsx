@@ -26,7 +26,10 @@ export default IndexPage;
 
 export const pageQuery = graphql`
   query IndexPage {
-    allMarkdownRemark(sort: { frontmatter: { date: DESC } }) {
+    allMarkdownRemark(
+      sort: { frontmatter: { date: DESC } }
+      filter: { frontmatter: { about: { ne: true } } }
+    ) {
       nodes {
         id
         frontmatter {

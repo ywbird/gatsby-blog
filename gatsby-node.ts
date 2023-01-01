@@ -20,7 +20,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
     data?: { allMarkdownRemark: { nodes: IPost[]; tags: ITag[] } } | undefined;
   } = await graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(
+        limit: 1000
+        filter: { frontmatter: { about: { ne: true } } }
+      ) {
         nodes {
           id
           fields {
@@ -140,6 +143,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       date: Date @dateformat
       tags: [String]
       series: String
+      about: Boolean
     }
     type Fields {
       slug: String

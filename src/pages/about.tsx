@@ -1,12 +1,26 @@
-import Layout from '../components/layout';
+import { PageProps, graphql } from 'gatsby';
 
-const AboutPage = () => {
+import Layout from '../components/layout';
+import { IPost } from '@/global';
+
+import './styles/about.scss';
+
+interface DataProps {
+  markdownRemark: IPost;
+  site: { siteMetadata: { nickname: string } };
+}
+
+const AboutPage = ({ data }: PageProps<DataProps>) => {
+  const {
+    markdownRemark: { html },
+    site: {
+      siteMetadata: { nickname },
+    },
+  } = data;
+
   return (
-    <Layout pageTitle="About Me">
-      <p>
-        Hi there! I&apos;m the proud creator of this site, which I built with
-        Gatsby.
-      </p>
+    <Layout pageTitle={nickname}>
+      <div className="about" dangerouslySetInnerHTML={{ __html: html }} />
     </Layout>
   );
 };
@@ -14,3 +28,16 @@ const AboutPage = () => {
 export const Head = () => <title>About Me</title>;
 
 export default AboutPage;
+
+export const pageQuery = graphql`
+  query AboutPage {
+    markdownRemark(frontmatter: { about: { eq: true } }) {
+      html
+    }
+    site {
+      siteMetadata {
+        nickname
+      }
+    }
+  }
+`;

@@ -1,7 +1,7 @@
 $main-font: Pretendard, Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum,
   Tahoma, Geneva, sans-serif;
 $code-font: Roboto Mono, Noto Sans KR, Noto Sans CJK KR, monospace;
-$heading-font: NanumSquare, Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum,
+$heading-font: Pretendard, Noto Sans KR, Noto Sans CJK KR, arial, 돋움, Dotum,
   Tahoma, Geneva, sans-serif;
 
 $font-size-1: 1rem;
@@ -11,8 +11,14 @@ $font-size-4: 1.6rem;
 
 $weight-regular: 400;
 $weight-bold: 700;
-$weight-heading: 500;
+$weight-heading: 800;
 $weight-title: 800;
+
+$weight-1: 400;
+$weight-2: 500;
+$weight-3: 600;
+$weight-4: 700;
+$weight-5: 800;
 
 $small-width: 700px;
 $big-width: 900px;

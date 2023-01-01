@@ -25,10 +25,10 @@
       font-size: $font-size-4;
       text-decoration: none;
       color: $text;
-      font-weight: $weight-bold;
+      font-weight: $weight-4;
     }
     nav {
-      font-weight: $weight-heading;
+      font-weight: $weight-2;
       flex-grow: 1;
       overflow: hidden;
       flex-shrink: 1;
@@ -104,7 +104,7 @@
       li {
         border-bottom: 1px solid $border;
         font-family: $main-font;
-        font-weight: $weight-bold;
+        font-weight: $weight-2;
         &:last-child {
           border-bottom: 0;
         }

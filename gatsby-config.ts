@@ -102,6 +102,13 @@ const config: GatsbyConfig = {
               },
             },
           },
+          {
+            resolve: `gatsby-remark-external-links`,
+            options: {
+              target: `_blank`,
+              rel: `nofollow`,
+            },
+          },
         ],
       },
     },
@@ -111,7 +118,6 @@ const config: GatsbyConfig = {
         fonts: [
           `Noto Sans KR:300,300i,400,400i,500,500i`,
           `Noto Sans CJK KR:300,300i,400,400i,500,500i`,
-          `Nanum Gothic:400,400i,700,700i,800`,
           `Roboto Mono`,
         ],
         display: `swap`,

@@ -26,10 +26,11 @@ const Header: FC<props> = ({ links, siteTitle }) => {
   const nextColorMode = colorTheme === `light` ? `dark` : `light`;
 
   useEffect(() => {
-    if (isDocument) {
-      document.body.classList.remove(nextColorMode);
-      document.body.classList.add(colorTheme);
-    }
+    if (!isDocument) return;
+    document.body.classList.remove(nextColorMode);
+    document.body.classList.add(colorTheme);
+    if (colorTheme) return;
+    setColorTheme(`dark`);
   }, [colorTheme, nextColorMode]);
 
   useEffect(() => {

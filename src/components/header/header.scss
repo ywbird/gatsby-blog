@@ -47,6 +47,7 @@
           align-items: center;
           .iconify {
             display: inline-block;
+            width: 20px;
           }
           &[aria-current='page'] {
             color: $mute;
@@ -118,6 +119,7 @@
           align-items: center;
           .iconify {
             display: inline-block;
+            width: 20px;
           }
           &[aria-current='page'] {
             color: $mute;

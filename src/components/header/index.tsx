@@ -29,57 +29,54 @@ const Header: FC<props> = ({ links, siteTitle }) => {
     if (!isDocument) return;
     document.body.classList.remove(nextColorMode);
     document.body.classList.add(colorTheme);
-    if (colorTheme) return;
-    setColorTheme(`dark`);
   }, [colorTheme, nextColorMode]);
 
   useEffect(() => {
-    if (isDocument) {
-      const options = {
-        root: document.querySelector(`nav`),
-        rootMargin: `0px`,
-        threshold: 1.0,
-      };
+    if (!isDocument) return;
+    const options = {
+      root: document.querySelector(`nav`),
+      rootMargin: `0px`,
+      threshold: 1.0,
+    };
 
-      const observer = new IntersectionObserver(
-        (e: IntersectionObserverEntry[]) => {
-          e.forEach((intersection) => {
-            const index = parseInt(
-              intersection.target.getAttribute(`index`) || `0`,
-            );
-            if (intersection.isIntersecting) {
-              intersection.target.removeAttribute(`style`);
-              if (index === 0) {
-                setShowMenu(() => false);
-              }
-              setMenus((prev) => {
-                const p = [...prev];
-                p.splice(index, 1);
-                return p;
-              });
-            } else {
-              intersection.target.setAttribute(`style`, `opacity:0;`);
-              if (index === 0) {
-                setShowMenu(() => true);
-              }
-              setMenus((prev) => {
-                const p = [...prev];
-                p.push(index);
-                return p;
-              });
+    const observer = new IntersectionObserver(
+      (e: IntersectionObserverEntry[]) => {
+        e.forEach((intersection) => {
+          const index = parseInt(
+            intersection.target.getAttribute(`index`) || `0`,
+          );
+          if (intersection.isIntersecting) {
+            intersection.target.removeAttribute(`style`);
+            if (index === 0) {
+              setShowMenu(() => false);
             }
-          });
-        },
-        options,
-      );
+            setMenus((prev) => {
+              const p = [...prev];
+              p.splice(index, 1);
+              return p;
+            });
+          } else {
+            intersection.target.setAttribute(`style`, `opacity:0;`);
+            if (index === 0) {
+              setShowMenu(() => true);
+            }
+            setMenus((prev) => {
+              const p = [...prev];
+              p.push(index);
+              return p;
+            });
+          }
+        });
+      },
+      options,
+    );
 
-      const targets = document.querySelectorAll(`.nav-item`);
+    const targets = document.querySelectorAll(`.nav-item`);
 
-      targets.forEach((target, i) => {
-        target.setAttribute(`index`, `${i}`);
-        observer.observe(target);
-      });
-    }
+    targets.forEach((target, i) => {
+      target.setAttribute(`index`, `${i}`);
+      observer.observe(target);
+    });
   }, []);
   const toggle = () => {
     setColorTheme(nextColorMode);
@@ -153,7 +150,7 @@ const Header: FC<props> = ({ links, siteTitle }) => {
               >
                 <path
                   fill="currentColor"
-                  d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8S8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184c0 101.705-82.311 184-184 184z"
+                  d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792c7.068-8.708-.639-21.43-11.562-19.35c-124.203 23.654-238.262-71.576-238.262-196.954c0-72.222 38.662-138.635 101.498-174.394c9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256c0 141.309 114.511 256 256 256z"
                 ></path>
               </svg>
             )}
